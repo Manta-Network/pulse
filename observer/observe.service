@@ -1,0 +1,15 @@
+[Unit]
+Description=manta and calamari node status observer
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=mobula
+Group=mobula
+Type=simple
+ExecStart=/home/mobula/.local/bin/observe.sh
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
