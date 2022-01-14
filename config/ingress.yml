@@ -2,7 +2,7 @@
 dev:
   key:
     required:
-      # ci/kavula
+      # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
     optional:
       # Dengjianping
@@ -16,7 +16,7 @@ dev:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
   subnet:
     required:
-      # ci/kavula
+      # kavula
       - 92.247.230.0/22
     optional:
       # ghzlatarev
@@ -26,10 +26,11 @@ dev:
       - 185.236.152.0/22
       # stechu
       - 72.76.96.0/22
+      - 87.227.184.0/24
 ops:
   key:
     required:
-      # ci/kavula
+      # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
     optional:
       # ghzlatarev
@@ -41,7 +42,7 @@ ops:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
   subnet:
     required:
-      # ci/kavula
+      # kavula
       - 92.247.230.0/22
     optional:
       # ghzlatarev
@@ -51,10 +52,11 @@ ops:
       - 185.236.152.0/22
       # stechu
       - 72.76.96.0/22
+      - 87.227.184.0/24
 service:
   key:
     required:
-      # ci/kavula
+      # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
     optional:
       # ghzlatarev
@@ -66,7 +68,7 @@ service:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
   subnet:
     required:
-      # ci/kavula
+      # kavula
       - 92.247.230.0/22
     optional:
       # ghzlatarev
@@ -76,10 +78,11 @@ service:
       - 185.236.152.0/22
       # stechu
       - 72.76.96.0/22
+      - 87.227.184.0/24
 prod:
   key:
     required:
-      # ci/kavula
+      # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
     optional:
       # grenade
@@ -89,7 +92,7 @@ prod:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
   subnet:
     required:
-      # ci/kavula
+      # kavula
       - 92.247.230.0/22
     optional:
       # grenade
@@ -97,3 +100,4 @@ prod:
       - 185.236.152.0/22
       # stechu
       - 72.76.96.0/22
+      - 87.227.184.0/24
