@@ -5,27 +5,19 @@ db_host=cluster0.l9bsv.mongodb.net
 db_name=observation
 db_connection="mongodb+srv://${db_host}/${db_name}?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
 declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+temp_dir=$(mktemp -d)
 
 _decode_property() {
   echo ${1} | base64 --decode | jq -r ${2}
 }
 
-# delete observations older than 24 hours
-mongo --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} <<EOF
-db.node.updateMany(
-  {},
-  {
-    \$pull: {
-      observations: {
-        time: {
-          \$lt: new Date(ISODate().getTime() - 1000 * 3600 * 24)
-        }
-      }
-    }
-  },
-  {}
-)
-EOF
+if mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} < ${script_dir}/remove-expired-observations.js > ${temp_dir}/remove-expired-observations.result.json; then
+  echo "expired observations removed"
+  jq -c . ${temp_dir}/remove-expired-observations.result.json
+else
+  echo "failed to remove expired observations"
+fi
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances

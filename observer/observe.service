@@ -7,6 +7,7 @@ After=network-online.target
 User=mobula
 Group=mobula
 Type=simple
+ExecStartPre=-/usr/bin/curl -sLo /home/mobula/.local/bin/remove-expired-observations.js https://raw.githubusercontent.com/Manta-Network/pulse/main/observer/remove-expired-observations.js
 ExecStartPre=-/usr/bin/curl -sLo /home/mobula/.local/bin/observe.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/observer/observe.sh
 ExecStartPre=-/usr/bin/chmod +x /home/mobula/.local/bin/observe.sh
 ExecStart=/home/mobula/.local/bin/observe.sh
