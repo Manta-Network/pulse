@@ -21,8 +21,7 @@ fi
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
   instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | @base64') )
-  observed=$(date --iso=seconds)
-  echo "- observed ${#instances_as_base64[@]} running instances in aws ${endpoint_name} account"
+  echo "observed ${#instances_as_base64[@]} running instances in aws ${endpoint_name} account"
   for x in ${instances_as_base64[@]}; do
     hostname=$(_decode_property ${x} .hostname)
     domain=$(_decode_property ${x} .domain)
@@ -32,7 +31,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     instance_status=$(_decode_property ${x} .state)
     region=$(_decode_property ${x} .region)
     instance_ip=$(_decode_property ${x} .ip)
-
+    observed=$(date --iso=seconds)
     ssh_status=$(ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new mobula@${fqdn} exit 2>&1 1>/dev/null)
     if [ -n "${ssh_status}" ] ; then
       unit='"[]"'
@@ -41,26 +40,27 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       ssh_status=active
       ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' > ${temp_dir}/unit-list-${fqdn}.txt
       sed 's/ \{1,\}/,/g' ${temp_dir}/unit-list-${fqdn}.txt > ${temp_dir}/unit-list-${fqdn}.csv
-      unit=$(jq --raw-input --slurp '
-        [
-          split("\n")
-          | map(split(","))
-          | .[0:-1]
-          | map( { "unit": .[0], "load": .[1], "active": .[2], "sub": .[3] } )
-          | .[]
-          | select(
-              (.unit | startswith("calamari"))
-              or (.unit | startswith("manta"))
-              or (.unit | startswith("dolphin"))
-              or (.unit | startswith("baikal"))
-              or (.unit | startswith("como"))
-              or (.unit | startswith("tahoe"))
-              or (.unit | startswith("nginx"))
-              or (.unit | startswith("telemetry"))
-              or (.unit | startswith("alertmanager"))
-              or (.unit | startswith("prometheus"))
-            )
-        ] | tostring' ${temp_dir}/unit-list-${fqdn}.csv)
+      jq --raw-input --slurp '
+        split("\n")
+        | map(split(","))
+        | .[0:-1]
+        | map( { "unit": .[0], "load": .[1], "active": .[2], "sub": .[3] } )
+      ' ${temp_dir}/unit-list-${fqdn}.csv > ${temp_dir}/unit-list-${fqdn}.json
+      unit=$(jq '
+        [ 
+          .[] | select(
+            (.unit | startswith("calamari"))
+            or (.unit | startswith("manta"))
+            or (.unit | startswith("dolphin"))
+            or (.unit | startswith("baikal"))
+            or (.unit | startswith("como"))
+            or (.unit | startswith("tahoe"))
+            or (.unit | startswith("nginx"))
+            or (.unit | startswith("telemetry"))
+            or (.unit | startswith("alertmanager"))
+            or (.unit | startswith("prometheus"))
+          )
+        ] | tostring' ${temp_dir}/unit-list-${fqdn}.json)
     fi
 
     # todo: check security groups for unexpected open ports
