@@ -39,7 +39,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       echo ${ssh_status}
     else
       ssh_status=active
-      unit=$(ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | sed 's/ \{1,\}/,/g' | jq --raw-input --slurp '
+      ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' > ${temp_dir}/unit-list-${fqdn}.txt
+      sed 's/ \{1,\}/,/g' ${temp_dir}/unit-list-${fqdn}.txt > ${temp_dir}/unit-list-${fqdn}.csv
+      unit=$(jq --raw-input --slurp '
         [
           split("\n")
           | map(split(","))
@@ -58,7 +60,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
               or (.unit | startswith("alertmanager"))
               or (.unit | startswith("prometheus"))
             )
-        ] | tostring')
+        ] | tostring' ${temp_dir}/unit-list-${fqdn}.csv)
     fi
 
     # todo: check security groups for unexpected open ports
@@ -92,7 +94,6 @@ db.node.updateOne(
   { upsert: true }
 )
 EOF
-    echo "  - ${fqdn}"
     if mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} < ${temp_dir}/${fqdn}-observations.js > ${temp_dir}/update-${fqdn}-observations.result.json \
       && [ "$(jq -r '.acknowledged' ${temp_dir}/update-${fqdn}-observations.result.json)" = "true" ] \
       && [ "$(jq -r '.matchedCount' ${temp_dir}/update-${fqdn}-observations.result.json)" = "1" ] \
