@@ -42,13 +42,13 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     region=$(_decode_property ${x} .region)
     instance_ip=$(_decode_property ${x} .ip)
 
-    ssh_status=$(ssh -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new mobula@${fqdn} exit 2>&1 1>/dev/null)
+    ssh_status=$(ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new mobula@${fqdn} exit 2>&1 1>/dev/null)
     if [ -n "${ssh_status}" ] ; then
       unit='"[]"'
       echo ${ssh_status}
     else
       ssh_status=active
-      unit=$(ssh -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | sed 's/ \{1,\}/,/g' | jq --raw-input --slurp '
+      unit=$(ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | sed 's/ \{1,\}/,/g' | jq --raw-input --slurp '
         [
           split("\n")
           | map(split(","))

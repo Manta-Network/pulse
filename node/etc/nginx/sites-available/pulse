@@ -1,0 +1,10 @@
+server {
+    server_name pulse.HOSTNAME;
+    listen 443 ssl;
+    root /home/mobula/pulse;
+    index index.json;
+    ssl_certificate /etc/letsencrypt/live/HOSTNAME/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/HOSTNAME/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
