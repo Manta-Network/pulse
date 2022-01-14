@@ -12,9 +12,8 @@ _decode_property() {
   echo ${1} | base64 --decode | jq -r ${2}
 }
 
-if mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} < ${script_dir}/remove-expired-observations.js > ${temp_dir}/remove-expired-observations.result.json; then
-  echo "expired observations removed"
-  jq -c . ${temp_dir}/remove-expired-observations.result.json
+if mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} < ${script_dir}/remove-expired-observations.js > ${temp_dir}/remove-expired-observations.result.json && [ "$(jq -r '.acknowledged' ${temp_dir}/remove-expired-observations.result.json)" = "true" ]; then
+  echo "expired observations removed from $(jq -r '.modifiedCount' ${temp_dir}/remove-expired-observations.result.json)/$(jq -r '.matchedCount' ${temp_dir}/remove-expired-observations.result.json) node documents"
 else
   echo "failed to remove expired observations"
 fi
