@@ -60,12 +60,10 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             )
         ] | tostring')
     fi
-    
 
     # todo: check security groups for unexpected open ports
 
-    echo "  - ${fqdn}"
-    mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} <<EOF
+    cat > ${temp_dir}/${fqdn}-observations.js << EOF
 db.node.updateOne(
   { fqdn: "${fqdn}" },
   {
@@ -94,6 +92,15 @@ db.node.updateOne(
   { upsert: true }
 )
 EOF
+    echo "  - ${fqdn}"
+    if mongo --quiet --tls --tlsCertificateKeyFile ${db_cert} ${db_connection} < ${temp_dir}/${fqdn}-observations.js > ${temp_dir}/update-${fqdn}-observations.result.json \
+      && [ "$(jq -r '.acknowledged' ${temp_dir}/update-${fqdn}-observations.result.json)" = "true" ] \
+      && [ "$(jq -r '.matchedCount' ${temp_dir}/update-${fqdn}-observations.result.json)" = "1" ] \
+      && [ "$(jq -r '.modifiedCount' ${temp_dir}/update-${fqdn}-observations.result.json)" = "1" ]; then
+      echo "observation added to ${fqdn} document"
+    else
+      echo "failed to add observation to ${fqdn} document"
+    fi
   done
 done
 # todo: check if any previously existing instances did not show up in the running instance lists and create a status to reflect the missing state
