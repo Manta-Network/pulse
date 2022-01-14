@@ -1,0 +1,99 @@
+---
+dev:
+  key:
+    required:
+      # ci/kavula
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+    optional:
+      # Dengjianping
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIRMTIkX82Add+uFQewYvihtmxGxjZpNYg7CVdOINAU
+      # ghzlatarev
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # grenade
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
+      # stechu
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1sErje3UKnbcRDItznfBNVt5viRNkuOao2yO/MzWUr
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
+  subnet:
+    required:
+      # ci/kavula
+      - 92.247.230.0/22
+    optional:
+      # ghzlatarev
+      - 78.154.9.85/32
+      # grenade
+      - 185.189.196.0/22
+      - 185.236.152.0/22
+      # stechu
+      - 72.76.96.0/22
+ops:
+  key:
+    required:
+      # ci/kavula
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+    optional:
+      # ghzlatarev
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # grenade
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
+      # stechu
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1sErje3UKnbcRDItznfBNVt5viRNkuOao2yO/MzWUr
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
+  subnet:
+    required:
+      # ci/kavula
+      - 92.247.230.0/22
+    optional:
+      # ghzlatarev
+      - 78.154.9.85/32
+      # grenade
+      - 185.189.196.0/22
+      - 185.236.152.0/22
+      # stechu
+      - 72.76.96.0/22
+service:
+  key:
+    required:
+      # ci/kavula
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+    optional:
+      # ghzlatarev
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # grenade
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
+      # stechu
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1sErje3UKnbcRDItznfBNVt5viRNkuOao2yO/MzWUr
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
+  subnet:
+    required:
+      # ci/kavula
+      - 92.247.230.0/22
+    optional:
+      # ghzlatarev
+      - 78.154.9.85/32
+      # grenade
+      - 185.189.196.0/22
+      - 185.236.152.0/22
+      # stechu
+      - 72.76.96.0/22
+prod:
+  key:
+    required:
+      # ci/kavula
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+    optional:
+      # grenade
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
+      # stechu
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1sErje3UKnbcRDItznfBNVt5viRNkuOao2yO/MzWUr
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYGvwXJ+k+QyiVA4O6TZXnSpvXwBUj19oAA5RNNPQg
+  subnet:
+    required:
+      # ci/kavula
+      - 92.247.230.0/22
+    optional:
+      # grenade
+      - 185.189.196.0/22
+      - 185.236.152.0/22
+      # stechu
+      - 72.76.96.0/22
