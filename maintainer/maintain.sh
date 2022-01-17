@@ -4,10 +4,10 @@
 ssh_key=${HOME}/.ssh/id_ed25519
 declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-#temp_dir=$(mktemp -d)
-temp_dir=/tmp/pulse-maintain
-mkdir -p ${temp_dir}
-subl ${temp_dir}
+temp_dir=$(mktemp -d)
+#temp_dir=/tmp/pulse-maintain
+#mkdir -p ${temp_dir}
+#subl ${temp_dir}
 
 _decode_property() {
   echo ${1} | base64 --decode | jq -r ${2}
