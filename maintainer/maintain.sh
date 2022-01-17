@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#ssh_key=${HOME}/.ssh/id_manta_ci
-ssh_key=${HOME}/.ssh/id_ed25519
+ssh_key=${HOME}/.ssh/id_manta_ci
+#ssh_key=${HOME}/.ssh/id_ed25519
 declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 temp_dir=$(mktemp -d)

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mkdir -p ${HOME}/{.local/bin,.ssh}
+mkdir -p ${HOME}/{.aws,.local/bin,.ssh}
 
 curl -sLo ${HOME}/.local/bin/maintain.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.sh
 chmod +x ${HOME}/.local/bin/maintain.sh
@@ -33,5 +33,5 @@ else
   chmod 600 ${HOME}/.aws/credentials
 fi
 
-sudo curl -sLo /etc/systemd/system/manta-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/observer/maintain.service
+sudo curl -sLo /etc/systemd/system/manta-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.service
 sudo systemctl enable --now manta-node-maintain.service
