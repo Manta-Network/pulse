@@ -213,7 +213,11 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       sed "s/SERVER_NAME/rpc.${fqdn}/g" ${temp_dir}/rpc-ssl.conf > ${temp_dir}/rpc.${fqdn}.conf
       sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/rpc.${fqdn}.conf
       ssh -i ${ssh_key} ${username}@${fqdn} 'sudo rm -f /etc/nginx/sites-available/rpc-proxy /etc/nginx/sites-enabled/rpc'
-      rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/rpc.${fqdn}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+
+      #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/rpc.${fqdn}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+      scp ${temp_dir}/rpc.${fqdn}.conf mobula@${fqdn}:/home/mobula/rpc.${fqdn}.conf
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/mobula/rpc.${fqdn}.conf /etc/nginx/sites-available/rpc.${fqdn}.conf"
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/rpc.${fqdn}.conf"
       ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/rpc.${fqdn}.conf /etc/nginx/sites-enabled/rpc.${fqdn}.conf"
 
       cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
@@ -232,12 +236,23 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       # shared rpc/ws cert/fqdn
       for prefix in rpc ws; do
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
-          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
-          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
+          #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
+          scp -r /etc/letsencrypt/archive/${prefix}.${domain} mobula@${fqdn}:/home/mobula/
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/mobula/${prefix}.${domain} /etc/letsencrypt/archive/"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/archive/${prefix}.${domain}"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo mkdir -p /etc/letsencrypt/live/${prefix}.${domain}"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/cert1.pem /etc/letsencrypt/live/${prefix}.${domain}/cert.pem"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/chain1.pem /etc/letsencrypt/live/${prefix}.${domain}/chain.pem"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/fullchain1.pem /etc/letsencrypt/live/${prefix}.${domain}/fullchain.pem"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/privkey1.pem /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem"
+          #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
           # create nginx shared fqdn config
           sed "s/SERVER_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}-ssl.conf > ${temp_dir}/${prefix}.${domain}.conf
           sed -i "s/CERT_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}.${domain}.conf
-          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/${prefix}.${domain}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+          #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/${prefix}.${domain}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+          scp ${temp_dir}/${prefix}.${domain}.conf mobula@${fqdn}:/home/mobula/${prefix}.${domain}.conf
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/mobula/${prefix}.${domain}.conf /etc/nginx/sites-available/${prefix}.${domain}.conf"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/${prefix}.${domain}.conf"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/${prefix}.${domain}.conf /etc/nginx/sites-enabled/${prefix}.${domain}.conf"
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
         fi
