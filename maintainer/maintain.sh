@@ -238,7 +238,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
           #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
           scp -r /etc/letsencrypt/archive/${prefix}.${domain} mobula@${fqdn}:/home/mobula/
-          ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/mobula/${prefix}.${domain} /etc/letsencrypt/archive/"
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo cp -r /home/mobula/${prefix}.${domain} /etc/letsencrypt/archive/"
+          ssh -i ${ssh_key} ${username}@${fqdn} "rm -rf /home/mobula/${prefix}.${domain}"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/archive/${prefix}.${domain}"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo mkdir -p /etc/letsencrypt/live/${prefix}.${domain}"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/cert1.pem /etc/letsencrypt/live/${prefix}.${domain}/cert.pem"
