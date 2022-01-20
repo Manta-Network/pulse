@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
 ssh_key=${HOME}/.ssh/id_manta_ci
-sudo mkdir -p /root/.ssh
-sudo cp ${ssh_key} /root/.ssh/
-sudo chown root:root /root/.ssh/id_manta_ci
-sudo chmod 600 /root/.ssh/id_manta_ci
-sudo cp ${ssh_key}.pub /root/.ssh/
-sudo chown root:root /root/.ssh/id_manta_ci.pub
-sudo chmod 644 /root/.ssh/id_manta_ci.pub
 declare -A hosted_zone=( [calamari.systems]=Z05193482B5IW6HGQWXBH [baikal.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [como.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [manta.systems]=Z0172210BDGAFVE6L94R [baikal.manta.systems]=Z0172210BDGAFVE6L94R [como.manta.systems]=Z0172210BDGAFVE6L94R [westend.manta.systems]=Z0172210BDGAFVE6L94R [dolphin.red]=Z0343786EH6Y8Q6853Y4 )
 declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -236,8 +229,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       # shared rpc/ws cert/fqdn
       for prefix in rpc ws; do
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
-          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=no" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
-          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=no" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
+          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
+          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
           # create nginx shared fqdn config
           sed "s/SERVER_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}-ssl.conf > ${temp_dir}/${prefix}.${domain}.conf
           sed -i "s/CERT_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}.${domain}.conf
