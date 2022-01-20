@@ -236,8 +236,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       # shared rpc/ws cert/fqdn
       for prefix in rpc ws; do
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
-          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=accept-new" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
-          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=accept-new" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
+          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=no" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
+          sudo rsync -e "/usr/bin/ssh -i /root/.ssh/id_manta_ci -o StrictHostKeyChecking=no" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
           # create nginx shared fqdn config
           sed "s/SERVER_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}-ssl.conf > ${temp_dir}/${prefix}.${domain}.conf
           sed -i "s/CERT_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}.${domain}.conf
