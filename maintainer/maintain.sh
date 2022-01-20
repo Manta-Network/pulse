@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
 ssh_key=${HOME}/.ssh/id_manta_ci
-#ssh_key=${HOME}/.ssh/id_ed25519
+declare -A hosted_zone=( [calamari.systems]=Z05193482B5IW6HGQWXBH [baikal.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [como.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [manta.systems]=Z0172210BDGAFVE6L94R [baikal.manta.systems]=Z0172210BDGAFVE6L94R [como.manta.systems]=Z0172210BDGAFVE6L94R [westend.manta.systems]=Z0172210BDGAFVE6L94R [dolphin.red]=Z0343786EH6Y8Q6853Y4 )
 declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 temp_dir=$(mktemp -d)
-#temp_dir=/tmp/pulse-maintain
-#mkdir -p ${temp_dir}
-#subl ${temp_dir}
 
 _decode_property() {
   echo ${1} | base64 --decode | jq -r ${2}
@@ -32,6 +29,20 @@ _ipv4_network_includes() {
     fi
   }
 }
+function _join_by {
+  local d=${1-} f=${2-}
+  if shift 2; then
+    printf %s "$f" "${@/#/$d}"
+  fi
+}
+
+# fetch list of existing health checks
+aws route53 list-health-checks --profile pelagos-ops > ${temp_dir}/health-checks.json
+
+# fetch ws-ssl (nginx) configuration
+curl -sLo ${temp_dir}/ssl.conf https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/ssl.conf
+sed 's/PORT/9944/g' ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
+sed 's/PORT/9933/g' ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
@@ -139,6 +150,95 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       echo "fetched ${detected_authorized_keys_path}"
     else
       rm ${detected_authorized_keys_path}
+    fi
+    if [[ ${domain} != *"telemetry"* ]] && [[ ${domain} != *"workstation"* ]]; then
+      health_check_id=$(jq --arg fqdn rpc.${fqdn} '.HealthChecks[] | select(.HealthCheckConfig.FullyQualifiedDomainName == $fqdn) | .Id' ${temp_dir}/health-checks.json)
+      if [ -n "${health_check_id}" ]; then
+        echo "detected existing health check: rpc.${fqdn}"
+      else
+        echo '{
+          "Port": 443,
+          "Type": "HTTPS",
+          "ResourcePath": "/health",
+          "RequestInterval": 30,
+          "FailureThreshold": 3,
+          "MeasureLatency": true,
+          "EnableSNI": true
+        }' | jq \
+          --arg fqdn rpc.${fqdn} \
+          '
+            .
+            | .FullyQualifiedDomainName = $fqdn
+          ' > ${temp_dir}/health-check-${fqdn}.json
+        if aws route53 create-health-check \
+          --profile pelagos-ops \
+          --caller-reference rpc.${fqdn} \
+          --health-check-config file://${temp_dir}/health-check-${fqdn}.json; then
+          echo "created health check: rpc.${fqdn}"
+        else
+          echo "failed to created health check: rpc.${fqdn}"
+        fi
+      fi
+
+      # dns for unique rpc fqdn\
+      if ! getent hosts rpc.${fqdn}; then
+        echo '{
+          "Changes": [
+            {
+              "Action": "UPSERT",
+              "ResourceRecordSet": {
+                "Name": "",
+                "Type": "CNAME",
+                "TTL": 300,
+                "ResourceRecords": [
+                  {
+                    "Value": ""
+                  }
+                ]
+              }
+            }
+          ]
+        }' | jq --arg cname rpc.${fqdn} --arg fqdn ${fqdn} '. | .Changes[0].ResourceRecordSet.Name = $cname | .Changes[0].ResourceRecordSet.ResourceRecords[0].Value = $fqdn' > ${temp_dir}/rpc.${fqdn}.json
+        aws route53 change-resource-record-sets \
+          --profile pelagos-ops \
+          --hosted-zone-id ${hosted_zone[${domain}]} \
+          --change-batch=file://${temp_dir}/rpc.${fqdn}.json
+        sleep 30
+      fi
+
+      # nginx config for unique rpc cert/fqdn
+      sed "s/SERVER_NAME/rpc.${fqdn}/g" ${temp_dir}/rpc-ssl.conf > ${temp_dir}/rpc.${fqdn}.conf
+      sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/rpc.${fqdn}.conf
+      ssh -i ${ssh_key} ${username}@${fqdn} 'sudo rm -f /etc/nginx/sites-available/rpc-proxy /etc/nginx/sites-enabled/rpc'
+      rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/rpc.${fqdn}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/rpc.${fqdn}.conf /etc/nginx/sites-enabled/rpc.${fqdn}.conf"
+
+      cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
+      if [[ " ${cert_domains[*]} " =~ " rpc.${fqdn} " ]]; then
+        echo "detected rpc.${fqdn} in cert domains (${cert_domains[@]})"
+      else
+        cert_domains+=( rpc.${fqdn} )
+        echo "adding rpc.${fqdn} to cert domains (${cert_domains[@]})"
+        ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
+        ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
+        ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+        ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+      fi
+
+      # shared rpc/ws cert/fqdn
+      for prefix in rpc ws; do
+        if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
+          sudo rsync -e "ssh -i ${ssh_key} -o StrictHostKeyChecking=accept-new" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
+          sudo rsync -e "ssh -i ${ssh_key} -o StrictHostKeyChecking=accept-new" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
+          # create nginx shared fqdn config
+          sed "s/SERVER_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}-ssl.conf > ${temp_dir}/${prefix}.${domain}.conf
+          sed -i "s/CERT_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}.${domain}.conf
+          rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -vz ${temp_dir}/${prefix}.${domain}.conf mobula@${fqdn}:/etc/nginx/sites-available/
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/${prefix}.${domain}.conf /etc/nginx/sites-enabled/${prefix}.${domain}.conf"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+        fi
+      done
     fi
   done
 done

@@ -8,8 +8,10 @@ sudo semanage fcontext -m -t bin_t -s system_u ${HOME}/.local/bin/maintain.sh
 sudo restorecon -vF ${HOME}/.local/bin/maintain.sh
 
 sudo dnf install -y \
+  certbot \
   curl \
   jq \
+  python3-certbot-dns-route53 \
   python3-pip
 sudo pip install \
   awscli \
