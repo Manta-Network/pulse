@@ -44,8 +44,6 @@ aws route53 list-health-checks --profile pelagos-ops > ${temp_dir}/health-checks
 
 # fetch ws-ssl (nginx) configuration
 curl -sLo ${temp_dir}/ssl.conf https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/ssl.conf
-sed 's/PORT/9944/g' ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
-sed 's/PORT/9933/g' ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
@@ -209,8 +207,24 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
         sleep 30
       fi
 
+      manta_service_units=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | grep -E 'calamari|dolphin|manta' | cut -d " " -f1) )
+      # todo: request the specific unit of interest rather than any of calamari/dolphin/manta
+      manta_service_unit_file_path=$(ssh -i ${ssh_key} ${username}@${fqdn} "systemctl status ${manta_service_units[0]}" | grep -Po "/[a-z/]*/${manta_service_units[0]}")
+      manta_service_rpc_port=$(ssh -i ${ssh_key} ${username}@${fqdn} "cat ${manta_service_unit_file_path}" | grep " --rpc-port " | grep -Eo "[0-9]{4}")
+      if [ -z "${manta_service_rpc_port}" ]; then
+        manta_service_rpc_port=9933
+      fi
+      manta_service_ws_port=$(ssh -i ${ssh_key} ${username}@${fqdn} "cat ${manta_service_unit_file_path}" | grep " --ws-port " | grep -Eo "[0-9]{4}")
+      if [ -z "${manta_service_ws_port}" ]; then
+        manta_service_ws_port=9944
+      fi
+
+      # nginx config for unique ws cert/fqdn
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo sed -i 's/localhost:9944/localhost:${manta_service_ws_port}/g' /etc/nginx/sites-available/default-ssl"
+
       # nginx config for unique rpc cert/fqdn
-      sed "s/SERVER_NAME/rpc.${fqdn}/g" ${temp_dir}/rpc-ssl.conf > ${temp_dir}/rpc.${fqdn}.conf
+      sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc.${fqdn}.conf
+      sed -i "s/SERVER_NAME/rpc.${fqdn}/g" ${temp_dir}/rpc.${fqdn}.conf
       sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/rpc.${fqdn}.conf
       ssh -i ${ssh_key} ${username}@${fqdn} 'sudo rm -f /etc/nginx/sites-available/rpc-proxy /etc/nginx/sites-enabled/rpc'
 
@@ -234,6 +248,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       fi
 
       # shared rpc/ws cert/fqdn
+      sed "s/PORT/${manta_service_ws_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
+      sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
       for prefix in rpc ws; do
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem && sudo test -e /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem; then
           #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
