@@ -12,7 +12,10 @@ sudo curl -sLo /etc/yum.repos.d/mongodb-org-4.4.repo https://raw.githubuserconte
 sudo dnf install -y \
   curl \
   jq \
-  mongodb-org-shell
+  mongodb-org-shell \
+  python3-pip
+sudo pip install \
+  yq
 
 if [ ! -s ${HOME}/.local/share/mongo/X509-cert-6160546126728082096.pem ]; then
   echo "mongo credential cert is missing (${HOME}/.local/share/mongo/X509-cert-6160546126728082096.pem)"

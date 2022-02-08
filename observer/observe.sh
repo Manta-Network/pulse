@@ -34,10 +34,26 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     observed=$(date --iso=seconds)
     ssh_status=$(ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new mobula@${fqdn} exit 2>&1 1>/dev/null)
     if [ -n "${ssh_status}" ] ; then
+      cert='"[]"'
       unit='"[]"'
       echo ${ssh_status}
     else
       ssh_status=active
+
+      # list ssl certs
+      ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'sudo certbot certificates' | sed -n '/Certificate Name:.*$/,/^[- ]+$/p' | head -n -1 | csplit --digits 2 --prefix ${temp_dir}/${fqdn}-cert- --suffix-format "%02d.txt" --elide-empty-files --quiet - "/Certificate Name:/0" "{*}"
+      sed -i 's/  Certificate Name:/name:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Serial Number:/serial:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Key Type:/schema:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Domains:/domains:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Expiry Date:/expiry:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Certificate Path:/cert:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/    Private Key Path:/key:/g' ${temp_dir}/${fqdn}-cert-*.txt
+      sed -i 's/ (VALID: [0-9]\+ days\?)//g' ${temp_dir}/${fqdn}-cert-*.txt
+      yq --slurp '[.[] | .domains = (.domains | split(" "))]' ${temp_dir}/${fqdn}-cert-*.txt > ${temp_dir}/cert-list-${fqdn}.json
+      cert=$(jq '. | tostring' ${temp_dir}/cert-list-${fqdn}.json)
+
+      # list systemd units
       ssh -i ${HOME}/.ssh/id_manta_ci -o ConnectTimeout=3 mobula@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' > ${temp_dir}/unit-list-${fqdn}.txt
       sed 's/ \{1,\}/,/g' ${temp_dir}/unit-list-${fqdn}.txt > ${temp_dir}/unit-list-${fqdn}.csv
       jq --raw-input --slurp '
@@ -87,6 +103,7 @@ db.node.updateOne(
           ssh: "${ssh_status@Q}",
           dns_ip: "$(getent hosts ${fqdn} | head -n1 | cut -d " " -f1)"
         },
+        cert: JSON.parse("${cert:1:${#cert}-2}"),
         unit: JSON.parse("${unit:1:${#unit}-2}")
       }
     }
