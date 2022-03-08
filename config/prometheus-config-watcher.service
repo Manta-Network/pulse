@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Config Watcher
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-config-watcher.sh
+Restart=always
+RestartSec=300
+
+[Install]
+WantedBy=multi-user.target

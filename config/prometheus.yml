@@ -1,0 +1,481 @@
+---
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s 
+alerting:
+  alertmanagers:
+    -
+      static_configs:
+        -
+          targets:
+            - 0.0.0.0:9093
+rule_files:
+  - generic-rules.yml
+  - collator-rules.yml
+scrape_configs:
+  -
+    job_name: calamari
+    ec2_sd_configs:
+      -
+        profile: pelagos-ops
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+    relabel_configs:
+      -
+        target_label: __address__
+        source_labels:
+          - __meta_ec2_tag_cname
+        replacement: '${1}:80'
+      -
+        target_label: instance
+        source_labels:
+          - __meta_ec2_tag_cname
+  -
+    job_name: calamari full node
+    static_configs:
+      -
+        targets:
+          - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - chilli.calamari.systems
+          - falafel.calamari.systems
+          - fritti.calamari.systems
+          - jalapeno.calamari.systems
+          - kebab.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - serrano.calamari.systems
+          - smoothie.calamari.systems
+          - tempura.calamari.systems
+          - terumbu.calamari.systems
+  -
+    job_name: calamari invulnerable collator
+    scheme: http
+    static_configs:
+      -
+        targets:
+          - crispy.calamari.systems
+          - crunchy.calamari.systems
+          - hotdog.calamari.systems
+          - tasty.calamari.systems
+          - tender.calamari.systems
+  -
+    job_name: calamari community collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          # discord, username: grenade#4222, account id: 810037839433433109
+          - calamari.metrics.agrajag.thgttg.com
+          - kusama.metrics.agrajag.thgttg.com
+  -
+    job_name: calamari community collator
+    static_configs:
+      -
+        targets:
+          # discord, username: hahaschool#0933, account id: 345472606562025472
+          - 65.108.122.7:9615
+          - 65.108.122.7:9616
+  -
+    job_name: calamari experimental community collator
+    static_configs:
+      -
+        targets:
+
+          # discord, username: crypto_new#6160, account id: 372171365307908096
+          - 116.202.132.28:10615
+          - 116.202.132.28:10616
+
+          # discord, username: 'ioannis | DVN#3081', account id: 817020448369541191
+          - 185.102.219.120:9615
+          - 185.102.219.120:9616
+
+          # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
+          - 95.214.55.74:9615
+          - 95.214.55.74:9616
+  -
+    job_name: calamari experimental community collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+
+          # discord, username: paddyson#5479, account id: 394870302691295234
+          - calamari.pathrocknetwork.org
+          - kusama.pathrocknetwork.org
+
+          # telegram, username: actlee, name: 'Pithecus 구르쿠스'
+          - calamari.metrics.pithecus.co.uk
+          - kusama.metrics.pithecus.co.uk
+
+          # discord, username: @KyleYoon#3912, account id: 884985330032336936
+          - calamari.metrics.substake.app
+          - kusama.metrics.substake.app
+
+          # discord, username: @rheeunion#0605, account id: 750371346290180166
+          - calamari.rhee.substake.app
+          - kusama.rhee.substake.app
+
+          # discord, username: @Rok#1767, account id: 433739418793410562
+          - calamari.metrics.calamari.anonstake.com
+          - kusama.metrics.calamari.anonstake.com
+
+          # discord, username: @CHARGE#0969, account id: 391754967867981851
+          - stats.calamari.themilkywaygang.com
+          - stats.kasuma.themilkywaygang.com
+
+          # discord, username: Ilhan#8421, account id: 489061151628460032
+          - calamari.metrics.staker.space
+          - kusama.metrics.staker.space
+
+          # discord, username: pmensik#3434, account id: 482230698367909891
+          - calamari.metrics.polkadotters.com
+          - kusama.metrics.polkadotters.com
