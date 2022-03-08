@@ -434,10 +434,6 @@ scrape_configs:
           - 116.202.132.28:10615
           - 116.202.132.28:10616
 
-          # discord, username: 'ioannis | DVN#3081', account id: 817020448369541191
-          - 185.102.219.120:9615
-          - 185.102.219.120:9616
-
           # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
           - 95.214.55.74:9615
           - 95.214.55.74:9616
@@ -447,6 +443,10 @@ scrape_configs:
     static_configs:
       -
         targets:
+
+          # discord, username: 'ioannis | DVN#3081', account id: 817020448369541191
+          - calamari.metrics.dp.stakebaby.com
+          - kusama.metrics.dp.stakebaby.com
 
           # discord, username: paddyson#5479, account id: 394870302691295234
           - calamari.pathrocknetwork.org
