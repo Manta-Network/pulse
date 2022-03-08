@@ -30,7 +30,7 @@ for local_config_file in /etc/prometheus/*.yml; do
     fi
   fi
 done
-rm -f ${temp_dir}
+rmdir ${temp_dir}
 if [ "${config_changed}" = true ] ; then
   if /usr/bin/systemctl reload prometheus.service; then
     echo "prometheus.service has been reloaded because its configuration changed."
