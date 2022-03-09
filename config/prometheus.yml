@@ -487,3 +487,7 @@ scrape_configs:
           # discord, username: crypto_new#6160, account id: 372171365307908096
           - calamari.brightlystake.com
           - kusama.brightlystake.com
+
+          # discord, username: nettle#4895, account id: 893046884871049227
+          - calamari.metrics.nettle.network
+          - kusama.metrics.nettle.network
