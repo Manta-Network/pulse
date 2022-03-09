@@ -479,3 +479,7 @@ scrape_configs:
           # discord, username: pmensik#3434, account id: 482230698367909891
           - calamari.metrics.polkadotters.com
           - kusama.metrics.polkadotters.com
+
+          # discord, username: 'worc0260#7958', account id: 950367739405545532
+          - calamari.metrics.cj.kmapro.de
+          - kusama.metrics.cj.kmapro.de
