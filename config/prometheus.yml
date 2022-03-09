@@ -437,6 +437,10 @@ scrape_configs:
           # discord, username: 'shez | staking4all#2774', account id: 556857416243871769
           - calamari.staking4all.org:9615
           - calamari.staking4all.org:9616
+
+          # discord, username: Louis-Klever#6454, account id: 874680910035976272
+          - 155.138.138.183:9615
+          - 155.138.138.183:9616
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
