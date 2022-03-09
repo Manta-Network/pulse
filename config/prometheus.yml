@@ -430,10 +430,6 @@ scrape_configs:
       -
         targets:
 
-          # discord, username: crypto_new#6160, account id: 372171365307908096
-          - 116.202.132.28:10615
-          - 116.202.132.28:10616
-
           # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
           - 95.214.55.74:9615
           - 95.214.55.74:9616
@@ -487,3 +483,7 @@ scrape_configs:
           # discord, username: 'worc0260#7958', account id: 950367739405545532
           - calamari.metrics.cj.kmapro.de
           - kusama.metrics.cj.kmapro.de
+
+          # discord, username: crypto_new#6160, account id: 372171365307908096
+          - calamari.brightlystake.com
+          - kusama.brightlystake.com
