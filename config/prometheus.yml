@@ -404,6 +404,8 @@ scrape_configs:
         targets:
           - calamari.metrics.frootmig.thgttg.com
           - kusama.metrics.frootmig.thgttg.com
+          - calamari.metrics.effrafax.pelagos.systems
+          - kusama.metrics.effrafax.pelagos.systems
   -
     job_name: calamari invulnerable collator
     scheme: http
