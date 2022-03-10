@@ -397,6 +397,13 @@ scrape_configs:
           - tempura.calamari.systems
           - terumbu.calamari.systems
   -
+    job_name: calamari full node (ssl)
+    static_configs:
+      -
+        targets:
+          - calamari.metrics.frootmig.thgttg.com
+          - kusama.metrics.frootmig.thgttg.com
+  -
     job_name: calamari invulnerable collator
     scheme: http
     static_configs:
