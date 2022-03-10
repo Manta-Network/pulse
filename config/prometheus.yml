@@ -398,6 +398,7 @@ scrape_configs:
           - terumbu.calamari.systems
   -
     job_name: calamari full node (ssl)
+    scheme: https
     static_configs:
       -
         targets:
