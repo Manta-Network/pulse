@@ -458,6 +458,10 @@ scrape_configs:
       -
         targets:
 
+          # discord, username: 'Lilia#3086', account id: 398172437826633728
+          - calamari.metrics.fundmybirthday.com
+          - kusama.metrics.fundmybirthday.com
+
           # discord, username: 'ioannis | DVN#3081', account id: 817020448369541191
           - calamari.metrics.dp.stakebaby.com
           - kusama.metrics.dp.stakebaby.com
