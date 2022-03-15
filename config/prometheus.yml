@@ -461,6 +461,10 @@ scrape_configs:
     static_configs:
       -
         targets:
+          
+          # discord, username: 'marjashka1309200#3402', account id: 829816003545792513
+          - calamari.metrics.favoursanywhere.com
+          - kusama.metrics.favoursanywhere.com
 
           # discord, username: 'Lilia#3086', account id: 398172437826633728
           - calamari.metrics.fundmybirthday.com
