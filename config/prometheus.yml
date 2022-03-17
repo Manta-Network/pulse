@@ -455,14 +455,6 @@ scrape_configs:
           # discord, username: SunshineAutosNodes#8147, account id: 442022506098982962
           - 51.195.63.206:9615
           - 51.195.63.206:9615
-
-          # discord, username: displaystyle#3141, account id: 853952148450312192
-          - 146.59.68.182:9615
-          - 146.59.68.182:9616
-
-          # discord, username: papadritta#9980, account id: 214964573059547136
-          - 141.95.126.166:9615
-          - 141.95.126.166:9616
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
@@ -525,3 +517,7 @@ scrape_configs:
           # discord, username: nettle#4895, account id: 893046884871049227
           - calamari.metrics.nettle.network
           - kusama.metrics.nettle.network
+          
+          # discord, username: n1trog3n#5776, account id: 391835510009626624
+          - calamari.metrics.calamari.stakecraft.com
+          - kusama.metrics.calamari.stakecraft.com
