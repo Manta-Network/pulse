@@ -440,10 +440,6 @@ scrape_configs:
       -
         targets:
 
-          # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
-          - 95.214.55.74:9615
-          - 95.214.55.74:9616
-
           # discord, username: 'shez | staking4all#2774', account id: 556857416243871769
           - calamari.staking4all.org:9615
           - calamari.staking4all.org:9616
@@ -469,6 +465,10 @@ scrape_configs:
     static_configs:
       -
         targets:
+        
+          # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
+          - calamari.metrics.letsnode.io
+          - kusama.metrics.letsnode.io
           
           # discord, username: 'marjashka1309200#3402', account id: 829816003545792513
           - calamari.metrics.favoursanywhere.com
