@@ -529,3 +529,11 @@ scrape_configs:
           # discord, username: n1trog3n#5776, account id: 391835510009626624
           - calamari.metrics.calamari.stakecraft.com
           - kusama.metrics.calamari.stakecraft.com
+
+  -
+    job_name: pelagos subsquids
+    static_configs:
+      -
+        targets:
+          # manta-dev EC2 instance named squiddy, hosting subsquid-processor 
+          - http://ip-172-31-91-190:4357/metrics
