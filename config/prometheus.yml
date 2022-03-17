@@ -525,3 +525,7 @@ scrape_configs:
           # discord, username: nettle#4895, account id: 893046884871049227
           - calamari.metrics.nettle.network
           - kusama.metrics.nettle.network
+          
+          # discord, username: n1trog3n#5776, account id: 391835510009626624
+          - calamari.metrics.calamari.stakecraft.com
+          - kusama.metrics.calamari.stakecraft.com
