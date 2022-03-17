@@ -536,4 +536,4 @@ scrape_configs:
       -
         targets:
           # manta-dev EC2 instance named squiddy, hosting subsquid-processor 
-          - http://ip-172-31-91-190:4357
+          - ec2-34-201-110-89.compute-1.amazonaws.com:4357
