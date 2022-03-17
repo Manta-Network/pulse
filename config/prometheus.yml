@@ -455,6 +455,14 @@ scrape_configs:
           # discord, username: SunshineAutosNodes#8147, account id: 442022506098982962
           - 51.195.63.206:9615
           - 51.195.63.206:9615
+
+          # discord, username: displaystyle#3141, account id: 853952148450312192
+          - 146.59.68.182:9615
+          - 146.59.68.182:9616
+
+          # discord, username: papadritta#9980, account id: 214964573059547136
+          - 141.95.126.166:9615
+          - 141.95.126.166:9616
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
