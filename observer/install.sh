@@ -11,6 +11,7 @@ sudo curl -sLo /etc/yum.repos.d/mongodb-org-4.4.repo https://raw.githubuserconte
 
 sudo dnf install -y \
   curl \
+  jc \
   jq \
   mongodb-org-shell \
   python3-pip

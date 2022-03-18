@@ -7,9 +7,9 @@ After=network-online.target
 User=mobula
 Group=mobula
 Type=simple
-ExecStartPre=-/usr/bin/curl -sLo /home/mobula/.local/bin/maintain.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.sh
+ExecStartPre=-/usr/bin/curl -H 'Cache-Control: no-cache' -sLo /home/mobula/.local/bin/maintain.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.sh
 ExecStartPre=-/usr/bin/chmod +x /home/mobula/.local/bin/maintain.sh
-ExecStart=/home/mobula/.local/bin/maintain.sh
+ExecStart=/usr/bin/bash /home/mobula/.local/bin/maintain.sh
 Restart=always
 RestartSec=600
 

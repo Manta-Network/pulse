@@ -4,8 +4,12 @@ ssh_key=${HOME}/.ssh/id_manta_ci
 eval `ssh-agent`
 ssh-add ${ssh_key}
 
-declare -A hosted_zone=( [calamari.systems]=Z05193482B5IW6HGQWXBH [baikal.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [como.testnet.calamari.systems]=Z05193482B5IW6HGQWXBH [manta.systems]=Z0172210BDGAFVE6L94R [baikal.manta.systems]=Z0172210BDGAFVE6L94R [como.manta.systems]=Z0172210BDGAFVE6L94R [westend.manta.systems]=Z0172210BDGAFVE6L94R [dolphin.red]=Z0343786EH6Y8Q6853Y4 )
-declare -A endpoint_prefix=( [ops]=7p1eol9lz4 [dev]=mab48pe004 [service]=l7ff90u0lf [prod]=hzhmt0krm0 )
+declare -A endpoint_prefix=()
+endpoint_prefix+=( [ops]=7p1eol9lz4 )
+endpoint_prefix+=( [dev]=mab48pe004 )
+endpoint_prefix+=( [service]=l7ff90u0lf )
+endpoint_prefix+=( [prod]=hzhmt0krm0 )
+
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 temp_dir=$(mktemp -d)
 
@@ -36,6 +40,37 @@ function _join_by {
   local d=${1-} f=${2-}
   if shift 2; then
     printf %s "$f" "${@/#/$d}"
+  fi
+}
+
+upsert_cname() {
+  local prefix=${1}
+  local fqdn=${2}
+  local tld=${3}
+  local hosted_zone_id=$(basename $(aws route53 list-hosted-zones --profile pelagos-ops | jq --arg tld ${tld}. -r '.HostedZones[] | select(.Name == $tld) | .Id'))
+  if ! getent hosts ${prefix}.${fqdn}; then
+    echo '{
+      "Changes": [
+        {
+          "Action": "UPSERT",
+          "ResourceRecordSet": {
+            "Name": "",
+            "Type": "CNAME",
+            "TTL": 300,
+            "ResourceRecords": [
+              {
+                "Value": ""
+              }
+            ]
+          }
+        }
+      ]
+    }' | jq --arg cname ${prefix}.${fqdn} --arg fqdn ${fqdn} '. | .Changes[0].ResourceRecordSet.Name = $cname | .Changes[0].ResourceRecordSet.ResourceRecords[0].Value = $fqdn' > ${temp_dir}/${prefix}.${fqdn}.json
+    aws route53 change-resource-record-sets \
+      --profile pelagos-ops \
+      --hosted-zone-id ${hosted_zone_id} \
+      --change-batch=file://${temp_dir}/rpc.${fqdn}.json
+    sleep 30
   fi
 }
 
@@ -177,35 +212,12 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           --health-check-config file://${temp_dir}/health-check-${fqdn}.json; then
           echo "created health check: rpc.${fqdn}"
         else
-          echo "failed to created health check: rpc.${fqdn}"
+          echo "failed to create health check: rpc.${fqdn}"
         fi
       fi
 
-      # dns for unique rpc fqdn\
-      if ! getent hosts rpc.${fqdn}; then
-        echo '{
-          "Changes": [
-            {
-              "Action": "UPSERT",
-              "ResourceRecordSet": {
-                "Name": "",
-                "Type": "CNAME",
-                "TTL": 300,
-                "ResourceRecords": [
-                  {
-                    "Value": ""
-                  }
-                ]
-              }
-            }
-          ]
-        }' | jq --arg cname rpc.${fqdn} --arg fqdn ${fqdn} '. | .Changes[0].ResourceRecordSet.Name = $cname | .Changes[0].ResourceRecordSet.ResourceRecords[0].Value = $fqdn' > ${temp_dir}/rpc.${fqdn}.json
-        aws route53 change-resource-record-sets \
-          --profile pelagos-ops \
-          --hosted-zone-id ${hosted_zone[${domain}]} \
-          --change-batch=file://${temp_dir}/rpc.${fqdn}.json
-        sleep 30
-      fi
+      # dns for unique rpc fqdn
+      upsert_cname rpc ${fqdn} ${domain}
 
       manta_service_units=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | grep -E 'calamari|dolphin|manta' | cut -d " " -f1) )
       # todo: request the specific unit of interest rather than any of calamari/dolphin/manta
@@ -274,6 +286,89 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
         fi
       done
+
+      # metrics
+      if ssh ${username}@${fqdn} 'curl --head http://localhost:9616/metrics &> /dev/null' && ssh ${username}@${fqdn} 'curl --head http://localhost:9615/metrics &> /dev/null'; then
+
+        # relay dns for metrics
+        upsert_cname relay.metrics ${fqdn} ${domain}
+
+        # nginx config for relay.metrics cert/fqdn
+        sed "s/PORT/9616/g" ${temp_dir}/ssl.conf > ${temp_dir}/relay.metrics.${fqdn}.conf
+        sed -i "s/SERVER_NAME/relay.metrics.${fqdn}/g" ${temp_dir}/relay.metrics.${fqdn}.conf
+        sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/relay.metrics.${fqdn}.conf
+
+        scp ${temp_dir}/relay.metrics.${fqdn}.conf ${username}@${fqdn}:/home/${username}/relay.metrics.${fqdn}.conf
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/${username}/relay.metrics.${fqdn}.conf /etc/nginx/sites-available/relay.metrics.${fqdn}.conf"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/relay.metrics.${fqdn}.conf"
+
+        cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
+        if [[ " ${cert_domains[*]} " =~ " relay.metrics.${fqdn} " ]]; then
+          echo "detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+        else
+          cert_domains+=( relay.metrics.${fqdn} )
+          echo "adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/relay.metrics.${fqdn}.conf /etc/nginx/sites-enabled/relay.metrics.${fqdn}.conf"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+        fi
+
+        # para dns for metrics
+        upsert_cname para.metrics ${fqdn} ${domain}
+
+        # nginx config for para.metrics cert/fqdn
+        sed "s/PORT/9615/g" ${temp_dir}/ssl.conf > ${temp_dir}/para.metrics.${fqdn}.conf
+        sed -i "s/SERVER_NAME/para.metrics.${fqdn}/g" ${temp_dir}/para.metrics.${fqdn}.conf
+        sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/para.metrics.${fqdn}.conf
+
+        scp ${temp_dir}/para.metrics.${fqdn}.conf ${username}@${fqdn}:/home/${username}/para.metrics.${fqdn}.conf
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/${username}/para.metrics.${fqdn}.conf /etc/nginx/sites-available/para.metrics.${fqdn}.conf"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/para.metrics.${fqdn}.conf"
+
+        cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
+        if [[ " ${cert_domains[*]} " =~ " para.metrics.${fqdn} " ]]; then
+          echo "detected para.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+        else
+          cert_domains+=( para.metrics.${fqdn} )
+          echo "adding para.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/para.metrics.${fqdn}.conf /etc/nginx/sites-enabled/para.metrics.${fqdn}.conf"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+        fi
+
+      elif ssh ${username}@${fqdn} 'curl --head http://localhost:9615/metrics &> /dev/null'; then
+        # relay only dns for metrics
+        upsert_cname relay.metrics ${fqdn} ${domain}
+
+        # nginx config for relay.metrics cert/fqdn
+        sed "s/PORT/9615/g" ${temp_dir}/ssl.conf > ${temp_dir}/relay.metrics.${fqdn}.conf
+        sed -i "s/SERVER_NAME/relay.metrics.${fqdn}/g" ${temp_dir}/relay.metrics.${fqdn}.conf
+        sed -i "s/CERT_NAME/${fqdn}/g" ${temp_dir}/relay.metrics.${fqdn}.conf
+
+        scp ${temp_dir}/relay.metrics.${fqdn}.conf ${username}@${fqdn}:/home/${username}/relay.metrics.${fqdn}.conf
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo mv /home/${username}/relay.metrics.${fqdn}.conf /etc/nginx/sites-available/relay.metrics.${fqdn}.conf"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/relay.metrics.${fqdn}.conf"
+
+        cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
+        if [[ " ${cert_domains[*]} " =~ " relay.metrics.${fqdn} " ]]; then
+          echo "detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+        else
+          cert_domains+=( relay.metrics.${fqdn} )
+          echo "adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/relay.metrics.${fqdn}.conf /etc/nginx/sites-enabled/relay.metrics.${fqdn}.conf"
+          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+        fi
+      fi
     fi
   done
 done

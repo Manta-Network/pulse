@@ -18,8 +18,6 @@ dev:
     required:
       # kavula
       - 92.247.230.0/22
-      # istanbul
-      - 5.25.143.109/32
     optional:
       # ghzlatarev
       - 78.154.9.85/32
@@ -46,8 +44,6 @@ ops:
     required:
       # kavula
       - 92.247.230.0/22
-      # istanbul
-      - 5.25.143.109/32
     optional:
       # ghzlatarev
       - 78.154.9.85/32
@@ -74,8 +70,6 @@ service:
     required:
       # kavula
       - 92.247.230.0/22
-      # istanbul
-      - 5.25.143.109/32
     optional:
       # ghzlatarev
       - 78.154.9.85/32
@@ -100,8 +94,6 @@ prod:
     required:
       # kavula
       - 92.247.230.0/22
-      # istanbul
-      - 5.25.143.109/32
     optional:
       # grenade
       - 185.189.196.0/22
