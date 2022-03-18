@@ -406,6 +406,10 @@ scrape_configs:
           - kusama.metrics.frootmig.thgttg.com
           - calamari.metrics.effrafax.pelagos.systems
           - kusama.metrics.effrafax.pelagos.systems
+          - relay.metrics.avocado.calamari.systems
+          - para.metrics.avocado.calamari.systems
+          - relay.metrics.chilli.calamari.systems
+          - relay.metrics.serrano.calamari.systems
           - relay.metrics.terumbu.calamari.systems
           - para.metrics.terumbu.calamari.systems
           - relay.metrics.kebab.calamari.systems
@@ -414,8 +418,24 @@ scrape_configs:
           - para.metrics.tempura.calamari.systems
           - relay.metrics.salad.calamari.systems
           - para.metrics.salad.calamari.systems
+          - relay.metrics.falafel.calamari.systems
+          - para.metrics.falafel.calamari.systems
           - relay.metrics.bokkeum.calamari.systems
           - para.metrics.bokkeum.calamari.systems
+  -
+    job_name: manta invulnerable collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - relay.metrics.alfredi.manta.systems
+          - para.metrics.alfredi.manta.systems
+          - relay.metrics.birostris.manta.systems
+          - para.metrics.birostris.manta.systems
+          - relay.metrics.hypostoma.manta.systems
+          - para.metrics.hypostoma.manta.systems
+          - relay.metrics.japanica.manta.systems
+          - para.metrics.japanica.manta.systems
   -
     job_name: manta full node (ssl)
     scheme: https
@@ -424,8 +444,6 @@ scrape_configs:
         targets:
           - relay.metrics.munkiana.manta.systems
           - para.metrics.munkiana.manta.systems
-          - relay.metrics.birostris.manta.systems
-          - para.metrics.birostris.manta.systems
           - relay.metrics.rochebrunei.manta.systems
           - para.metrics.rochebrunei.manta.systems
           - relay.metrics.pectinata.manta.systems
@@ -436,35 +454,42 @@ scrape_configs:
           - para.metrics.melanyae.manta.systems
           - relay.metrics.kuhlii.manta.systems
           - para.metrics.kuhlii.manta.systems
-          - relay.metrics.alfredi.manta.systems
-          - para.metrics.alfredi.manta.systems
-          - relay.metrics.hypostoma.manta.systems
-          - para.metrics.hypostoma.manta.systems
-          - relay.metrics.japanica.manta.systems
-          - para.metrics.japanica.manta.systems
+  -
+    job_name: dolphin invulnerable collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - relay.metrics.eddie.dolphin.red
+          - relay.metrics.kwaltz.dolphin.red
+          - relay.metrics.prosser.dolphin.red
+          - relay.metrics.roosta.dolphin.red
+          - relay.metrics.zaphod.dolphin.red
   -
     job_name: dolphin full node (ssl)
     scheme: https
     static_configs:
       -
         targets:
-          - relay.metrics.eddie.dolphin.red
           - relay.metrics.ford.dolphin.red
-          - relay.metrics.prosser.dolphin.red
-          - relay.metrics.kwaltz.dolphin.red
-          - relay.metrics.zaphod.dolphin.red
-          - relay.metrics.roosta.dolphin.red
+          - relay.metrics.anjie.dolphin.red
+          - relay.metrics.trillian.dolphin.red
   -
-    job_name: calamari invulnerable collator
-    scheme: http
+    job_name: calamari invulnerable collator (ssl)
+    scheme: https
     static_configs:
       -
         targets:
-          - crispy.calamari.systems
-          - crunchy.calamari.systems
-          - hotdog.calamari.systems
-          - tasty.calamari.systems
-          - tender.calamari.systems
+          - relay.metrics.crispy.calamari.systems
+          - para.metrics.crispy.calamari.systems
+          - relay.metrics.crunchy.calamari.systems
+          - para.metrics.crunchy.calamari.systems
+          - relay.metrics.hotdog.calamari.systems
+          - para.metrics.hotdog.calamari.systems
+          - relay.metrics.tasty.calamari.systems
+          - para.metrics.tasty.calamari.systems
+          - relay.metrics.tender.calamari.systems
+          - para.metrics.tender.calamari.systems
   -
     job_name: calamari community collator (ssl)
     scheme: https
