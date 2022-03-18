@@ -14,7 +14,8 @@ rule_files:
   - collator-rules.yml
 scrape_configs:
   -
-    job_name: calamari
+    job_name: calamari parachain
+    scheme: https
     ec2_sd_configs:
       -
         profile: pelagos-ops
@@ -373,7 +374,1471 @@ scrape_configs:
         target_label: __address__
         source_labels:
           - __meta_ec2_tag_cname
-        replacement: '${1}:80'
+        replacement: 'para.metrics.${1}'
+      -
+        target_label: instance
+        source_labels:
+          - __meta_ec2_tag_cname
+  -
+    job_name: calamari relay-chains
+    scheme: https
+    ec2_sd_configs:
+      -
+        profile: pelagos-ops
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-ops
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+      -
+        profile: pelagos-prod
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - calamari.systems
+    relabel_configs:
+      -
+        target_label: __address__
+        source_labels:
+          - __meta_ec2_tag_cname
+        replacement: 'relay.metrics.${1}'
+      -
+        target_label: instance
+        source_labels:
+          - __meta_ec2_tag_cname
+  -
+    job_name: dolphin
+    scheme: https
+    ec2_sd_configs:
+      -
+        profile: pelagos-ops
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-ops
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+      -
+        profile: pelagos-prod
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - dolphin.red
+    relabel_configs:
+      -
+        target_label: __address__
+        source_labels:
+          - __meta_ec2_tag_cname
+        replacement: 'relay.metrics.${1}'
+      -
+        target_label: instance
+        source_labels:
+          - __meta_ec2_tag_cname
+  -
+    job_name: manta parachain
+    scheme: https
+    ec2_sd_configs:
+      -
+        profile: pelagos-ops
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+    relabel_configs:
+      -
+        target_label: __address__
+        source_labels:
+          - __meta_ec2_tag_cname
+        replacement: 'para.metrics.${1}'
+      -
+        target_label: instance
+        source_labels:
+          - __meta_ec2_tag_cname
+  -
+    job_name: manta relay-chains
+    scheme: https
+    ec2_sd_configs:
+      -
+        profile: pelagos-ops
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-ops
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: af-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-northeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ap-southeast-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: ca-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-central-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-north-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: eu-west-3
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: me-south-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: sa-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-east-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-east-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-west-1
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+      -
+        profile: pelagos-prod
+        region: us-west-2
+        filters:
+          -
+            name: tag:Domain
+            values:
+              - manta.systems
+    relabel_configs:
+      -
+        target_label: __address__
+        source_labels:
+          - __meta_ec2_tag_cname
+        replacement: 'relay.metrics.${1}'
       -
         target_label: instance
         source_labels:
@@ -383,19 +1848,10 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - avocado.calamari.systems
-          - bokkeum.calamari.systems
-          - chilli.calamari.systems
-          - falafel.calamari.systems
           - fritti.calamari.systems
           - jalapeno.calamari.systems
-          - kebab.calamari.systems
           - pasta.calamari.systems
-          - salad.calamari.systems
-          - serrano.calamari.systems
           - smoothie.calamari.systems
-          - tempura.calamari.systems
-          - terumbu.calamari.systems
   -
     job_name: calamari full node (ssl)
     scheme: https
@@ -409,7 +1865,9 @@ scrape_configs:
           - relay.metrics.avocado.calamari.systems
           - para.metrics.avocado.calamari.systems
           - relay.metrics.chilli.calamari.systems
+          - para.metrics.chilli.calamari.systems
           - relay.metrics.serrano.calamari.systems
+          - para.metrics.serrano.calamari.systems
           - relay.metrics.terumbu.calamari.systems
           - para.metrics.terumbu.calamari.systems
           - relay.metrics.kebab.calamari.systems
