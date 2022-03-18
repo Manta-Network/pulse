@@ -412,10 +412,10 @@ scrape_configs:
           - para.metrics.kebab.calamari.systems
           - relay.metrics.tempura.calamari.systems
           - para.metrics.tempura.calamari.systems
-          - relay.metrics.bokkeum.calamari.systems
-          - para.metrics.bokkeum.calamari.systems
           - relay.metrics.salad.calamari.systems
           - para.metrics.salad.calamari.systems
+          - relay.metrics.bokkeum.calamari.systems
+          - para.metrics.bokkeum.calamari.systems
   -
     job_name: manta full node (ssl)
     scheme: https
@@ -449,6 +449,7 @@ scrape_configs:
       -
         targets:
           - relay.metrics.eddie.dolphin.red
+          - relay.metrics.ford.dolphin.red
           - relay.metrics.prosser.dolphin.red
           - relay.metrics.kwaltz.dolphin.red
           - relay.metrics.zaphod.dolphin.red
