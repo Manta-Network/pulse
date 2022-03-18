@@ -69,7 +69,7 @@ upsert_cname() {
     aws route53 change-resource-record-sets \
       --profile pelagos-ops \
       --hosted-zone-id ${hosted_zone_id} \
-      --change-batch=file://${temp_dir}/rpc.${fqdn}.json
+      --change-batch=file://${temp_dir}/${prefix}.${fqdn}.json
     sleep 30
   fi
 }
