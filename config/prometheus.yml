@@ -410,6 +410,12 @@ scrape_configs:
           - relay.metrics.tempura.calamari.systems
           - para.metrics.bokkeum.calamari.systems
           - relay.metrics.bokkeum.calamari.systems
+          - para.metrics.kebab.calamari.systems
+          - relay.metrics.kebab.calamari.systems
+          - para.metrics.terumbu.calamari.systems
+          - relay.metrics.terumbu.calamari.systems
+          - para.metrics.salad.calamari.systems
+          - relay.metrics.salad.calamari.systems
   -
     job_name: manta full node (ssl)
     scheme: https
@@ -424,6 +430,15 @@ scrape_configs:
           - relay.metrics.kuhlii.manta.systems
           - para.metrics.melanyae.manta.systems
           - relay.metrics.melanyae.manta.systems
+          - para.metrics.japanica.manta.systems
+          - relay.metrics.birostris.manta.systems
+          - para.metrics.pectinata.manta.systems
+          - para.metrics.munkiana.manta.systems
+          - relay.metrics.munkiana.manta.systems
+          - para.metrics.thurstoni.manta.systems
+          - relay.metrics.thurstoni.manta.systems
+          - para.metrics.alfredi.manta.systems
+          - relay.metrics.alfredi.manta.systems
   -
     job_name: calamari invulnerable collator
     scheme: http
