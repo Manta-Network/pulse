@@ -406,39 +406,53 @@ scrape_configs:
           - kusama.metrics.frootmig.thgttg.com
           - calamari.metrics.effrafax.pelagos.systems
           - kusama.metrics.effrafax.pelagos.systems
-          - para.metrics.tempura.calamari.systems
-          - relay.metrics.tempura.calamari.systems
-          - para.metrics.bokkeum.calamari.systems
-          - relay.metrics.bokkeum.calamari.systems
-          - para.metrics.kebab.calamari.systems
-          - relay.metrics.kebab.calamari.systems
-          - para.metrics.terumbu.calamari.systems
           - relay.metrics.terumbu.calamari.systems
-          - para.metrics.salad.calamari.systems
+          - para.metrics.terumbu.calamari.systems
+          - relay.metrics.kebab.calamari.systems
+          - para.metrics.kebab.calamari.systems
+          - relay.metrics.tempura.calamari.systems
+          - para.metrics.tempura.calamari.systems
+          - relay.metrics.bokkeum.calamari.systems
+          - para.metrics.bokkeum.calamari.systems
           - relay.metrics.salad.calamari.systems
+          - para.metrics.salad.calamari.systems
   -
     job_name: manta full node (ssl)
     scheme: https
     static_configs:
       -
         targets:
-          - para.metrics.hypostoma.manta.systems
-          - relay.metrics.hypostoma.manta.systems
-          - para.metrics.rochebrunei.manta.systems
-          - relay.metrics.rochebrunei.manta.systems
-          - para.metrics.kuhlii.manta.systems
-          - relay.metrics.kuhlii.manta.systems
-          - para.metrics.melanyae.manta.systems
-          - relay.metrics.melanyae.manta.systems
-          - para.metrics.japanica.manta.systems
-          - relay.metrics.birostris.manta.systems
-          - para.metrics.pectinata.manta.systems
-          - para.metrics.munkiana.manta.systems
           - relay.metrics.munkiana.manta.systems
-          - para.metrics.thurstoni.manta.systems
+          - para.metrics.munkiana.manta.systems
+          - relay.metrics.birostris.manta.systems
+          - para.metrics.birostris.manta.systems
+          - relay.metrics.rochebrunei.manta.systems
+          - para.metrics.rochebrunei.manta.systems
+          - relay.metrics.pectinata.manta.systems
+          - para.metrics.pectinata.manta.systems
           - relay.metrics.thurstoni.manta.systems
-          - para.metrics.alfredi.manta.systems
+          - para.metrics.thurstoni.manta.systems
+          - relay.metrics.melanyae.manta.systems
+          - para.metrics.melanyae.manta.systems
+          - relay.metrics.kuhlii.manta.systems
+          - para.metrics.kuhlii.manta.systems
           - relay.metrics.alfredi.manta.systems
+          - para.metrics.alfredi.manta.systems
+          - relay.metrics.hypostoma.manta.systems
+          - para.metrics.hypostoma.manta.systems
+          - relay.metrics.japanica.manta.systems
+          - para.metrics.japanica.manta.systems
+  -
+    job_name: dolphin full node (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - relay.metrics.eddie.dolphin.red
+          - relay.metrics.prosser.dolphin.red
+          - relay.metrics.kwaltz.dolphin.red
+          - relay.metrics.zaphod.dolphin.red
+          - relay.metrics.roosta.dolphin.red
   -
     job_name: calamari invulnerable collator
     scheme: http
