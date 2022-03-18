@@ -144,6 +144,17 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             echo "  failed to grant ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
           fi
         fi
+        if aws ec2 authorize-security-group-ingress \
+            --profile ${profile} \
+            --region ${region} \
+            --group-id ${security_group_id} \
+            --protocol tcp \
+            --port 80 \
+            --cidr 0.0.0.0/0; then
+          echo "  granted http access on manta-${endpoint_name}/${region}/${security_group_id}"
+        else
+          echo "  failed to grant http access on manta-${endpoint_name}/${region}/${security_group_id}"
+        fi
       done
 
       # revoke (or alert for non-prod) ingress access for disallowed subnets
