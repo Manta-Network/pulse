@@ -27,16 +27,3 @@ groups:
         labels: {{ $labels }}
     labels:
       severity: warning
-  -
-    alert: low peer count
-    expr: substrate_sync_peers < 10
-    for: 0m
-    annotations:
-      summary: >-
-        low peer count: $labels.instance
-      description: |
-        peer count less than 10
-        value: {{ $value }}
-        labels: {{ $labels }}
-    labels:
-      severity: warning
