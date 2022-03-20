@@ -189,8 +189,8 @@ scrape_configs:
           - kusama.pathrocknetwork.org
 
           # telegram, username: actlee, name: 'Pithecus 구르쿠스'
-          - calamari.metrics.pithecus.co.uk
-          - kusama.metrics.pithecus.co.uk
+          - calamari.pithecus.co.uk
+          - kusama.pithecus.co.uk
 
           # discord, username: @KyleYoon#3912, account id: 884985330032336936
           - calamari.metrics.substake.app
