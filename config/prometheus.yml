@@ -231,6 +231,10 @@ scrape_configs:
           # discord, username: n1trog3n#5776, account id: 391835510009626624
           - calamari.metrics.calamari.stakecraft.com
           - kusama.metrics.calamari.stakecraft.com
+          
+          # discord, username: 'Eric Ding#8247', account id: 885551168762290237
+          - calamari.metrics.calamari.gostake.io
+          - kusama.metrics.calamari.gostake.io
 
   -
     job_name: pelagos subsquids
