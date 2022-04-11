@@ -14,11 +14,11 @@ groups:
     for: 3m
     labels:
       severity: warning
-  - alert: BlockProductionSlow
+  - alert: ProlongedBlockProductionSlow
     annotations:
       message: 'Best block on instance {{ $labels.instance }} increases by
       less than 1 per minute for more than 10 minutes.'
-    expr: increase(substrate_block_height{status="best"}[1m]) < 1
+    expr: substrate_block_height{status="sync_target"} > 0 and increase(substrate_block_height{status="best"}[1m]) < 1
     for: 10m
     labels:
       severity: critical
@@ -28,15 +28,15 @@ groups:
   ##############################################################################
 
   - alert: BlockFinalizationSlow
-    expr: increase(substrate_block_height{status="finalized"}[1m]) < 1
+    expr: substrate_block_height{status="sync_target"} > 0 and increase(substrate_block_height{status="finalized"}[1m]) < 1
     for: 3m
     labels:
       severity: warning
     annotations:
       message: 'Finalized block on instance {{ $labels.instance }} increases by
       less than 1 per minute for more than 3 minutes.'
-  - alert: BlockFinalizationSlow
-    expr: increase(substrate_block_height{status="finalized"}[1m]) < 1
+  - alert: ProlongedBlockFinalizationSlow
+    expr: substrate_block_height{status="sync_target"} > 0 and increase(substrate_block_height{status="finalized"}[1m]) < 1
     for: 10m
     labels:
       severity: critical
@@ -47,8 +47,7 @@ groups:
     # Under the assumption of an average block production of 6 seconds,
     # "best" and "finalized" being more than 10 blocks apart would imply
     # more than a 1 minute delay between block production and finalization.
-    expr: '(substrate_block_height{status="best"} - ignoring(status)
-    substrate_block_height{status="finalized"}) > 10'
+    expr: 'substrate_block_height{status="sync_target"} > 0 and (substrate_block_height{status="best"} - ignoring(status) substrate_block_height{status="finalized"}) > 10'
     for: 8m
     labels:
       severity: critical
