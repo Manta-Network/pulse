@@ -10,7 +10,7 @@ groups:
     annotations:
       message: 'Best block on instance {{ $labels.instance }} increases by
       less than 1 per minute for more than 3 minutes.'
-    expr: increase(substrate_block_height{status="best"}[1m]) < 1
+    expr: substrate_block_height{status="sync_target"} > 0 and increase(substrate_block_height{status="best"}[1m]) < 1
     for: 3m
     labels:
       severity: warning
