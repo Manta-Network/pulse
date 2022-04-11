@@ -4,11 +4,11 @@ dev:
     required:
       # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+      # ghzlatarev
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
     optional:
       # Dengjianping
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIRMTIkX82Add+uFQewYvihtmxGxjZpNYg7CVdOINAU
-      # ghzlatarev
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
       # grenade
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
       # stechu
@@ -18,9 +18,9 @@ dev:
     required:
       # kavula
       - 92.247.230.0/22
-    optional:
       # ghzlatarev
       - 78.154.9.85/32
+    optional:
       # grenade
       - 185.189.196.0/22
       - 185.236.152.0/22
@@ -32,9 +32,9 @@ ops:
     required:
       # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
-    optional:
       # ghzlatarev
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+    optional:
       # grenade
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
       # stechu
@@ -44,9 +44,9 @@ ops:
     required:
       # kavula
       - 92.247.230.0/22
-    optional:
       # ghzlatarev
       - 78.154.9.85/32
+    optional:
       # grenade
       - 185.189.196.0/22
       - 185.236.152.0/22
