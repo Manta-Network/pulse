@@ -6,6 +6,8 @@ dev:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
       # ghzlatarev
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # pierre
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq
     optional:
       # Dengjianping
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIRMTIkX82Add+uFQewYvihtmxGxjZpNYg7CVdOINAU
@@ -20,6 +22,8 @@ dev:
       - 92.247.230.0/22
       # ghzlatarev
       - 78.154.9.85/32
+      # pierre
+      - 84.115.223.0/24
     optional:
       # grenade
       - 185.189.196.0/22
@@ -34,6 +38,8 @@ ops:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
       # ghzlatarev
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # pierre
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq
     optional:
       # grenade
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
@@ -46,6 +52,8 @@ ops:
       - 92.247.230.0/22
       # ghzlatarev
       - 78.154.9.85/32
+      # pierre
+      - 84.115.223.0/24
     optional:
       # grenade
       - 185.189.196.0/22
@@ -60,6 +68,8 @@ service:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
       # ghzlatarev
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgyQA6YqJ9qtklOOvp836rerAhf7X0/ADNW0nrYqBi6
+      # pierre
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq
     optional:
       # grenade
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
@@ -72,6 +82,8 @@ service:
       - 92.247.230.0/22
       # ghzlatarev
       - 78.154.9.85/32
+      # pierre
+      - 84.115.223.0/24
     optional:
       # grenade
       - 185.189.196.0/22
@@ -84,6 +96,8 @@ prod:
     required:
       # kavula
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+      # pierre
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq
     optional:
       # grenade
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj
@@ -94,6 +108,8 @@ prod:
     required:
       # kavula
       - 92.247.230.0/22
+      # pierre
+      - 84.115.223.0/24
     optional:
       # grenade
       - 185.189.196.0/22
