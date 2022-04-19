@@ -208,6 +208,10 @@ scrape_configs:
           - stats.calamari.themilkywaygang.com
           - stats.kasuma.themilkywaygang.com
 
+          # discord, username: @CHARGE#0969, account id: 391754967867981851
+          - stats.calamari.migusha.com
+          - stats.kasuma.migusha.com
+
           # discord, username: Ilhan#8421, account id: 489061151628460032
           - calamari.metrics.staker.space
           - kusama.metrics.staker.space
