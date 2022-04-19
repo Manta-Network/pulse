@@ -126,8 +126,8 @@ scrape_configs:
       -
         targets:
           # discord, username: grenade#4222, account id: 810037839433433109
-          - calamari.metrics.agrajag.thgttg.com
-          - kusama.metrics.agrajag.thgttg.com
+          - calamari.metrics.novgorodian.thgttg.com
+          - kusama.metrics.novgorodian.thgttg.com
   -
     job_name: calamari community collator
     static_configs:
