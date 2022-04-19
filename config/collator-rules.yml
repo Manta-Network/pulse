@@ -108,7 +108,7 @@ groups:
       message: 'The node {{ $labels.instance }} has less than 3 peers for more
       than 15 minutes'
   - alert: NoPeerToPeerConnections
-    expr: increase(substrate_sub_libp2p_incoming_connections_total{job=~".*collator.*"}[20m]) == 0
+    expr: increase(substrate_sub_libp2p_incoming_connections_total{chain="calamari",job=~".*collator.*"}[20m]) == 0
     labels:
       severity: warning
     annotations:
