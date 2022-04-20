@@ -1,18 +1,19 @@
 ---
 groups:
 -
-  name: substrate node
+  name: generic
   rules:
   -
-    alert: instance down
+    alert: offline
     expr: up == 0
     for: 1m
     annotations:
       summary: >-
-        instance down: $labels.instance
+        {{ $labels.instance }}: offline
       description: |
-        [{{ $labels.instance }}] of job [{{ $labels.job }}] has been down for more than 1 minute.
+        {{ $labels.job }} / {{ $labels.instance }} has been unreachable for more than 1 minute.
     labels:
+      instance: '{{ $labels.instance }}'
       severity: critical
   -
     alert: high cpu load
@@ -20,10 +21,9 @@ groups:
     for: 0m
     annotations:
       summary: >-
-        high cpu load: $labels.instance
+        {{ $labels.instance }}: high cpu load
       description: |
-        cpu load greater than 80%
-        value: {{ $value }}
-        labels: {{ $labels }}
+        {{ $labels.job }} / {{ $labels.instance }} has a cpu load of {{ $value }}%
     labels:
+      instance: '{{ $labels.instance }}'
       severity: warning
