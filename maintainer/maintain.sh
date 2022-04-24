@@ -177,9 +177,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       # revoke (or alert for non-prod) ingress access for disallowed subnets
       for detected_ssh_ingress_subnet in ${detected_ssh_ingress_subnets[@]}; do
         is_allowed_ssh_ingress_subnet=false
-        #echo "${allowed_ssh_ingress_subnets[@]}"
         for allowed_ssh_ingress_subnet in ${allowed_ssh_ingress_subnets[@]}; do
-          #echo "checking if ${allowed_ssh_ingress_subnet} contains ${detected_ssh_ingress_subnet}"
           if _ipv4_network_includes ${allowed_ssh_ingress_subnet} ${detected_ssh_ingress_subnet}; then
             is_allowed_ssh_ingress_subnet=true
           fi
@@ -188,23 +186,23 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           echo "detected allowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
         else
           case ${endpoint_name} in
-            prod)
-            if aws ec2 revoke-security-group-ingress \
-              --profile ${profile} \
-              --region ${region} \
-              --group-id ${security_group_id} \
-              --protocol tcp \
-              --port 22 \
-              --cidr ${detected_ssh_ingress_subnet} &> /dev/null; then
-              echo "  revoked ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
-            else
-              echo "  failed to revoke ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
-            fi
-            # todo: discord security alert
-            ;;
+            ops|prod)
+              if aws ec2 revoke-security-group-ingress \
+                --profile ${profile} \
+                --region ${region} \
+                --group-id ${security_group_id} \
+                --protocol tcp \
+                --port 22 \
+                --cidr ${detected_ssh_ingress_subnet} &> /dev/null; then
+                echo "  revoked ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
+              else
+                echo "  failed to revoke ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
+              fi
+              # todo: discord security alert
+              ;;
             *)
-            echo "detected disallowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
-            # todo: discord security alert
+              echo "detected disallowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+              # todo: discord security alert
             ;;
           esac
         fi
