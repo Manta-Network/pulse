@@ -281,10 +281,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           ssh -i ${ssh_key} ${username}@${fqdn} "rm -rf /home/mobula/${prefix}.${domain}"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/archive/${prefix}.${domain}"
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo mkdir -p /etc/letsencrypt/live/${prefix}.${domain}"
-          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/cert1.pem /etc/letsencrypt/live/${prefix}.${domain}/cert.pem"
-          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/chain1.pem /etc/letsencrypt/live/${prefix}.${domain}/chain.pem"
-          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/fullchain1.pem /etc/letsencrypt/live/${prefix}.${domain}/fullchain.pem"
-          ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/letsencrypt/archive/${prefix}.${domain}/privkey1.pem /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem"
+          for pem in cert chain fullchain privkey; do
+            ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs $(readlink -f /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem) /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem"
+          done
           #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
           # create nginx shared fqdn config
           sed "s/SERVER_NAME/${prefix}.${domain}/g" ${temp_dir}/${prefix}-ssl.conf > ${temp_dir}/${prefix}.${domain}.conf
