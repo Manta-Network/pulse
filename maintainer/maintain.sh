@@ -263,7 +263,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown root:root /etc/nginx/sites-available/rpc.${fqdn}.conf"
       ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/rpc.${fqdn}.conf /etc/nginx/sites-enabled/rpc.${fqdn}.conf"
 
-      cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates | grep Domains:' | sed -r 's/Domains: //g') )
+      cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
       if [[ " ${cert_domains[*]} " =~ " rpc.${fqdn} " ]]; then
         echo "detected rpc.${fqdn} in cert domains (${cert_domains[@]})"
       else
