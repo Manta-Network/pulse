@@ -1,5 +1,5 @@
 [Unit]
-Description=manta and calamari node configuration maintainer
+Description=calamari node configuration maintainer
 Wants=network-online.target
 After=network-online.target
 
