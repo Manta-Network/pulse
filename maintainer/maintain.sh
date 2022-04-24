@@ -84,8 +84,11 @@ curl -sLo ${temp_dir}/ssl.conf https://raw.githubusercontent.com/Manta-Network/p
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
-  instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | @base64') )
-  required_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.required[]') )
+  if [ -z "${1}" ]; then
+    instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | @base64') )
+  else
+    instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r --arg domain ${1} '.instances[] | select(.domain == $domain) | @base64') )
+  fi  required_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.required[]') )
   optional_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.optional[]') )
   allowed_ssh_ingress_subnets=( "${required_ssh_ingress_subnets[@]}" "${optional_ssh_ingress_subnets[@]}" )
 

@@ -41,3 +41,6 @@ fi
 
 sudo curl -sLo /etc/systemd/system/manta-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.service
 sudo systemctl enable --now manta-node-maintain.service
+
+sudo curl -sLo /etc/systemd/system/calamari-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/calamari-node-maintain.service
+sudo systemctl enable --now calamari-node-maintain.service
