@@ -88,7 +88,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | @base64') )
   else
     instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r --arg domain ${1} '.instances[] | select(.domain == $domain) | @base64') )
-  fi  required_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.required[]') )
+  fi
+  required_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.required[]') )
   optional_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.optional[]') )
   allowed_ssh_ingress_subnets=( "${required_ssh_ingress_subnets[@]}" "${optional_ssh_ingress_subnets[@]}" )
 
