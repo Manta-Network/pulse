@@ -48,7 +48,9 @@ upsert_cname() {
   local fqdn=${2}
   local tld=${3}
   local hosted_zone_id=$(basename $(aws route53 list-hosted-zones --profile pelagos-ops | jq --arg tld ${tld}. -r '.HostedZones[] | select(.Name == $tld) | .Id'))
-  if ! getent hosts ${prefix}.${fqdn}; then
+  if [ -z "${hosted_zone_id}" ]; then
+    echo "failed to determine hosted zone id for tld: ${tld}"
+  elif ! getent hosts ${prefix}.${fqdn}; then
     echo '{
       "Changes": [
         {
