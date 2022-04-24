@@ -39,8 +39,11 @@ else
   chmod 600 ${HOME}/.aws/credentials
 fi
 
-sudo curl -sLo /etc/systemd/system/manta-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.service
+sudo curl -H 'Cache-Control: no-cache, no-store' -sLo /etc/systemd/system/manta-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/maintain.service
+sudo systemctl daemon-reload
 sudo systemctl enable --now manta-node-maintain.service
 
-sudo curl -sLo /etc/systemd/system/calamari-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/calamari-node-maintain.service
+sudo curl -H 'Cache-Control: no-cache, no-store' -sLo /etc/systemd/system/calamari-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/calamari-node-maintain.service
+sudo systemctl daemon-reload
 sudo systemctl enable --now calamari-node-maintain.service
+

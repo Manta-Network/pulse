@@ -150,7 +150,18 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             echo "  failed to grant ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
           fi
         fi
-        if aws ec2 authorize-security-group-ingress \
+        detected_ingress=$(aws ec2 describe-security-groups \
+          --profile ${profile} \
+          --region ${region} \
+          --filter \
+            Name=group-id,Values=${security_group_id} \
+            Name=ip-permission.from-port,Values=80 \
+            Name=ip-permission.cidr,Values=0.0.0.0/0 \
+          --query SecurityGroups[*].[GroupId] \
+          --output text)
+        if [ -n "${detected_ingress}" ]; then
+          echo "  detected http access on manta-${endpoint_name}/${region}/${security_group_id}"
+        elif aws ec2 authorize-security-group-ingress \
             --profile ${profile} \
             --region ${region} \
             --group-id ${security_group_id} \
