@@ -47,3 +47,7 @@ sudo curl -H 'Cache-Control: no-cache, no-store' -sLo /etc/systemd/system/calama
 sudo systemctl daemon-reload
 sudo systemctl enable --now calamari-node-maintain.service
 
+sudo curl -H 'Cache-Control: no-cache, no-store' -sLo /etc/systemd/system/dolphin-node-maintain.service https://raw.githubusercontent.com/Manta-Network/pulse/main/maintainer/dolphin-node-maintain.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now dolphin-node-maintain.service
+
