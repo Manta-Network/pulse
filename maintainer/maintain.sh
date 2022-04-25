@@ -221,7 +221,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     if [[ ${domain} != *"telemetry"* ]] && [[ ${domain} != *"workstation"* ]]; then
       health_check_id=$(jq --arg fqdn rpc.${fqdn} '.HealthChecks[] | select(.HealthCheckConfig.FullyQualifiedDomainName == $fqdn) | .Id' ${temp_dir}/health-checks.json)
       if [ -n "${health_check_id}" ]; then
-        echo "[${endpoint_name}/${region}/${fqdn}] detected existing health check: rpc.${fqdn}"
+        echo "[${endpoint_name}/${region}/${fqdn}] detected existing health check: https://rpc.${fqdn}/health"
       else
         echo '{
           "Port": 443,
@@ -241,9 +241,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           --profile pelagos-ops \
           --caller-reference rpc.${fqdn} \
           --health-check-config file://${temp_dir}/health-check-${fqdn}.json; then
-          echo "[${endpoint_name}/${region}/${fqdn}] created health check: rpc.${fqdn}"
+          echo "[${endpoint_name}/${region}/${fqdn}] created health check: https://rpc.${fqdn}/health"
         else
-          echo "[${endpoint_name}/${region}/${fqdn}] failed to create health check: rpc.${fqdn}"
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to create health check: https://rpc.${fqdn}/health"
         fi
       fi
 
