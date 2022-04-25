@@ -310,12 +310,12 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             echo "[${endpoint_name}/${region}/${fqdn}] detected ${prefix}.${domain} certs on ${fqdn}"
           elif scp -r /etc/letsencrypt/archive/${prefix}.${domain} mobula@${fqdn}:/home/mobula/; then
             echo "[${endpoint_name}/${region}/${fqdn}] copied ${prefix}.${domain} certs to ${fqdn}"
+            ssh -i ${ssh_key} ${username}@${fqdn} "sudo mkdir -p /etc/letsencrypt/{archive,live}/${prefix}.${domain}"
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo cp -r /home/mobula/${prefix}.${domain} /etc/letsencrypt/archive/"
             ssh -i ${ssh_key} ${username}@${fqdn} "rm -rf /home/mobula/${prefix}.${domain}"
-            ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/archive/${prefix}.${domain}"
-            ssh -i ${ssh_key} ${username}@${fqdn} "sudo mkdir -p /etc/letsencrypt/live/${prefix}.${domain}"
+            ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/{archive,live}/${prefix}.${domain}"
             for pem in cert chain fullchain privkey; do
-              ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs $(readlink -f /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem) /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem"
+              ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs $(sudo readlink -f /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem) /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem"
             done
             #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/live/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/live/${prefix}.${domain}
             # create nginx shared fqdn config
