@@ -279,6 +279,14 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/rpc.${fqdn}.conf /etc/nginx/sites-enabled/rpc.${fqdn}.conf"
 
       cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
+      if [ ${#cert_domains[@]} -eq 0 ]; then
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d ${fqdn}"
+        cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
+      elif [ "${cert_domains[0]}" = "rpc.${fqdn}" ]; then
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot delete --cert-name rpc.${fqdn}"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d ${fqdn}"
+        cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
+      fi
       if [[ " ${cert_domains[*]} " =~ " rpc.${fqdn} " ]]; then
         echo "[${endpoint_name}/${region}/${fqdn}] detected rpc.${fqdn} in cert domains (${cert_domains[@]})"
       else
