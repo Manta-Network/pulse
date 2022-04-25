@@ -285,6 +285,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       fi
       if [ "${cert_domains[0]}" = "rpc.${fqdn}" ]; then
         ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot delete --cert-name rpc.${fqdn}"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo rm -f /etc/letsencrypt/renewal/rpc.*.*"
         ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d ${fqdn}"
         cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
       fi
