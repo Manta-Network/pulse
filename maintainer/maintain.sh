@@ -301,6 +301,13 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
         ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
       fi
 
+      # handle cases where certbot has changed the path to the keys (eg: adding -0001 suffixes)
+      cert_path=$(ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certificates 2>/dev/null | grep 'Certificate Path:' | sed -r 's/    Certificate Path: //g'")
+      priv_path=$(ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certificates 2>/dev/null | grep 'Private Key Path:' | sed -r 's/    Private Key Path: //g'")
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo sed -i 's#/etc/letsencrypt/live/${fqdn}/fullchain.pem#${cert_path}#g' /etc/nginx/sites-available/*"
+      ssh -i ${ssh_key} ${username}@${fqdn} "sudo sed -i 's#/etc/letsencrypt/live/${fqdn}/privkey.pem#${priv_path}#g' /etc/nginx/sites-available/*"
+      ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
+
       # shared rpc/ws cert/fqdn
       sed "s/PORT/${manta_service_ws_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
       sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
