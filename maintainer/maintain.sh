@@ -292,7 +292,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       if [ "${cert_domains[0]}" != "${fqdn}" ]; then
         echo "[${endpoint_name}/${region}/${fqdn}] deleting base cert: ${cert_domains[0]}"
         ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot delete --cert-name ${cert_domains[0]}"
-        ssh -i ${ssh_key} ${username}@${fqdn} "sudo rm -f /etc/letsencrypt/renewal/*"
+        ssh -i ${ssh_key} ${username}@${fqdn} "sudo rm -rf /etc/letsencrypt/{archive,live,renewal}/*"
         echo "[${endpoint_name}/${region}/${fqdn}] requesting base cert: ${fqdn}"
         ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d ${fqdn}"
         cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
