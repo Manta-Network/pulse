@@ -98,7 +98,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
   optional_ssh_ingress_subnets=( $(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/ingress.yml | yq -r --arg endpoint ${endpoint_name} '.[$endpoint].subnet.optional[]') )
   allowed_ssh_ingress_subnets=( "${required_ssh_ingress_subnets[@]}" "${optional_ssh_ingress_subnets[@]}" )
 
-  echo "observed ${#instances_as_base64[@]} running instances in aws ${endpoint_name} account"
+  echo "[${endpoint_name}] observed ${#instances_as_base64[@]} running instances in aws ${endpoint_name} account"
   for x in ${instances_as_base64[@]}; do
     id=$(_decode_property ${x} .id)
     hostname=$(_decode_property ${x} .hostname)
