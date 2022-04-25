@@ -248,7 +248,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       fi
 
       # dns for unique rpc fqdn
-      upsert_cname rpc ${fqdn} ${domain}
+      upsert_cname rpc ${fqdn} $(echo ${fqdn} | rev | cut -d "." -f1-2 | rev)
 
       manta_service_units=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'systemctl list-units --type service --full --all --plain --no-legend --no-pager' | grep -E 'calamari|dolphin|manta' | cut -d " " -f1) )
       # todo: request the specific unit of interest rather than any of calamari/dolphin/manta
@@ -330,7 +330,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       if ssh ${username}@${fqdn} 'curl --head http://localhost:9616/metrics &> /dev/null' && ssh ${username}@${fqdn} 'curl --head http://localhost:9615/metrics &> /dev/null'; then
 
         # relay dns for metrics
-        upsert_cname relay.metrics ${fqdn} ${domain}
+        upsert_cname relay.metrics ${fqdn} $(echo ${fqdn} | rev | cut -d "." -f1-2 | rev)
 
         # nginx config for relay.metrics cert/fqdn
         sed "s/PORT/9616/g" ${temp_dir}/ssl.conf > ${temp_dir}/relay.metrics.${fqdn}.conf
@@ -356,7 +356,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
         fi
 
         # para dns for metrics
-        upsert_cname para.metrics ${fqdn} ${domain}
+        upsert_cname para.metrics ${fqdn} $(echo ${fqdn} | rev | cut -d "." -f1-2 | rev)
 
         # nginx config for para.metrics cert/fqdn
         sed "s/PORT/9615/g" ${temp_dir}/ssl.conf > ${temp_dir}/para.metrics.${fqdn}.conf
@@ -383,7 +383,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
       elif ssh ${username}@${fqdn} 'curl --head http://localhost:9615/metrics &> /dev/null'; then
         # relay only dns for metrics
-        upsert_cname relay.metrics ${fqdn} ${domain}
+        upsert_cname relay.metrics ${fqdn} $(echo ${fqdn} | rev | cut -d "." -f1-2 | rev)
 
         # nginx config for relay.metrics cert/fqdn
         sed "s/PORT/9615/g" ${temp_dir}/ssl.conf > ${temp_dir}/relay.metrics.${fqdn}.conf
