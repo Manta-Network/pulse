@@ -258,7 +258,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       fi
 
       # nginx config for unique ws cert/fqdn
-      ssh -i ${ssh_key} ${username}@${fqdn} "sudo sed -i 's/localhost:9944/localhost:${manta_service_ws_port}/g' /etc/nginx/sites-available/default-ssl"
+      ssh -i ${ssh_key} ${username}@${fqdn} "[ -f /etc/nginx/sites-available/default-ssl ] && sudo sed -i 's/localhost:9944/localhost:${manta_service_ws_port}/g' /etc/nginx/sites-available/default-ssl"
+      ssh -i ${ssh_key} ${username}@${fqdn} "[ -f /etc/nginx/sites-available/ws-proxy ] && sudo sed -i 's/localhost:9944/localhost:${manta_service_ws_port}/g' /etc/nginx/sites-available/ws-proxy"
 
       # nginx config for unique rpc cert/fqdn
       sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc.${fqdn}.conf
