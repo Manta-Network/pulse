@@ -49,8 +49,10 @@ upsert_cname() {
   local tld=${3}
   local hosted_zone_id=$(basename $(aws route53 list-hosted-zones --profile pelagos-ops | jq --arg tld ${tld}. -r '.HostedZones[] | select(.Name == $tld) | .Id'))
   if [ -z "${hosted_zone_id}" ]; then
-    echo "failed to determine hosted zone id for tld: ${tld}"
-  elif ! getent hosts ${prefix}.${fqdn}; then
+    echo "[upsert_cname(prefix: ${prefix}, fqdn: ${fqdn}, tld: ${tld})] failed to determine hosted zone id for tld: ${tld}"
+  elif getent hosts ${prefix}.${fqdn} &>/dev/null; then
+    echo "[upsert_cname(prefix: ${prefix}, fqdn: ${fqdn}, tld: ${tld})] detected existing dns resolution for ${prefix}.${fqdn}"
+  else
     echo '{
       "Changes": [
         {
@@ -68,11 +70,14 @@ upsert_cname() {
         }
       ]
     }' | jq --arg cname ${prefix}.${fqdn} --arg fqdn ${fqdn} '. | .Changes[0].ResourceRecordSet.Name = $cname | .Changes[0].ResourceRecordSet.ResourceRecords[0].Value = $fqdn' > ${temp_dir}/${prefix}.${fqdn}.json
-    aws route53 change-resource-record-sets \
+    if aws route53 change-resource-record-sets \
       --profile pelagos-ops \
       --hosted-zone-id ${hosted_zone_id} \
-      --change-batch=file://${temp_dir}/${prefix}.${fqdn}.json
-    sleep 30
+      --change-batch=file://${temp_dir}/${prefix}.${fqdn}.json; then
+      echo "[upsert_cname(prefix: ${prefix}, fqdn: ${fqdn}, tld: ${tld})] upserted cname record pointing ${prefix}.${fqdn} to ${fqdn}"
+    else
+      echo "[upsert_cname(prefix: ${prefix}, fqdn: ${fqdn}, tld: ${tld})] failed to upsert cname record pointing ${prefix}.${fqdn} to ${fqdn}"
+    fi
   fi
 }
 
