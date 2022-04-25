@@ -135,7 +135,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           fi
         done
         if [ "${required_ssh_ingress_subnet_is_included}" = true ]; then
-          echo "detected required ssh ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected required ssh ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
         else
           auth_result_path=${temp_dir}/authorize-ssh-ingress-${security_group_id}-$(uuidgen).json
           if aws ec2 authorize-security-group-ingress \
@@ -145,9 +145,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             --protocol tcp \
             --port 22 \
             --cidr ${required_ssh_ingress_subnet} > ${auth_result_path} && [ "$(jq -r '.Return' ${auth_result_path})" = "true" ]; then
-            echo "  granted ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+            echo "[${endpoint_name}/${region}/${fqdn}] granted ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
           else
-            echo "  failed to grant ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+            echo "[${endpoint_name}/${region}/${fqdn}] failed to grant ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
           fi
         fi
         detected_ingress=$(aws ec2 describe-security-groups \
@@ -160,7 +160,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           --query SecurityGroups[*].[GroupId] \
           --output text)
         if [ -n "${detected_ingress}" ]; then
-          echo "  detected http access on manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected http access on manta-${endpoint_name}/${region}/${security_group_id}"
         elif aws ec2 authorize-security-group-ingress \
             --profile ${profile} \
             --region ${region} \
@@ -168,9 +168,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             --protocol tcp \
             --port 80 \
             --cidr 0.0.0.0/0; then
-          echo "  granted http access on manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] granted http access on manta-${endpoint_name}/${region}/${security_group_id}"
         else
-          echo "  failed to grant http access on manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to grant http access on manta-${endpoint_name}/${region}/${security_group_id}"
         fi
       done
 
@@ -183,7 +183,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           fi
         done
         if [ "${is_allowed_ssh_ingress_subnet}" = true ] ; then
-          echo "detected allowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected allowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
         else
           case ${endpoint_name} in
             ops|prod)
@@ -194,14 +194,14 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
                 --protocol tcp \
                 --port 22 \
                 --cidr ${detected_ssh_ingress_subnet} &> /dev/null; then
-                echo "  revoked ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
+                echo "[${endpoint_name}/${region}/${fqdn}] revoked ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
               else
-                echo "  failed to revoke ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
+                echo "[${endpoint_name}/${region}/${fqdn}] failed to revoke ssh access for disallowed ingress subnet: ${detected_ssh_ingress_subnet} from manta-${endpoint_name}/${region}/${security_group_id}"
               fi
               # todo: discord security alert
               ;;
             *)
-              echo "detected disallowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
+              echo "[${endpoint_name}/${region}/${fqdn}] detected disallowed ssh ingress subnet: ${detected_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
               # todo: discord security alert
             ;;
           esac
@@ -209,14 +209,14 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       done
     done
     if ssh -i ${ssh_key} -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new ${username}@${fqdn} "cat /home/${username}/.ssh/authorized_keys" > ${detected_authorized_keys_path} && [ -s ${detected_authorized_keys_path} ]; then
-      echo "fetched ${detected_authorized_keys_path}"
+      echo "[${endpoint_name}/${region}/${fqdn}] fetched ${detected_authorized_keys_path}"
     else
       rm ${detected_authorized_keys_path}
     fi
     if [[ ${domain} != *"telemetry"* ]] && [[ ${domain} != *"workstation"* ]]; then
       health_check_id=$(jq --arg fqdn rpc.${fqdn} '.HealthChecks[] | select(.HealthCheckConfig.FullyQualifiedDomainName == $fqdn) | .Id' ${temp_dir}/health-checks.json)
       if [ -n "${health_check_id}" ]; then
-        echo "detected existing health check: rpc.${fqdn}"
+        echo "[${endpoint_name}/${region}/${fqdn}] detected existing health check: rpc.${fqdn}"
       else
         echo '{
           "Port": 443,
@@ -236,9 +236,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           --profile pelagos-ops \
           --caller-reference rpc.${fqdn} \
           --health-check-config file://${temp_dir}/health-check-${fqdn}.json; then
-          echo "created health check: rpc.${fqdn}"
+          echo "[${endpoint_name}/${region}/${fqdn}] created health check: rpc.${fqdn}"
         else
-          echo "failed to create health check: rpc.${fqdn}"
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to create health check: rpc.${fqdn}"
         fi
       fi
 
@@ -275,10 +275,10 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
       cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
       if [[ " ${cert_domains[*]} " =~ " rpc.${fqdn} " ]]; then
-        echo "detected rpc.${fqdn} in cert domains (${cert_domains[@]})"
+        echo "[${endpoint_name}/${region}/${fqdn}] detected rpc.${fqdn} in cert domains (${cert_domains[@]})"
       else
         cert_domains+=( rpc.${fqdn} )
-        echo "adding rpc.${fqdn} to cert domains (${cert_domains[@]})"
+        echo "[${endpoint_name}/${region}/${fqdn}] adding rpc.${fqdn} to cert domains (${cert_domains[@]})"
         ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
         ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
         ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
@@ -295,9 +295,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           local_hash=$(sudo sha256sum /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem)
           remote_hash=$(ssh -i ${ssh_key} ${username}@${fqdn} "sudo sha256sum /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem")
           if [ "${local_hash}" = "${remote_hash}" ]; then
-            echo "detected ${prefix}.${domain} certs on ${fqdn}"
+            echo "[${endpoint_name}/${region}/${fqdn}] detected ${prefix}.${domain} certs on ${fqdn}"
           elif scp -r /etc/letsencrypt/archive/${prefix}.${domain} mobula@${fqdn}:/home/mobula/; then
-            echo "copied ${prefix}.${domain} certs to ${fqdn}"
+            echo "[${endpoint_name}/${region}/${fqdn}] copied ${prefix}.${domain} certs to ${fqdn}"
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo cp -r /home/mobula/${prefix}.${domain} /etc/letsencrypt/archive/"
             ssh -i ${ssh_key} ${username}@${fqdn} "rm -rf /home/mobula/${prefix}.${domain}"
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo chown -R root:root /etc/letsencrypt/archive/${prefix}.${domain}"
@@ -316,7 +316,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/${prefix}.${domain}.conf /etc/nginx/sites-enabled/${prefix}.${domain}.conf"
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           else
-            echo "failed to copy ${prefix}.${domain} certs to ${fqdn}"
+            echo "[${endpoint_name}/${region}/${fqdn}] failed to copy ${prefix}.${domain} certs to ${fqdn}"
           fi
         fi
       done
@@ -338,10 +338,10 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
         cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
         if [[ " ${cert_domains[*]} " =~ " relay.metrics.${fqdn} " ]]; then
-          echo "detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
         else
           cert_domains+=( relay.metrics.${fqdn} )
-          echo "adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
@@ -364,10 +364,10 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
         cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
         if [[ " ${cert_domains[*]} " =~ " para.metrics.${fqdn} " ]]; then
-          echo "detected para.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected para.metrics.${fqdn} in cert domains (${cert_domains[@]})"
         else
           cert_domains+=( para.metrics.${fqdn} )
-          echo "adding para.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] adding para.metrics.${fqdn} to cert domains (${cert_domains[@]})"
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
@@ -391,10 +391,10 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
         cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
         if [[ " ${cert_domains[*]} " =~ " relay.metrics.${fqdn} " ]]; then
-          echo "detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] detected relay.metrics.${fqdn} in cert domains (${cert_domains[@]})"
         else
           cert_domains+=( relay.metrics.${fqdn} )
-          echo "adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
+          echo "[${endpoint_name}/${region}/${fqdn}] adding relay.metrics.${fqdn} to cert domains (${cert_domains[@]})"
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
