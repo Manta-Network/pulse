@@ -295,6 +295,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       sed "s/PORT/${manta_service_ws_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
       sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
       for prefix in rpc ws; do
+        sudo setfacl -m u:$(whoami):r /etc/letsencrypt/{archive,live}
+        sudo setfacl -m u:$(whoami):x /etc/letsencrypt/{archive,live}
+        sudo setfacl -m u:$(whoami):r /etc/letsencrypt/{archive,live}/${prefix}.${domain}
         sudo setfacl -m u:$(whoami):x /etc/letsencrypt/{archive,live}/${prefix}.${domain}
         for pem in $(sudo find /etc/letsencrypt/{archive,live}/${prefix}.${domain} -name *.pem 2>/dev/null); do
           sudo setfacl -m u:$(whoami):r ${pem}
