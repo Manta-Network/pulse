@@ -295,10 +295,12 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
       sed "s/PORT/${manta_service_ws_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/ws-ssl.conf
       sed "s/PORT/${manta_service_rpc_port}/g" ${temp_dir}/ssl.conf > ${temp_dir}/rpc-ssl.conf
       for prefix in rpc ws; do
+        sudo setfacl -m u:$(whoami):x /etc/letsencrypt/{archive,live}/${prefix}.${domain}
+        sudo setfacl -m u:$(whoami):r /etc/letsencrypt/{archive,live}/${prefix}.${domain}/*.pem
         if sudo test -L /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem &>/dev/null; then
           #rsync -e "ssh -i ${ssh_key}" --rsync-path='sudo rsync' -azP /etc/letsencrypt/archive/${prefix}.${domain}/ mobula@${fqdn}:/etc/letsencrypt/archive/${prefix}.${domain}
           local_hash=$(sudo sha256sum /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem)
-          remote_hash=$(ssh -i ${ssh_key} ${username}@${fqdn} "sudo sha256sum /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem")
+          remote_hash=$(ssh -i ${ssh_key} ${username}@${fqdn} "sudo sha256sum /etc/letsencrypt/live/${prefix}.${domain}/privkey.pem 2>/dev/null")
           if [ "${local_hash}" = "${remote_hash}" ]; then
             echo "[${endpoint_name}/${region}/${fqdn}] detected ${prefix}.${domain} certs on ${fqdn}"
           elif scp -r /etc/letsencrypt/archive/${prefix}.${domain} mobula@${fqdn}:/home/mobula/; then
