@@ -447,6 +447,22 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
         fi
       fi
+
+      target_manta_version=$(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/software-versions.yml | yq --arg fqdn ${fqdn} -r '.[$fqdn].manta')
+      if [ "${target_manta_version}" != "null" ]; then
+        observed_manta_version=$(ssh -i ${ssh_key} ${username}@${fqdn} 'dpkg -l manta &>/dev/null && /usr/bin/manta --version | cut -d" " -f2 | cut -d"-" -f1-2')
+        if [ "${target_manta_version}" = "${observed_manta_version}" ]; then
+          echo "[${endpoint_name}/${region}/${fqdn}] observed manta version: ${observed_manta_version} matches target manta version: ${target_manta_version}"
+        elif ssh -i ${ssh_key} ${username}@${fqdn} "
+          curl -sLo /tmp/manta_${target_manta_version%%-*}_amd64.deb https://deb.manta.systems/pool/main/m/manta/manta_${target_manta_version%%-*}_amd64.deb;
+          sudo dpkg -i /tmp/manta_${target_manta_version%%-*}_amd64.deb;
+          rm /tmp/manta_${target_manta_version%%-*}_amd64.deb;
+          sudo systemctl start ${target_unit}.service"; then
+          echo "[${endpoint_name}/${region}/${fqdn}] updated observed manta version from: ${observed_manta_version} to target manta version: ${target_manta_version}"
+        else
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to update observed manta version from: ${observed_manta_version} to target manta version: ${target_manta_version}"
+        fi
+      fi
     fi
   done
 done
