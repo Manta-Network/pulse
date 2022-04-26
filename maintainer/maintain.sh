@@ -155,27 +155,32 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             echo "[${endpoint_name}/${region}/${fqdn}] failed to grant ssh access for required ingress subnet: ${required_ssh_ingress_subnet} in manta-${endpoint_name}/${region}/${security_group_id}"
           fi
         fi
-        detected_ingress=$(aws ec2 describe-security-groups \
+      done
+
+      ingress_cidr=0.0.0.0/0
+      for ingress_port in 80 443; do
+        observed_rule_security_group_id=$(aws ec2 describe-security-groups \
           --profile ${profile} \
           --region ${region} \
-          --filter \
-            Name=group-id,Values=${security_group_id} \
-            Name=ip-permission.from-port,Values=80 \
-            Name=ip-permission.cidr,Values=0.0.0.0/0 \
-          --query SecurityGroups[*].[GroupId] \
+          --group-id ${security_group_id} \
+          --query 'SecurityGroups[0].GroupId' \
+          --filters \
+            Name=ip-permission.from-port,Values=${ingress_port} \
+            Name=ip-permission.to-port,Values=${ingress_port} \
+            Name=ip-permission.cidr,Values=${ingress_cidr} \
           --output text)
-        if [ -n "${detected_ingress}" ]; then
-          echo "[${endpoint_name}/${region}/${fqdn}] detected http access on manta-${endpoint_name}/${region}/${security_group_id}"
+        if [ "${observed_rule_security_group_id}" = "${security_group_id}" ]; then
+          echo "[${endpoint_name}/${region}/${fqdn}] observed port: ${ingress_port} access for cidr: ${ingress_cidr}, on manta-${endpoint_name}/${region}/${security_group_id}"
         elif aws ec2 authorize-security-group-ingress \
             --profile ${profile} \
             --region ${region} \
             --group-id ${security_group_id} \
             --protocol tcp \
-            --port 80 \
-            --cidr 0.0.0.0/0; then
-          echo "[${endpoint_name}/${region}/${fqdn}] granted http access on manta-${endpoint_name}/${region}/${security_group_id}"
+            --port ${ingress_port} \
+            --cidr ${ingress_cidr}; then
+          echo "[${endpoint_name}/${region}/${fqdn}] granted port: ${ingress_port} access for cidr: ${ingress_cidr}, on manta-${endpoint_name}/${region}/${security_group_id}"
         else
-          echo "[${endpoint_name}/${region}/${fqdn}] failed to grant http access on manta-${endpoint_name}/${region}/${security_group_id}"
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to grant port: ${ingress_port} access for cidr: ${ingress_cidr}, on manta-${endpoint_name}/${region}/${security_group_id}"
         fi
       done
 
