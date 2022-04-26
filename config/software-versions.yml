@@ -1,13 +1,25 @@
 ---
 avocado.calamari.systems:
   manta: 3.1.5-18aeacb
+bokkeum.calamari.systems:
+  manta: 3.1.5-18aeacb
 chilli.calamari.systems:
   manta: 3.1.5-18aeacb
 falafel.calamari.systems:
   manta: 3.1.5-18aeacb
+fritti.calamari.systems:
+  manta: 3.1.5-18aeacb
+jalapeno.calamari.systems:
+  manta: 3.1.5-18aeacb
 kebab.calamari.systems:
   manta: 3.1.5-18aeacb
+pasta.calamari.systems:
+  manta: 3.1.5-18aeacb
+salad.calamari.systems:
+  manta: 3.1.5-18aeacb
 serrano.calamari.systems:
+  manta: 3.1.5-18aeacb
+smoothie.calamari.systems:
   manta: 3.1.5-18aeacb
 tempura.calamari.systems:
   manta: 3.1.5-18aeacb
