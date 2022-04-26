@@ -1,5 +1,13 @@
 ---
+avocado.calamari.systems:
+  manta: 3.1.5-18aeacb
+chilli.calamari.systems:
+  manta: 3.1.5-18aeacb
+falafel.calamari.systems:
+  manta: 3.1.5-18aeacb
 kebab.calamari.systems:
+  manta: 3.1.5-18aeacb
+serrano.calamari.systems:
   manta: 3.1.5-18aeacb
 tempura.calamari.systems:
   manta: 3.1.5-18aeacb

@@ -110,6 +110,20 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     region=$(_decode_property ${x} .region)
     instance_ip=$(_decode_property ${x} .ip)
     username=mobula
+    case ${domain} in
+      calamari.systems)
+        target_unit=calamari
+        ;;
+      manta.systems)
+        target_unit=manta
+        ;;
+      rococo.dolphin.engineering)
+        target_unit=dolphin
+        ;;
+      *)
+        unset target_unit
+        ;;
+    esac
     detected_ssh_ingress_subnets_path=${temp_dir}/ssh_ingress_subnets-${fqdn}.json
     detected_authorized_keys_path=${temp_dir}/authorized_keys-${fqdn}-${username}
     profile=pelagos-${endpoint_name}
@@ -453,7 +467,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
         observed_manta_version=$(ssh -i ${ssh_key} ${username}@${fqdn} 'dpkg -l manta &>/dev/null && /usr/bin/manta --version | cut -d" " -f2 | cut -d"-" -f1-2')
         if [ "${target_manta_version}" = "${observed_manta_version}" ]; then
           echo "[${endpoint_name}/${region}/${fqdn}] observed manta version: ${observed_manta_version} matches target manta version: ${target_manta_version}"
-        elif ssh -i ${ssh_key} ${username}@${fqdn} "
+        elif [ -n "${target_unit}" ] && ssh -i ${ssh_key} ${username}@${fqdn} "
           curl -sLo /tmp/manta_${target_manta_version%%-*}_amd64.deb https://deb.manta.systems/pool/main/m/manta/manta_${target_manta_version%%-*}_amd64.deb;
           sudo dpkg -i /tmp/manta_${target_manta_version%%-*}_amd64.deb;
           rm /tmp/manta_${target_manta_version%%-*}_amd64.deb;
