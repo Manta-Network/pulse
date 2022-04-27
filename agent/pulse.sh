@@ -35,25 +35,42 @@ tmp_dir=$(mktemp -d)
 fqdn=$(hostname -f)
 domain=$(hostname -d)
 
-if curl \
-  -sLo ${tmp_dir}/sites-available.json \
-  https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}/etc/nginx/sites-available; then
-  list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
-  for x in ${list[@]}; do
-    gh_sha=$(_decode_property ${x} .sha)
-    gh_path=$(_decode_property ${x} .path)
-    fs_path=${gh_path/"config/${domain}/${fqdn}"/}
-    fs_sha=$(git hash-object ${fs_path})
-    if [ "${gh_sha}" != "${fs_sha}" ] && sudo curl \
-      -sLo ${fs_path} \
-      https://raw.githubusercontent.com/Manta-Network/pulse/main/${gh_path}; then
-      sudo systemctl reload nginx.service
-      echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
-    fi
-  done
-else
-  rm -f ${tmp_dir}/sites-available.json
-fi
+for watched_path in /etc/nginx/sites-available; do
+  if curl \
+    -sLo ${tmp_dir}/sites-available.json \
+    https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
+    list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
+    declare -A validated=()
+    declare -A updated=()
+    declare -A errored=()
+    for x in ${list[@]}; do
+      gh_sha=$(_decode_property ${x} .sha)
+      gh_path=$(_decode_property ${x} .path)
+      fs_path=${gh_path/"config/${domain}/${fqdn}"/}
+      fs_sha=$(git hash-object ${fs_path})
+      if [ "${gh_sha}" = "${fs_sha}" ]; then
+        validated+=( $(basename ${fs_path}) )
+      else
+        if sudo curl \
+          -sLo ${fs_path} \
+          https://raw.githubusercontent.com/Manta-Network/pulse/main/${gh_path} \
+          && sudo systemctl reload nginx.service; then
+          updated+=( $(basename ${fs_path}) )
+          #echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
+        else
+          errored+=( $(basename ${fs_path}) )
+          echo "${fs_path} has failed to update and does not match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
+        fi
+      fi
+    done
+    echo "${watched_path} updated: ${#updated[@]}, validated: ${#validated[@]}, errored: ${#errored[@]}"
+    unset validated
+    unset updated
+    unset errored
+  else
+    rm -f ${tmp_dir}/sites-available.json
+  fi
+done
 
 rm -rf ${tmp_dir}
 echo "pulse run completed"

@@ -9,7 +9,7 @@ Group=pulse
 Type=simple
 ExecStart=/usr/local/bin/pulse-agent.sh
 Restart=always
-RestartSec=60
+RestartSec=300
 
 [Install]
 WantedBy=multi-user.target
