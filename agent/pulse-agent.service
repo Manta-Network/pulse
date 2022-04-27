@@ -7,8 +7,7 @@ After=network-online.target
 User=pulse
 Group=pulse
 Type=simple
-Environment=PULSE_REPO=Manta-Network/pulse
-ExecStart=curl -sLH 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/${PULSE_REPO}/$(curl -s https://api.github.com/repos/${PULSE_REPO}/commits/main | jq -r .sha)/agent/pulse.sh | bash
+ExecStart=/usr/local/bin/pulse-agent.sh
 Restart=always
 RestartSec=60
 

@@ -23,5 +23,10 @@ sudo curl \
   -sLo /etc/systemd/system/pulse-agent.service \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/agent/pulse-agent.service
 
+sudo curl \
+  -sLo /usr/local/bin/pulse-agent.sh \
+  https://raw.githubusercontent.com/Manta-Network/pulse/main/agent/pulse-agent.sh
+sudo chmod +x /usr/local/bin/pulse-agent.sh
+
 sudo systemctl enable pulse-agent.service
 sudo systemctl start pulse-agent.service
