@@ -19,6 +19,7 @@ if ! getent passwd pulse > /dev/null 2>&1; then
   echo "useradd pulse, result: $?"
 fi
 
+systemctl is-active --quiet pulse-agent.service && sudo systemctl stop pulse-agent.service
 sudo curl \
   -sLo /etc/systemd/system/pulse-agent.service \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/agent/pulse-agent.service
@@ -28,5 +29,5 @@ sudo curl \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/agent/pulse-agent.sh
 sudo chmod +x /usr/local/bin/pulse-agent.sh
 
-sudo systemctl enable pulse-agent.service
+systemctl is-enabled --quiet pulse-agent.service || sudo systemctl enable pulse-agent.service
 sudo systemctl start pulse-agent.service
