@@ -20,7 +20,7 @@ else
 fi
 
 for package in curl git jq; do
-  if ! command -v ${package}; then
+  if ! command -v ${package} &>/dev/null; then
     sudo ${package_manager} install -y ${package}
   fi
 done
