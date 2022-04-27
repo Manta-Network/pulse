@@ -38,7 +38,7 @@ domain=$(hostname -d)
 if curl \
   -sLo ${tmp_dir}/sites-available.json \
   https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}/etc/nginx/sites-available; then
-  list=( $(jq -r '.[] | @base64' /tmp/sites-available.json) )
+  list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
   for x in ${list[@]}; do
     repo_sha=$(_decode_property ${x} .sha)
     repo_path=$(_decode_property ${x} .path)
