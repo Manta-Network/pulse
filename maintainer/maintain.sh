@@ -499,6 +499,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
       target_nvm_version=$(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/software-versions.yml | yq --arg fqdn ${fqdn} -r '.[$fqdn].manta')
       if [ "${target_nvm_version}" != "null" ]; then
+        observed_nvm_version=$(ssh -i ${ssh_key} ${username}@${fqdn} 'nvm --version')
+      fi
     fi
   done
 done
