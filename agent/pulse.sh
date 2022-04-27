@@ -19,11 +19,15 @@ else
   esac
 fi
 
-for package in curl jq; do
+for package in curl git jq; do
   if ! command -v ${package}; then
     sudo ${package_manager} install -y ${package}
   fi
 done
+
+_decode_property() {
+  echo ${1} | base64 --decode | jq -r ${2}
+}
 
 echo "pulse run started"
 
@@ -32,10 +36,22 @@ fqdn=$(hostname -f)
 domain=$(hostname -d)
 
 if curl \
-  -sLo ${tmp_dir}/${fqdn}.json \
-  https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}; then
+  -sLo ${tmp_dir}/sites-available.json \
+  https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}/etc/nginx/sites-available; then
+  list=( $(jq -r '.[] | @base64' /tmp/sites-available.json) )
+  for x in ${list[@]}; do
+    repo_sha=$(_decode_property ${x} .sha)
+    repo_path=$(_decode_property ${x} .path)
+    fs_path=${repo_path/"config/${domain}/${fqdn}"/}
+    fs_sha=$(git hash-object ${fs_path})
+    if [ "${repo_sha}" = "${fs_sha}" ]; then
+      echo "${fs_path} matches https://github.com/Manta-Network/pulse/main/${repo_path}"
+    else
+      echo "${fs_path} does not match https://github.com/Manta-Network/pulse/main/${repo_path}"
+    fi
+  done
 else
-  rm -f ${tmp_dir}/${fqdn}.json
+  rm -f ${tmp_dir}/sites-available.json
 fi
 
 rm -rf ${tmp_dir}
