@@ -40,9 +40,9 @@ for watched_path in /etc/nginx/sites-available; do
     -sLo ${tmp_dir}/sites-available.json \
     https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
     list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
-    declare -A validated=()
-    declare -A updated=()
-    declare -A errored=()
+    declare -a validated=()
+    declare -a updated=()
+    declare -a errored=()
     for x in ${list[@]}; do
       gh_sha=$(_decode_property ${x} .sha)
       gh_path=$(_decode_property ${x} .path)
