@@ -18,7 +18,7 @@ it consists of:
 
   the system maintenance script which synchronises system state
 
-- `install-pulse-agent.sh`
+- `install-pulse-agent.sh`:
 
   the installer
 
