@@ -11,7 +11,7 @@ if ! getent passwd pulse > /dev/null 2>&1; then
   sudo useradd \
     --system \
     --gid pulse \
-    --groups wheel \
+    --groups $(getent group wheel > /dev/null 2>&1 && echo wheel || echo sudo) \
     --no-create-home \
     --shell /sbin/nologin \
     --comment 'pulse agent service account' \
@@ -20,7 +20,7 @@ if ! getent passwd pulse > /dev/null 2>&1; then
 fi
 
 sudo curl \
-  -sLo /etc/systemd/system/pulse-agent.service
+  -sLo /etc/systemd/system/pulse-agent.service \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/agent/pulse-agent.service
 
 sudo systemctl enable pulse-agent.service
