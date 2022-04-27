@@ -342,7 +342,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
-          ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/default-ssl ] && sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+          ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/ws-proxy ] && sudo ln -frs /etc/nginx/sites-available/ws-proxy /etc/nginx/sites-enabled/default'
           ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
         fi
 
@@ -416,7 +417,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
-            ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/default-ssl ] && sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/ws-proxy ] && sudo ln -frs /etc/nginx/sites-available/ws-proxy /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/relay.metrics.${fqdn}.conf /etc/nginx/sites-enabled/relay.metrics.${fqdn}.conf"
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           fi
@@ -442,7 +444,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
-            ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/default-ssl ] && sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/ws-proxy ] && sudo ln -frs /etc/nginx/sites-available/ws-proxy /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/para.metrics.${fqdn}.conf /etc/nginx/sites-enabled/para.metrics.${fqdn}.conf"
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           fi
@@ -468,7 +471,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo certbot certonly --expand --agree-tos --no-eff-email --preferred-challenges http --webroot -w /var/www/html -m ops@manta.network -d $(_join_by ' -d ' ${cert_domains[@]})"
-            ssh -i ${ssh_key} ${username}@${fqdn} 'sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/default-ssl ] && sudo ln -frs /etc/nginx/sites-available/default-ssl /etc/nginx/sites-enabled/default'
+            ssh -i ${ssh_key} ${username}@${fqdn} '[ -f /etc/nginx/sites-available/ws-proxy ] && sudo ln -frs /etc/nginx/sites-available/ws-proxy /etc/nginx/sites-enabled/default'
             ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs /etc/nginx/sites-available/relay.metrics.${fqdn}.conf /etc/nginx/sites-enabled/relay.metrics.${fqdn}.conf"
             ssh -i ${ssh_key} ${username}@${fqdn} 'sudo systemctl reload nginx.service'
           fi
@@ -492,6 +496,9 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
           echo "[${endpoint_name}/${region}/${fqdn}] failed to update observed manta version from: ${observed_manta_version} to target manta version: ${target_manta_version}"
         fi
       fi
+
+      target_nvm_version=$(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/software-versions.yml | yq --arg fqdn ${fqdn} -r '.[$fqdn].manta')
+      if [ "${target_nvm_version}" != "null" ]; then
     fi
   done
 done
