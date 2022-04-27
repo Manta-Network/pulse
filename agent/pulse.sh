@@ -40,14 +40,15 @@ if curl \
   https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}/etc/nginx/sites-available; then
   list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
   for x in ${list[@]}; do
-    repo_sha=$(_decode_property ${x} .sha)
-    repo_path=$(_decode_property ${x} .path)
-    fs_path=${repo_path/"config/${domain}/${fqdn}"/}
+    gh_sha=$(_decode_property ${x} .sha)
+    gh_path=$(_decode_property ${x} .path)
+    fs_path=${gh_path/"config/${domain}/${fqdn}"/}
     fs_sha=$(git hash-object ${fs_path})
-    if [ "${repo_sha}" = "${fs_sha}" ]; then
-      echo "${fs_path} matches https://github.com/Manta-Network/pulse/main/${repo_path}"
-    else
-      echo "${fs_path} does not match https://github.com/Manta-Network/pulse/main/${repo_path}"
+    if [ "${gh_sha}" != "${fs_sha}" ] && sudo curl \
+      -sLo ${fs_path} \
+      https://raw.githubusercontent.com/Manta-Network/pulse/main/${gh_path}; then
+      sudo systemctl reload nginx.service
+      echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
     fi
   done
 else
