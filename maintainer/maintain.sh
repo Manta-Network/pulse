@@ -499,7 +499,14 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
 
       target_nvm_version=$(curl -sL https://raw.githubusercontent.com/Manta-Network/pulse/main/config/software-versions.yml | yq --arg fqdn ${fqdn} -r '.[$fqdn].manta')
       if [ "${target_nvm_version}" != "null" ]; then
-        observed_nvm_version=$(ssh -i ${ssh_key} ${username}@${fqdn} 'nvm --version')
+        observed_nvm_version=$(ssh -i ${ssh_key} ${username}@${fqdn} 'nvm --version | cut -c1-')
+        if [ "${target_nvm_version}" = "${observed_nvm_version}" ]; then
+          echo "[${endpoint_name}/${region}/${fqdn}] observed nvm version: ${observed_nvm_version} matches target nvm version: ${target_nvm_version}"
+        elif ssh -i ${ssh_key} ${username}@${fqdn} "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${target_nvm_version}/install.sh | bash"; then
+          echo "[${endpoint_name}/${region}/${fqdn}] updated observed nvm version from: ${observed_nvm_version} to target nvm version: ${target_nvm_version}"
+        else
+          echo "[${endpoint_name}/${region}/${fqdn}] failed to update observed nvm version from: ${observed_nvm_version} to target nvm version: ${target_nvm_version}"
+        fi
       fi
     fi
   done
