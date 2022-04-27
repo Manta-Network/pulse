@@ -35,7 +35,7 @@ tmp_dir=$(mktemp -d)
 fqdn=$(hostname -f)
 domain=$(hostname -d)
 
-for watched_path in /etc/nginx/sites-available; do
+for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
   if curl \
     -sLo ${tmp_dir}/sites-available.json \
     https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
@@ -51,16 +51,61 @@ for watched_path in /etc/nginx/sites-available; do
       if [ "${gh_sha}" = "${fs_sha}" ]; then
         validated+=( $(basename ${fs_path}) )
       else
+
+        # pre change action
+        case ${watched_path} in
+          /usr/lib/systemd/system)
+            sudo systemctl stop $(basename ${fs_path})
+            ;;
+          *)
+            ;;
+        esac
+
         if sudo curl \
           -sLo ${fs_path} \
-          https://raw.githubusercontent.com/Manta-Network/pulse/main/${gh_path} \
-          && sudo systemctl reload nginx.service; then
+          https://raw.githubusercontent.com/Manta-Network/pulse/main/${gh_path}; then
+
+          # post change success action
+          case ${watched_path} in
+            /etc/nginx/sites-available)
+              sudo systemctl reload nginx.service
+              ;;
+            /usr/lib/systemd/system)
+              sudo systemctl daemon-reload
+              ;;
+            *)
+              ;;
+          esac
+
           updated+=( $(basename ${fs_path}) )
           #echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
         else
+
+          # post change failure action
+          case ${watched_path} in
+            /etc/nginx/sites-available)
+              sudo systemctl reload nginx.service
+              ;;
+            /usr/lib/systemd/system)
+              sudo systemctl daemon-reload
+              ;;
+            *)
+              ;;
+          esac
+
           errored+=( $(basename ${fs_path}) )
           echo "${fs_path} has failed to update and does not match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
         fi
+
+        # post change action
+        case ${watched_path} in
+          /usr/lib/systemd/system)
+            sudo systemctl start $(basename ${fs_path})
+            ;;
+          *)
+            ;;
+        esac
+
       fi
     done
     echo "${watched_path} updated: ${#updated[@]}, validated: ${#validated[@]}, errored: ${#errored[@]}"

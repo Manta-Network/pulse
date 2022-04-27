@@ -1,0 +1,34 @@
+[Unit]
+Description=Calamari Parachain Node
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/calamari \
+    --name '🦑 jalapeno' \
+    --chain /usr/share/substrate/calamari.json \
+    --base-path /var/lib/substrate \
+    --pruning archive \
+    --port 31333 \
+    --ws-port 9144 \
+    --ws-max-connections 1000 \
+    --rpc-port 9133 \
+    --rpc-cors all \
+    --rpc-methods safe \
+    --state-cache-size 0 \
+    --bootnodes \
+        /dns/crispy.calamari.systems/tcp/30333/p2p/12D3KooWNE4LBfkYB2B7D4r9vL54YMMGsfAsXdkhWfBw8VHJSEQc \
+        /dns/crunchy.calamari.systems/tcp/30333/p2p/12D3KooWL3ELxcoMGA6han3wPQoym5DKbYHqkWkCuqyjaCXpyJTt \
+        /dns/hotdog.calamari.systems/tcp/30333/p2p/12D3KooWBdto53HnArmLdtf2RXzNWti7hD5mML7DWGZPD8q4cywv \
+        /dns/tasty.calamari.systems/tcp/30333/p2p/12D3KooWGs2hfnRQ3Y2eAoUyWKUL3g7Jmcsf8FpyhVYeNpXeBMSu \
+        /dns/tender.calamari.systems/tcp/30333/p2p/12D3KooWNXZeUSEKRPsp1yiDH99qSVawQSWHqG4umPjgHsn1joci \
+    -- \
+    --chain /usr/share/substrate/kusama.json \
+    --telemetry-url 'wss://api.telemetry.manta.systems/submit/ 0'
+User=manta
+Group=manta
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target
