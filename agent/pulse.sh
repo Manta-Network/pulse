@@ -168,7 +168,7 @@ if curl \
       sudo=$(_decode_property ${x} .sudo)
       system=$(_decode_property ${x} .system)
       no_create_home=$(_decode_property ${x} .no_create_home)
-      keys=$(_decode_property ${x} .ssh_authorized_keys)
+      keys=$(_decode_property ${x} '.ssh_authorized_keys[]')
       homedir=$(_decode_property ${x} .homedir)
       if [ "${homedir}" = null ]; then
         homedir=/home/${name}
