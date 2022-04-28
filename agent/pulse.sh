@@ -77,7 +77,7 @@ for watched_path in ${watched_paths[@]}; do
       gh_sha=$(_decode_property ${x} .sha)
       gh_path=$(_decode_property ${x} .path)
       fs_path=${gh_path/"config/${domain}/${fqdn}"/}
-      fs_sha=$(git hash-object ${fs_path})
+      fs_sha=$(sudo git hash-object ${fs_path})
       if [ "${gh_sha}" = "${fs_sha}" ]; then
         validated+=( ${fs_path} )
       else
