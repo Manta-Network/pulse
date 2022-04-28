@@ -31,11 +31,17 @@ _decode_property() {
 
 echo "pulse run started"
 
+declare -a watched_paths=()
+watched_paths+=( /usr/share/keyrings )
+watched_paths+=( /etc/apt/sources.list.d )
+watched_paths+=( /etc/nginx/sites-available )
+watched_paths+=( /usr/lib/systemd/system )
+
 tmp_dir=$(mktemp -d)
 fqdn=$(hostname -f)
 domain=$(hostname -d)
 
-for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
+for watched_path in ${watched_paths[@]}; do
   if curl \
     -sLo ${tmp_dir}/sites-available.json \
     https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
@@ -67,6 +73,9 @@ for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
 
           # post change success action
           case ${watched_path} in
+            /etc/apt/sources.list.d)
+              sudo apt update
+              ;;
             /etc/nginx/sites-available)
               sudo systemctl reload nginx.service
               ;;
@@ -76,6 +85,7 @@ for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
             *)
               ;;
           esac
+          # end post change success action
 
           updated+=( $(basename ${fs_path}) )
           #echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
@@ -92,6 +102,7 @@ for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
             *)
               ;;
           esac
+          # end post change failure action
 
           errored+=( $(basename ${fs_path}) )
           echo "${fs_path} has failed to update and does not match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
@@ -105,6 +116,7 @@ for watched_path in /etc/nginx/sites-available /usr/lib/systemd/system; do
           *)
             ;;
         esac
+        # end post change action
 
       fi
     done
