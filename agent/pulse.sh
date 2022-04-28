@@ -180,7 +180,9 @@ if curl \
         fi
       else
         # create group if its name is distinct from username and doesn't already exist
-        [ "${group}" != "${name}" ] && getent group ${group} > /dev/null 2>&1 || sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
+        if [ "${group}" != "${name}" ] && ! getent group ${group} > /dev/null 2>&1; then
+          sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
+        fi
         if sudo useradd \
           $([ "${no_create_home}" != true ] && echo "--create-home") \
           $([ "${no_create_home}" != true ] && echo "--home-dir ${homedir}") \
