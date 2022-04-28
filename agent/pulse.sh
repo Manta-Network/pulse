@@ -169,6 +169,8 @@ if curl \
       system=$(_decode_property ${x} .system)
       no_create_home=$(_decode_property ${x} .no_create_home)
       keys=$(_decode_property ${x} .ssh_authorized_keys)
+      homedir=$(_decode_property ${x} .homedir)
+      [ "homedir" = null ] && homedir=/home/${name}
 
       if getent passwd ${name} > /dev/null 2>&1 && getent group ${group} > /dev/null 2>&1; then
         validated+=( ${name} )
@@ -177,9 +179,11 @@ if curl \
           sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
         fi
       else
+        # create group if its name is distinct from username and doesn't already exist
         [ "${group}" != "${name}" ] && getent group ${group} > /dev/null 2>&1 || sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
         if sudo useradd \
           $([ "${no_create_home}" != true ] && echo "--create-home") \
+          $([ "${no_create_home}" != true ] && echo "--home-dir ${homedir}") \
           $([ "${group}" != "${name}" ] && echo "--gid ${group}") \
           $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
