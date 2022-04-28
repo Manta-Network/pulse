@@ -188,7 +188,6 @@ if curl \
           $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
           $([ "${sudo}" = true ] && echo "--groups ${sudo_group}") \
-          $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
           ${name}; then
           created+=( ${name} )
           if [ -n "${keys}" ]; then
