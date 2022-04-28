@@ -18,6 +18,7 @@ if ! getent passwd pulse > /dev/null 2>&1; then
     pulse
   echo "useradd pulse, result: $?"
 fi
+sudo sh -c 'echo "pulse ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-pulse-daemon'
 
 systemctl is-active --quiet pulse-agent.service && sudo systemctl stop pulse-agent.service
 sudo curl \

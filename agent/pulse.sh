@@ -79,7 +79,7 @@ for watched_path in ${watched_paths[@]}; do
       fs_path=${gh_path/"config/${domain}/${fqdn}"/}
       fs_sha=$(git hash-object ${fs_path})
       if [ "${gh_sha}" = "${fs_sha}" ]; then
-        validated+=( $(basename ${fs_path}) )
+        validated+=( ${fs_path} )
       else
 
         # pre change action
@@ -111,7 +111,7 @@ for watched_path in ${watched_paths[@]}; do
           esac
           # end post change success action
 
-          updated+=( $(basename ${fs_path}) )
+          updated+=( ${fs_path} )
           #echo "${fs_path} has been updated to match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
         else
 
@@ -128,7 +128,7 @@ for watched_path in ${watched_paths[@]}; do
           esac
           # end post change failure action
 
-          errored+=( $(basename ${fs_path}) )
+          errored+=( ${fs_path} )
           echo "${fs_path} has failed to update and does not match https://github.com/Manta-Network/pulse/blob/main/${gh_path}"
         fi
 
