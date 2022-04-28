@@ -170,7 +170,9 @@ if curl \
       no_create_home=$(_decode_property ${x} .no_create_home)
       keys=$(_decode_property ${x} .ssh_authorized_keys)
       homedir=$(_decode_property ${x} .homedir)
-      [ "homedir" = null ] && homedir=/home/${name}
+      if [ "homedir" = null ]; then
+        homedir=/home/${name}
+      fi
 
       if getent passwd ${name} > /dev/null 2>&1 && getent group ${group} > /dev/null 2>&1; then
         validated+=( ${name} )
@@ -190,6 +192,7 @@ if curl \
           $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
           $([ "${sudo}" = true ] && echo "--groups ${sudo_group}") \
+          $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
           ${name}; then
           created+=( ${name} )
           if [ -n "${keys}" ]; then
