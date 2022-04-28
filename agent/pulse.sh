@@ -9,10 +9,12 @@ else
     ubuntu)
       package_manager=apt
       package_resolver="dpkg -l"
+      sudo_group=sudo
       ;;
     fedora)
       package_manager=dnf
       package_resolver="dnf list"
+      sudo_group=wheel
       ;;
     *)
       echo "pulse run aborted. unsupported os."
@@ -60,6 +62,9 @@ fqdn=$(hostname -f)
 domain=$(hostname -d)
 
 for watched_path in ${watched_paths[@]}; do
+  # if a watched path's existence relies on installation of a package (ie: creation of
+  # /etc/nginx/sites-available relies on installation of nginx), we simply ignore that
+  # path until after the directory has been created by the package installer.
   if [ -d ${watched_path} ] && curl \
     -sLo ${tmp_dir}/watched-paths.json \
     https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
@@ -138,7 +143,7 @@ for watched_path in ${watched_paths[@]}; do
 
       fi
     done
-    echo "${watched_path} updated: ${#updated[@]}, validated: ${#validated[@]}, errored: ${#errored[@]}"
+    echo "${watched_path} validated: ${#validated[@]}, updated: ${#updated[@]}, errored: ${#errored[@]}"
     unset validated
     unset updated
     unset errored
@@ -149,23 +154,70 @@ done
 if curl \
   -sLo ${tmp_dir}/cloud-config.yml \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/config/${domain}/${fqdn}/cloud-config.yml; then
-  declare -a validated=()
-  declare -a installed=()
-  declare -a errored=()
+
+  users_as_base64=( $(yq -r '.users[] | select(. != "default") | @base64' ${tmp_dir}/cloud-config.yml) )
+  if (( ${#users_as_base64[@]} )); then
+    declare -a validated=()
+    declare -a created=()
+    declare -a errored=()
+    for x in ${users_as_base64[@]}; do
+      name=$(_decode_property ${x} .name)
+      group=$(_decode_property ${x} .primary_group)
+      gecos=$(_decode_property ${x} .gecos)
+      sudo=$(_decode_property ${x} .sudo)
+      system=$(_decode_property ${x} .system)
+      keys=$(_decode_property ${x} .ssh_authorized_keys)
+
+      if getent passwd ${name} > /dev/null 2>&1 && getent group ${group} > /dev/null 2>&1; then
+        validated+=( ${name} )
+        if [ -n "${keys}" ]; then
+          sudo -H -u ${name} mkdir -p /home/${name}/.ssh
+          sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
+        fi
+      else
+        getent group ${group} > /dev/null 2>&1 || sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
+        if sudo useradd \
+          --gid ${group} \
+          $([ "${system}" = true ] && echo "--system") \
+          $([ "${sudo}" = true ] && echo "--groups ${sudo_group}") \
+          $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
+          ${name}; then
+          created+=( ${name} )
+          if [ -n "${keys}" ]; then
+            sudo -H -u ${name} mkdir -p /home/${name}/.ssh
+            sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
+          fi
+        else
+          errored+=( ${name} )
+        fi
+      fi
+    done
+    echo "users validated: ${#validated[@]}, created: ${#created[@]}, errored: ${#errored[@]}"
+    unset validated
+    unset created
+    unset errored
+  fi
+
   packages=( $(yq -r '.packages[]' ${tmp_dir}/cloud-config.yml) )
-  for package in ${packages[@]}; do
-    if ${package_resolver} ${package} &>/dev/null; then
-      validated+=( ${package} )
-    elif sudo ${package_manager} install -y ${package}; then
-      installed+=( ${package} )
-    else
-      errored+=( ${package} )
-    fi
-  done
-  echo "packages installed: ${#installed[@]}, validated: ${#validated[@]}, errored: ${#errored[@]}"
-  unset validated
-  unset installed
-  unset errored
+  if (( ${#packages[@]} )); then
+    declare -a validated=()
+    declare -a installed=()
+    declare -a errored=()
+    for package in ${packages[@]}; do
+      if ${package_resolver} ${package} &>/dev/null; then
+        validated+=( ${package} )
+      elif sudo ${package_manager} install -y ${package}; then
+        installed+=( ${package} )
+      else
+        errored+=( ${package} )
+      fi
+    done
+    echo "packages validated: ${#validated[@]}, installed: ${#installed[@]}, errored: ${#errored[@]}"
+    unset validated
+    unset installed
+    unset errored
+  fi
+
 fi
 rm -rf ${tmp_dir}
 echo "pulse run completed"

@@ -1,5 +1,25 @@
 #cloud-config
 
+system_info:
+  default_user:
+    name: mobula
+    gecos: mobula
+    primary_group: mobula
+    ssh_authorized_keys:
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIBSdR9Wy3S4L+Zdcu8waYe5vW2VzMoi+QafgV3IIFj
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy1g0w5oEp71todJj1IiA1DU1E9mV7WNz4S2R7IxDxN
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq
+
+users:
+- default
+-
+  name: grenade
+  primary_group: grenade
+  gecos: rob thijssen
+  sudo: true
+  ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj rob thijssen <rob@manta.network>
+
 packages:
 - certbot
 - jq
