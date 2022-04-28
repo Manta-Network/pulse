@@ -21,6 +21,9 @@ else
   esac
 fi
 
+sudo mkdir -p /home/$(whoami)/.cache/pip
+sudo chown -R $(whoami):$(whoami) /home/$(whoami)
+
 # os package manager packages depended on by this script
 declare -a pm_packages=()
 pm_packages+=( curl )
@@ -144,7 +147,7 @@ for watched_path in ${watched_paths[@]}; do
   fi
 done
 
-
+# https://raw.githubusercontent.com/Manta-Network/pulse/main/config/calamari.systems/jalapeno.calamari.systems/cloud-config.yml
 if curl \
   -sLo ${tmp_dir}/cloud-config.yml \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/config/${domain}/${fqdn}/cloud-config.yml; then
