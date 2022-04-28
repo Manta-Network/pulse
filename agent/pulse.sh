@@ -38,6 +38,7 @@ for package in ${pm_packages[@]}; do
   ${package_resolver} ${package} &>/dev/null || sudo ${package_manager} install -y ${package}
 done
 
+export PATH=${PATH}:${HOME}/.local/bin
 for package in ${pip_packages[@]}; do
   pip list --uptodate | grep "${package} " || pip install --upgrade ${package}
 done
