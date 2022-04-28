@@ -167,6 +167,7 @@ if curl \
       gecos=$(_decode_property ${x} .gecos)
       sudo=$(_decode_property ${x} .sudo)
       system=$(_decode_property ${x} .system)
+      no_create_home=$(_decode_property ${x} .no_create_home)
       keys=$(_decode_property ${x} .ssh_authorized_keys)
 
       if getent passwd ${name} > /dev/null 2>&1 && getent group ${group} > /dev/null 2>&1; then
@@ -176,9 +177,11 @@ if curl \
           sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
         fi
       else
-        getent group ${group} > /dev/null 2>&1 || sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
+        [ "${group}" != "${name}" ] && getent group ${group} > /dev/null 2>&1 || sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
         if sudo useradd \
-          --gid ${group} \
+          $([ "${no_create_home}" != true ] && echo "--create-home") \
+          $([ "${group}" != "${name}" ] && echo "--gid ${group}") \
+          $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
           $([ "${sudo}" = true ] && echo "--groups ${sudo_group}") \
           $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
