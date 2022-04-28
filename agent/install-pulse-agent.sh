@@ -12,7 +12,7 @@ if ! getent passwd pulse > /dev/null 2>&1; then
     --system \
     --gid pulse \
     --groups $(getent group wheel > /dev/null 2>&1 && echo wheel || echo sudo) \
-    --no-create-home \
+    --create-home \
     --shell /sbin/nologin \
     --comment 'pulse agent service account' \
     pulse

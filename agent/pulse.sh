@@ -21,9 +21,6 @@ else
   esac
 fi
 
-sudo mkdir -p /home/$(whoami)/.cache/pip
-sudo chown -R $(whoami):$(whoami) /home/$(whoami)
-
 # os package manager packages depended on by this script
 declare -a pm_packages=()
 pm_packages+=( curl )
