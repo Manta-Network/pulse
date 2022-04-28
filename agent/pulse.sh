@@ -8,9 +8,11 @@ else
   case ${ID} in
     ubuntu)
       package_manager=apt
+      package_resolver="dpkg -l"
       ;;
     fedora)
       package_manager=dnf
+      package_resolver="dnf list"
       ;;
     *)
       echo "pulse run aborted. unsupported os."
@@ -19,10 +21,25 @@ else
   esac
 fi
 
-for package in curl git jq; do
-  if ! command -v ${package} &>/dev/null; then
-    sudo ${package_manager} install -y ${package}
-  fi
+# os package manager packages depended on by this script
+declare -a pm_packages=()
+pm_packages+=( curl )
+pm_packages+=( git )
+pm_packages+=( jq )
+pm_packages+=( python3 )
+pm_packages+=( python3-pip )
+
+# pip packages depended on by this script
+declare -a pip_packages=()
+pip_packages+=( pip )
+pip_packages+=( yq )
+
+for package in ${pm_packages[@]}; do
+  ${package_resolver} ${package} &>/dev/null || sudo ${package_manager} install -y ${package}
+done
+
+for package in ${pip_packages[@]}; do
+  pip list --uptodate | grep "${package} " || pip install --upgrade ${package}
 done
 
 _decode_property() {
@@ -42,10 +59,10 @@ fqdn=$(hostname -f)
 domain=$(hostname -d)
 
 for watched_path in ${watched_paths[@]}; do
-  if curl \
-    -sLo ${tmp_dir}/sites-available.json \
+  if [ -d ${watched_path} ] && curl \
+    -sLo ${tmp_dir}/watched-paths.json \
     https://api.github.com/repos/Manta-Network/pulse/contents/config/${domain}/${fqdn}${watched_path}; then
-    list=( $(jq -r '.[] | @base64' ${tmp_dir}/sites-available.json) )
+    list=( $(jq -r '.[] | @base64' ${tmp_dir}/watched-paths.json) )
     declare -a validated=()
     declare -a updated=()
     declare -a errored=()
@@ -124,10 +141,30 @@ for watched_path in ${watched_paths[@]}; do
     unset validated
     unset updated
     unset errored
-  else
-    rm -f ${tmp_dir}/sites-available.json
   fi
 done
 
+
+if curl \
+  -sLo ${tmp_dir}/cloud-config.yml \
+  https://raw.githubusercontent.com/Manta-Network/pulse/main/config/${domain}/${fqdn}/cloud-config.yml; then
+  declare -a validated=()
+  declare -a installed=()
+  declare -a errored=()
+  packages=( $(yq -r '.packages[]' ${tmp_dir}/cloud-config.yml) )
+  for package in ${packages[@]}; do
+    if ${package_resolver} ${package} &>/dev/null; then
+      validated+=( ${package} )
+    elif sudo ${package_manager} install -y ${package}; then
+      installed+=( ${package} )
+    else
+      errored+=( ${package} )
+    fi
+  done
+  echo "packages installed: ${#installed[@]}, validated: ${#validated[@]}, errored: ${#errored[@]}"
+  unset validated
+  unset installed
+  unset errored
+fi
 rm -rf ${tmp_dir}
 echo "pulse run completed"

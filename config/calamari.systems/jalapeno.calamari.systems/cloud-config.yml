@@ -1,0 +1,9 @@
+#cloud-config
+
+packages:
+- certbot
+- jq
+- manta
+- nginx
+- python3-certbot-nginx
+- zabbix-agent2
