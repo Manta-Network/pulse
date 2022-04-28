@@ -52,6 +52,7 @@ _decode_property() {
 echo "pulse run started"
 
 declare -a watched_paths=()
+watched_paths+=( /etc/sudoers.d )
 watched_paths+=( /usr/share/keyrings )
 watched_paths+=( /etc/apt/sources.list.d )
 watched_paths+=( /etc/nginx/sites-available )
