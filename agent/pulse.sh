@@ -86,7 +86,7 @@ for watched_path in ${watched_paths[@]}; do
       gh_sha=$(_decode_property ${x} .sha)
       gh_path=$(_decode_property ${x} .path)
       fs_path=${gh_path/"config/${domain}/${fqdn}"/}
-      fs_sha=$(sudo git hash-object ${fs_path})
+      fs_sha=$(sudo git hash-object ${fs_path} 2>/dev/null)
       if [ "${gh_sha}" = "${fs_sha}" ]; then
         validated+=( ${fs_path} )
       else
@@ -145,6 +145,9 @@ for watched_path in ${watched_paths[@]}; do
         case ${watched_path} in
           /etc/systemd/system|/usr/lib/systemd/system)
             sudo systemctl start $(basename ${fs_path})
+            ;;
+          /usr/local/bin)
+            sudo chmod +x ${fs_path}
             ;;
           *)
             ;;
