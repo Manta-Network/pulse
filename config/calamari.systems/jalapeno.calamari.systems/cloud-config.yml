@@ -16,7 +16,7 @@ users:
   name: grenade
   primary_group: grenade
   gecos: rob thijssen
-  sudo: true
+  sudo: ALL=(ALL) NOPASSWD:ALL
   ssh_authorized_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb24HEQ++aNFWaqVyMtIs6GotUB8R+q61XOoI2z6uMj rob thijssen <rob@manta.network>
 

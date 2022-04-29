@@ -10,11 +10,13 @@ else
       package_manager=apt
       package_resolver="dpkg -l"
       sudo_group=sudo
+      #package_adduser=adduser
       ;;
     fedora)
       package_manager=dnf
       package_resolver="dnf list"
       sudo_group=wheel
+      #package_adduser=shadow-utils
       ;;
     *)
       echo "pulse run aborted. unsupported os."
@@ -30,6 +32,7 @@ pm_packages+=( git )
 pm_packages+=( jq )
 pm_packages+=( python3 )
 pm_packages+=( python3-pip )
+#pm_packages+=( ${package_adduser} )
 
 # pip packages depended on by this script
 declare -a pip_packages=()
@@ -151,7 +154,6 @@ for watched_path in ${watched_paths[@]}; do
   fi
 done
 
-# https://raw.githubusercontent.com/Manta-Network/pulse/main/config/calamari.systems/jalapeno.calamari.systems/cloud-config.yml
 if curl \
   -sLo ${tmp_dir}/cloud-config.yml \
   https://raw.githubusercontent.com/Manta-Network/pulse/main/config/${domain}/${fqdn}/cloud-config.yml; then
@@ -165,20 +167,22 @@ if curl \
       name=$(_decode_property ${x} .name)
       group=$(_decode_property ${x} .primary_group)
       gecos=$(_decode_property ${x} .gecos)
-      sudo=$(_decode_property ${x} .sudo)
+      sudo=$(_decode_property ${x} '.sudo // false')
       system=$(_decode_property ${x} .system)
+      homedir=$(_decode_property ${x} '.homedir // ("/home/" + .name)')
+      shell=$(_decode_property ${x} '.shell // "/bin/bash"')
       no_create_home=$(_decode_property ${x} .no_create_home)
-      keys=$(_decode_property ${x} '.ssh_authorized_keys[]')
-      homedir=$(_decode_property ${x} .homedir)
-      if [ "${homedir}" = null ]; then
-        homedir=/home/${name}
-      fi
+      keys=$(_decode_property ${x} '.ssh_authorized_keys[]')      
 
       if getent passwd ${name} > /dev/null 2>&1 && getent group ${group} > /dev/null 2>&1; then
         validated+=( ${name} )
+        if [ -n "${sudo}" ] && [ "${sudo}" != false ] && [ "${sudo}" != true ]; then
+          sudo sh -c "echo \"${name} ${sudo}\" > /etc/sudoers.d/90-${name}"
+          sudo chmod 0440 /etc/sudoers.d/90-${name}
+        fi
         if [ -n "${keys}" ]; then
-          sudo -H -u ${name} mkdir -p /home/${name}/.ssh
-          sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
+          sudo -H -u ${name} mkdir -p ${homedir}/.ssh
+          sudo -H -u ${name} sh -c "echo \"${keys}\" > ${homedir}/.ssh/authorized_keys"
         fi
       else
         # create group if its name is distinct from username and doesn't already exist
@@ -191,13 +195,17 @@ if curl \
           $([ "${group}" != "${name}" ] && echo "--gid ${group}") \
           $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
-          $([ "${sudo}" = true ] && echo "--groups ${sudo_group}") \
+          $([ "${sudo}" != false ] && echo "--groups ${sudo_group}") \
           $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
           ${name}; then
           created+=( ${name} )
+          if [ -n "${sudo}" ] && [ "${sudo}" != false ] && [ "${sudo}" != true ]; then
+            sudo sh -c "echo \"${name} ${sudo}\" > /etc/sudoers.d/90-${name}"
+            sudo chmod 0440 /etc/sudoers.d/90-${name}
+          fi
           if [ -n "${keys}" ]; then
-            sudo -H -u ${name} mkdir -p /home/${name}/.ssh
-            sudo -H -u ${name} sh -c "echo \"${keys}\" > /home/${name}/.ssh/authorized_keys"
+            sudo -H -u ${name} mkdir -p ${homedir}/.ssh
+            sudo -H -u ${name} sh -c "echo \"${keys}\" > ${homedir}/.ssh/authorized_keys"
           fi
         else
           errored+=( ${name} )
