@@ -1,0 +1,20 @@
+[Unit]
+Description=pulse configuration agent
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=node_version=v16.15.0
+Environment=sidecar_path=/home/mobula/sidecar
+WorkingDirectory=/home/mobula/sidecar
+User=mobula
+Group=mobula
+Type=simple
+ExecStartPre=/usr/local/bin/sidecar-update.sh
+ExecStart=/home/mobula/sidecar/node_modules/.bin/substrate-api-sidecar
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+

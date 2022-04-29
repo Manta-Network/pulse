@@ -63,6 +63,7 @@ watched_paths+=( /etc/sudoers.d )
 watched_paths+=( /usr/share/keyrings )
 watched_paths+=( /etc/apt/sources.list.d )
 watched_paths+=( /etc/nginx/sites-available )
+watched_paths+=( /etc/systemd/system )
 watched_paths+=( /usr/lib/systemd/system )
 
 tmp_dir=$(mktemp -d)
@@ -91,7 +92,7 @@ for watched_path in ${watched_paths[@]}; do
 
         # pre change action
         case ${watched_path} in
-          /usr/lib/systemd/system)
+          /etc/systemd/system|/usr/lib/systemd/system)
             sudo systemctl stop $(basename ${fs_path})
             ;;
           *)
@@ -110,7 +111,7 @@ for watched_path in ${watched_paths[@]}; do
             /etc/nginx/sites-available)
               sudo systemctl reload nginx.service
               ;;
-            /usr/lib/systemd/system)
+            /etc/systemd/system|/usr/lib/systemd/system)
               sudo systemctl daemon-reload
               ;;
             *)
@@ -127,7 +128,7 @@ for watched_path in ${watched_paths[@]}; do
             /etc/nginx/sites-available)
               sudo systemctl reload nginx.service
               ;;
-            /usr/lib/systemd/system)
+            /etc/systemd/system|/usr/lib/systemd/system)
               sudo systemctl daemon-reload
               ;;
             *)
@@ -141,7 +142,7 @@ for watched_path in ${watched_paths[@]}; do
 
         # post change action
         case ${watched_path} in
-          /usr/lib/systemd/system)
+          /etc/systemd/system|/usr/lib/systemd/system)
             sudo systemctl start $(basename ${fs_path})
             ;;
           *)
