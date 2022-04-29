@@ -115,6 +115,9 @@ for watched_path in ${watched_paths[@]}; do
             /etc/systemd/system|/usr/lib/systemd/system)
               sudo systemctl daemon-reload
               ;;
+            /usr/local/bin)
+              sudo chmod a+x ${fs_path}
+              ;;
             *)
               ;;
           esac
@@ -145,9 +148,6 @@ for watched_path in ${watched_paths[@]}; do
         case ${watched_path} in
           /etc/systemd/system|/usr/lib/systemd/system)
             sudo systemctl start $(basename ${fs_path})
-            ;;
-          /usr/local/bin)
-            sudo chmod +x ${fs_path}
             ;;
           *)
             ;;
