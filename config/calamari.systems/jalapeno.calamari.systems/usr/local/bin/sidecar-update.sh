@@ -10,10 +10,11 @@ if [[ -z "${sidecar_path}" ]]; then
   exit 1
 fi
 
+export NVM_DIR=${HOME}/.nvm
+
 if [ ! -f /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn ]; then
   latest_nvm_tag=$(curl -sL https://api.github.com/repos/nvm-sh/nvm/releases | jq -r '[ .[] | .tag_name ] | .[0]')
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${latest_nvm_tag}/install.sh | bash
-  export NVM_DIR=${HOME}/.nvm
   source ${NVM_DIR}/nvm.sh
   source ${NVM_DIR}/bash_completion
   nvm install ${node_version}
@@ -32,3 +33,5 @@ else
   /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn --cwd ${sidecar_path} add @substrate/api-sidecar
   echo "installed @substrate/api-sidecar ${latest_sidecar_tag} to ${sidecar_path}"
 fi
+
+export PATH=${NVM_DIR}/versions/node/${node_version}/bin:${PATH}
