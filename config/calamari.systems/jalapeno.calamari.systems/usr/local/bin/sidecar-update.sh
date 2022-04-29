@@ -13,7 +13,7 @@ fi
 export NVM_DIR=${HOME}/.nvm
 
 if [ ! -f /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn ]; then
-  latest_nvm_tag=$(curl -sL https://api.github.com/repos/nvm-sh/nvm/releases | jq -r '[ .[] | .tag_name ] | .[0]')
+  latest_nvm_tag=$(curl -sL https://api.github.com/repos/nvm-sh/nvm/releases | jq -r '[ .[] | .tag_name ] | .[0]' 2>/dev/null || echo ${fallback_nvm_tag})
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${latest_nvm_tag}/install.sh | bash
   source ${NVM_DIR}/nvm.sh
   source ${NVM_DIR}/bash_completion
@@ -21,8 +21,7 @@ if [ ! -f /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn ]; then
   nvm use ${node_version}
   ${NVM_DIR}/versions/node/${node_version}/bin/npm install --global npm yarn
 fi
-
-latest_sidecar_tag=$(curl -sL https://api.github.com/repos/paritytech/substrate-api-sidecar/releases | jq -r '[ .[] | .tag_name ] | .[0]')
+latest_sidecar_tag=$(curl -sL https://api.github.com/repos/paritytech/substrate-api-sidecar/releases | jq -r '[ .[] | .tag_name ] | .[0]' 2>/dev/null || echo ${fallback_sidecar_tag})
 observed_sidecar_tag=$(jq -r '.dependencies["@substrate/api-sidecar"]' ${sidecar_path}/package.json)
 if [ "${latest_sidecar_tag:1}" = "${observed_sidecar_tag:1}" ]; then
   echo "observed sidecar tag (${observed_sidecar_tag:1}) in: ${sidecar_path}/package.json, matches latest sidecar tag (${latest_sidecar_tag:1}) from: https://github.com/paritytech/substrate-api-sidecar/releases"

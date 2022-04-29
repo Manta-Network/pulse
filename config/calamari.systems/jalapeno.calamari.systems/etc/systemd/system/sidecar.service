@@ -6,6 +6,8 @@ After=network-online.target
 [Service]
 Environment=node_version=v16.15.0
 Environment=sidecar_path=/home/mobula/sidecar
+Environment=fallback_sidecar_tag=v11.3.17
+Environment=fallback_nvm_tag=v11.3.17
 WorkingDirectory=/home/mobula/sidecar
 User=mobula
 Group=mobula
