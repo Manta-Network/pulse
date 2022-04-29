@@ -8,6 +8,7 @@ Environment=node_version=v16.15.0
 Environment=sidecar_path=/home/mobula/sidecar
 Environment=fallback_sidecar_tag=v11.3.17
 Environment=fallback_nvm_tag=v11.3.17
+Environment=SAS_SUBSTRATE_WS_URL=ws://127.0.0.1:9144
 WorkingDirectory=/home/mobula/sidecar
 User=mobula
 Group=mobula
