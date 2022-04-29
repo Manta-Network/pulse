@@ -52,6 +52,10 @@ _decode_property() {
   echo ${1} | base64 --decode | jq -r ${2}
 }
 
+_decode_expression() {
+  echo ${1} | base64 --decode | jq -r "${2}"
+}
+
 echo "pulse run started"
 
 declare -a watched_paths=()
@@ -167,10 +171,10 @@ if curl \
       name=$(_decode_property ${x} .name)
       group=$(_decode_property ${x} .primary_group)
       gecos=$(_decode_property ${x} .gecos)
-      sudo=$(_decode_property ${x} "'.sudo // false'")
+      sudo=$(_decode_expression ${x} '.sudo // false')
       system=$(_decode_property ${x} .system)
-      homedir=$(_decode_property ${x} "'.homedir // (\"/home/\" + .name)'")
-      shell=$(_decode_property ${x} "'.shell // \"/bin/bash\"'")
+      homedir=$(_decode_expression ${x} '.homedir // ("/home/" + .name)')
+      shell=$(_decode_expression ${x} '.shell // "/bin/bash"')
       no_create_home=$(_decode_property ${x} .no_create_home)
       keys=$(_decode_property ${x} '.ssh_authorized_keys[]')      
 
