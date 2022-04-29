@@ -21,6 +21,7 @@ if [ ! -f /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn ]; then
   nvm use ${node_version}
   ${NVM_DIR}/versions/node/${node_version}/bin/npm install --global npm yarn
 fi
+export PATH=${NVM_DIR}/versions/node/${node_version}/bin:${PATH}
 latest_sidecar_tag=$(curl -sL https://api.github.com/repos/paritytech/substrate-api-sidecar/releases | jq -r '[ .[] | .tag_name ] | .[0]' 2>/dev/null || echo ${fallback_sidecar_tag})
 [ -f ${sidecar_path}/package.json ] && observed_sidecar_tag=$(jq -r '.dependencies["@substrate/api-sidecar"]' ${sidecar_path}/package.json)
 if [ -f ${sidecar_path}/package.json ] && [ "${latest_sidecar_tag:1}" = "${observed_sidecar_tag:1}" ]; then
@@ -29,8 +30,10 @@ else
   echo "observed sidecar tag (${observed_sidecar_tag:1}) in: ${sidecar_path}/package.json, does not match latest sidecar tag (${latest_sidecar_tag:1}) from: https://github.com/paritytech/substrate-api-sidecar/releases"
   rm -rf ${sidecar_path}/*
   mkdir -p ${sidecar_path}/logs
-  ${NVM_DIR}/versions/node/${node_version}/bin/yarn --cwd ${sidecar_path} add @substrate/api-sidecar
-  echo "installed @substrate/api-sidecar ${latest_sidecar_tag} to ${sidecar_path}"
+  if ${NVM_DIR}/versions/node/${node_version}/bin/yarn --cwd ${sidecar_path} add @substrate/api-sidecar && [ -f ${sidecar_path}/node_modules/.bin/substrate-api-sidecar ]; then
+    echo "installed @substrate/api-sidecar ${latest_sidecar_tag} to ${sidecar_path}"
+  else
+    echo "failed to install @substrate/api-sidecar ${latest_sidecar_tag} to ${sidecar_path}"
+    exit 1
+  fi
 fi
-
-export PATH=${NVM_DIR}/versions/node/${node_version}/bin:${PATH}
