@@ -29,7 +29,7 @@ else
   echo "observed sidecar tag (${observed_sidecar_tag:1}) in: ${sidecar_path}/package.json, does not match latest sidecar tag (${latest_sidecar_tag:1}) from: https://github.com/paritytech/substrate-api-sidecar/releases"
   rm -rf ${sidecar_path}/*
   mkdir -p ${sidecar_path}/logs
-  /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn --cwd ${sidecar_path} add @substrate/api-sidecar
+  ${NVM_DIR}/versions/node/${node_version}/bin/yarn --cwd ${sidecar_path} add @substrate/api-sidecar
   echo "installed @substrate/api-sidecar ${latest_sidecar_tag} to ${sidecar_path}"
 fi
 
