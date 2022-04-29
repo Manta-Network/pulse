@@ -200,12 +200,12 @@ if curl \
         fi
         if sudo useradd \
           $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
-          $([ "${no_create_home}" != true ] && echo "--create-home") \
           $([ "${no_create_home}" != true ] && echo "--home-dir ${homedir}") \
           $([ "${group}" != "${name}" ] && echo "--gid ${group}") \
-          $([ "${group}" = "${name}" ] && echo "--user-group") \
-          $([ "${system}" = true ] && echo "--system") \
           $([ "${sudo}" != false ] && echo "--groups ${sudo_group}") \
+          $([ "${no_create_home}" != true ] && echo "--create-home") \
+          $([ "${system}" = true ] && echo "--system") \
+          $([ "${group}" = "${name}" ] && echo "--user-group") \
           ${name}; then
           created+=( ${name} )
           if [ -n "${sudo}" ] && [ "${sudo}" != false ] && [ "${sudo}" != true ]; then
