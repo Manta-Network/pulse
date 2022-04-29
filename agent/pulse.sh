@@ -61,6 +61,7 @@ echo "pulse run started"
 declare -a watched_paths=()
 watched_paths+=( /etc/sudoers.d )
 watched_paths+=( /usr/share/keyrings )
+watched_paths+=( /usr/local/bin )
 watched_paths+=( /etc/apt/sources.list.d )
 watched_paths+=( /etc/nginx/sites-available )
 watched_paths+=( /etc/systemd/system )
@@ -195,13 +196,13 @@ if curl \
           sudo groupadd $([ "${system}" = true ] && echo "--system") ${group}
         fi
         if sudo useradd \
+          $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
           $([ "${no_create_home}" != true ] && echo "--create-home") \
           $([ "${no_create_home}" != true ] && echo "--home-dir ${homedir}") \
           $([ "${group}" != "${name}" ] && echo "--gid ${group}") \
           $([ "${group}" = "${name}" ] && echo "--user-group") \
           $([ "${system}" = true ] && echo "--system") \
           $([ "${sudo}" != false ] && echo "--groups ${sudo_group}") \
-          $([ "${gecos}" = null ] || echo "--comment \"${gecos}\"") \
           ${name}; then
           created+=( ${name} )
           if [ -n "${sudo}" ] && [ "${sudo}" != false ] && [ "${sudo}" != true ]; then
