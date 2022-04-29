@@ -22,6 +22,7 @@ if [ ! -f /home/$(whoami)/.nvm/versions/node/${node_version}/bin/yarn ]; then
   ${NVM_DIR}/versions/node/${node_version}/bin/npm install --global npm yarn
 fi
 export PATH=${NVM_DIR}/versions/node/${node_version}/bin:${PATH}
+sudo ln -sf ${NVM_DIR}/versions/node/${node_version}/bin/node /usr/local/bin/node
 latest_sidecar_tag=$(curl -sL https://api.github.com/repos/paritytech/substrate-api-sidecar/releases | jq -r '[ .[] | .tag_name ] | .[0]' 2>/dev/null || echo ${fallback_sidecar_tag})
 [ -f ${sidecar_path}/package.json ] && observed_sidecar_tag=$(jq -r '.dependencies["@substrate/api-sidecar"]' ${sidecar_path}/package.json)
 if [ -f ${sidecar_path}/package.json ] && [ "${latest_sidecar_tag:1}" = "${observed_sidecar_tag:1}" ]; then
