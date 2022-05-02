@@ -25,8 +25,8 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
     region=$(_decode_property ${x} .region)
     if ${ssh} mobula@${fqdn} "grep -q '${new_authorized_key}' /home/mobula/.ssh/authorized_keys"; then
       echo -e "[${endpoint_name}/${region}/${fqdn}] \e[32mdetected\e[0m"
-    #elif ${ssh} mobula@${fqdn} "echo ${new_authorized_key} >> /home/mobula/.ssh/authorized_keys"; then
-    $  echo -e "[${endpoint_name}/${region}/${fqdn}] \e[93madded\e[0m"
+    elif ${ssh} mobula@${fqdn} "echo ${new_authorized_key} >> /home/mobula/.ssh/authorized_keys"; then
+      echo -e "[${endpoint_name}/${region}/${fqdn}] \e[93madded\e[0m"
     else
       echo -e "[${endpoint_name}/${region}/${fqdn}] \e[91merrored\e[0m"
     fi
