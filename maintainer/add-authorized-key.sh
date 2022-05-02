@@ -14,7 +14,7 @@ _decode_property() {
 }
 
 new_authorized_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPwoPDvoSzIU8fEFVcPIs7Kjs3x+fh/+9WIAKl0nLkq"
-ssh='ssh -i /home/mobula/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new'
+ssh='ssh -i ~/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new'
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
