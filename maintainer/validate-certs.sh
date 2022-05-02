@@ -19,11 +19,11 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
   for x in ${instances_as_base64[@]}; do
     fqdn=$(_decode_property ${x} .fqdn)
     domain=$(_decode_property ${x} .domain)
-    cert_domains=( $(ssh -i ${ssh_key} ${username}@${fqdn} 'sudo certbot certificates 2>/dev/null | grep Domains:' | sed -r 's/Domains: //g') )
+    cert_domains=( $(ssh -i /home/mobula/.ssh/id_manta_ci -o ConnectTimeout=3 -o StrictHostKeyChecking=accept-new mobula@${fqdn} sudo certbot certificates 2>/dev/null | grep Domains: | sed -r 's/Domains: //g') )
     if [ "${cert_domains[0]}" = "${fqdn}" ]; then
-      echo "[${endpoint_name}/${region}/${fqdn}] \e[32m${cert_domains[0]}\e[0m"
+      echo -e "[${endpoint_name}/${region}/${fqdn}] \e[32m${cert_domains[0]}\e[0m"
     else
-      echo "[${endpoint_name}/${region}/${fqdn}] \e[91m${cert_domains[0]}\e[0m"
+      echo -e "[${endpoint_name}/${region}/${fqdn}] \e[91m${cert_domains[0]}\e[0m"
     fi
   done
 done
