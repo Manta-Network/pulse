@@ -157,10 +157,6 @@ scrape_configs:
           # discord, username: displaystyle#3141, account id: 853952148450312192
           - 146.59.68.182:9615
           - 146.59.68.182:9616
-
-          # discord, username: papadritta#9980, account id: 214964573059547136
-          - 141.95.126.166:9615
-          - 141.95.126.166:9616
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
@@ -239,6 +235,10 @@ scrape_configs:
           # discord, username: 'Eric Ding#8247', account id: 885551168762290237
           - calamari.metrics.calamari.gostake.io
           - kusama.metrics.calamari.gostake.io
+
+          # discord, username: papadritta#9980, account id: 214964573059547136
+          - calamari.metrics.rocke7.net
+          - kusama.metrics.rocke7.net
 
   -
     job_name: pelagos subsquids
