@@ -15,7 +15,7 @@ _decode_property() {
 
 for endpoint_name in "${!endpoint_prefix[@]}"; do
   endpoint_url=https://${endpoint_prefix[${endpoint_name}]}.execute-api.us-east-1.amazonaws.com/prod/instances
-  instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | @base64') )
+  instances_as_base64=( $(curl -sL ${endpoint_url} | jq -r '.instances[] | select(.domain != "telemetry.manta.systems" and .domain != "telemetry.pelagos.systems") | @base64') )
   for x in ${instances_as_base64[@]}; do
     fqdn=$(_decode_property ${x} .fqdn)
     domain=$(_decode_property ${x} .domain)
