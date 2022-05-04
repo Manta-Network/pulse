@@ -20,6 +20,8 @@ dev:
     required:
       # kavula
       - 92.247.230.0/22
+      # ansible
+      - 167.235.57.176/32
       # ghzlatarev
       - 78.154.9.85/32
       # pierre
@@ -50,6 +52,8 @@ ops:
     required:
       # kavula
       - 92.247.230.0/22
+      # ansible
+      - 167.235.57.176/32
       # ghzlatarev
       - 78.154.9.85/32
       # pierre
@@ -80,6 +84,8 @@ service:
     required:
       # kavula
       - 92.247.230.0/22
+      # ansible
+      - 167.235.57.176/32
       # ghzlatarev
       - 78.154.9.85/32
       # pierre
@@ -108,6 +114,8 @@ prod:
     required:
       # kavula
       - 92.247.230.0/22
+      # ansible
+      - 167.235.57.176/32
       # pierre
       - 84.115.223.0/24
     optional:
