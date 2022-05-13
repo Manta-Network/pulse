@@ -242,7 +242,11 @@ scrape_configs:
           
           # discord, username: jason2d2#6574, account id: 784542134635724801
           - metrics.calamari.mantanetwork.bitmanna.com
-          - metrics.kusama.mantanetwork.bitmanna.com          
+          - metrics.kusama.mantanetwork.bitmanna.com
+          
+          # discord, username: Solitudinem#2127, account id: 608331572369686624
+          - calamari.metrics.cryptech.com.ua
+          - kusama.metrics.cryptech.com.ua
 
   -
     job_name: pelagos subsquids
