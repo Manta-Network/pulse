@@ -14,14 +14,6 @@ rule_files:
   - collator-rules.yml
 scrape_configs:
   -
-    job_name: calamari full node
-    static_configs:
-      -
-        targets:
-          - fritti.calamari.systems
-          - pasta.calamari.systems
-          - smoothie.calamari.systems
-  -
     job_name: calamari full node (ssl)
     scheme: https
     static_configs:
@@ -51,6 +43,12 @@ scrape_configs:
           - para.metrics.falafel.calamari.systems
           - relay.metrics.bokkeum.calamari.systems
           - para.metrics.bokkeum.calamari.systems
+          - para.metrics.fritti.calamari.systems
+          - relay.metrics.fritti.calamari.systems
+          - para.metrics.pasta.calamari.systems
+          - relay.metrics.pasta.calamari.systems
+          - para.metrics.smoothie.calamari.systems
+          - relay.metrics.smoothie.calamari.systems
   -
     job_name: manta invulnerable collator (ssl)
     scheme: https
