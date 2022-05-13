@@ -240,6 +240,7 @@ scrape_configs:
           - calamari.metrics.rocke7.net
           - kusama.metrics.rocke7.net
           
+          # discord, username: jason2d2#6574, account id: 784542134635724801
           - metrics.calamari.mantanetwork.bitmanna.com
           - metrics.kusama.mantanetwork.bitmanna.com          
 
