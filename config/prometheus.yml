@@ -239,6 +239,9 @@ scrape_configs:
           # discord, username: papadritta#9980, account id: 214964573059547136
           - calamari.metrics.rocke7.net
           - kusama.metrics.rocke7.net
+          
+          - metrics.calamari.mantanetwork.bitmanna.com
+          - metrics.kusama.mantanetwork.bitmanna.com          
 
   -
     job_name: pelagos subsquids
