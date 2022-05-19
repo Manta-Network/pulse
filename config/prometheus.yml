@@ -245,6 +245,10 @@ scrape_configs:
           # discord, username: Solitudinem#2127, account id: 608331572369686624
           - calamari.metrics.cryptech.com.ua
           - kusama.metrics.cryptech.com.ua
+          
+          # discord, username: anavoy#8530, account id: 877812845130162187
+          - calamari.metrics.fullstack.biz.ua
+          - kusama.metrics.fullstack.biz.ua
 
   -
     job_name: pelagos subsquids
