@@ -161,11 +161,11 @@ scrape_configs:
     static_configs:
       -
         targets:
-        
+
           # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
           - calamari.metrics.letsnode.io
           - kusama.metrics.letsnode.io
-          
+
           # discord, username: 'marjashka1309200#3402', account id: 829816003545792513
           - calamari.metrics.favoursanywhere.com
           - kusama.metrics.favoursanywhere.com
@@ -225,11 +225,11 @@ scrape_configs:
           # discord, username: nettle#4895, account id: 893046884871049227
           - calamari.metrics.nettle.network
           - kusama.metrics.nettle.network
-          
+
           # discord, username: n1trog3n#5776, account id: 391835510009626624
           - calamari.metrics.calamari.stakecraft.com
           - kusama.metrics.calamari.stakecraft.com
-          
+
           # discord, username: 'Eric Ding#8247', account id: 885551168762290237
           - calamari.metrics.calamari.gostake.io
           - kusama.metrics.calamari.gostake.io
@@ -237,14 +237,18 @@ scrape_configs:
           # discord, username: papadritta#9980, account id: 214964573059547136
           - calamari.metrics.rocke7.net
           - kusama.metrics.rocke7.net
-          
+
           # discord, username: jason2d2#6574, account id: 784542134635724801
           - metrics.calamari.mantanetwork.bitmanna.com
           - metrics.kusama.mantanetwork.bitmanna.com
-          
+
           # discord, username: Solitudinem#2127, account id: 608331572369686624
           - calamari.metrics.cryptech.com.ua
           - kusama.metrics.cryptech.com.ua
+
+          # discord, username: kooltek68#0067, account id: 828132828537159691
+          - calamari.kooltek68.com/calamari
+          - calamari.kooltek68.com/kusama
 
   -
     job_name: pelagos subsquids
