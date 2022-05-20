@@ -87,10 +87,15 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - para.metrics.eddie.rococo.dolphin.engineering
           - relay.metrics.eddie.rococo.dolphin.engineering
+          - para.metrics.kwaltz.rococo.dolphin.engineering
           - relay.metrics.kwaltz.rococo.dolphin.engineering
+          - para.metrics.prosser.rococo.dolphin.engineering
           - relay.metrics.prosser.rococo.dolphin.engineering
+          - para.metrics.roosta.rococo.dolphin.engineering
           - relay.metrics.roosta.rococo.dolphin.engineering
+          - para.metrics.zaphod.rococo.dolphin.engineering
           - relay.metrics.zaphod.rococo.dolphin.engineering
   -
     job_name: dolphin full node (ssl)
@@ -98,8 +103,11 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - para.metrics.ford.rococo.dolphin.engineering
           - relay.metrics.ford.rococo.dolphin.engineering
+          - para.metrics.anjie.rococo.dolphin.engineering
           - relay.metrics.anjie.rococo.dolphin.engineering
+          - para.metrics.trillian.rococo.dolphin.engineering
           - relay.metrics.trillian.rococo.dolphin.engineering
   -
     job_name: calamari invulnerable collator (ssl)
