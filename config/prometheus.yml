@@ -255,8 +255,8 @@ scrape_configs:
           - kusama.metrics.cryptech.com.ua
 
           # discord, username: kooltek68#0067, account id: 828132828537159691
-          #- calamari.kooltek68.com/calamari
-          #- calamari.kooltek68.com/kusama
+          - metrics.calamari.calamari.kooltek68.com
+          - metrics.kusama.calamari.kooltek68.com
 
   -
     job_name: pelagos subsquids
