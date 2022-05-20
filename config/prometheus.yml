@@ -87,20 +87,20 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - relay.metrics.eddie.dolphin.red
-          - relay.metrics.kwaltz.dolphin.red
-          - relay.metrics.prosser.dolphin.red
-          - relay.metrics.roosta.dolphin.red
-          - relay.metrics.zaphod.dolphin.red
+          - relay.metrics.eddie.rococo.dolphin.engineering
+          - relay.metrics.kwaltz.rococo.dolphin.engineering
+          - relay.metrics.prosser.rococo.dolphin.engineering
+          - relay.metrics.roosta.rococo.dolphin.engineering
+          - relay.metrics.zaphod.rococo.dolphin.engineering
   -
     job_name: dolphin full node (ssl)
     scheme: https
     static_configs:
       -
         targets:
-          - relay.metrics.ford.dolphin.red
-          - relay.metrics.anjie.dolphin.red
-          - relay.metrics.trillian.dolphin.red
+          - relay.metrics.ford.rococo.dolphin.engineering
+          - relay.metrics.anjie.rococo.dolphin.engineering
+          - relay.metrics.trillian.rococo.dolphin.engineering
   -
     job_name: calamari invulnerable collator (ssl)
     scheme: https
@@ -247,8 +247,8 @@ scrape_configs:
           - kusama.metrics.cryptech.com.ua
 
           # discord, username: kooltek68#0067, account id: 828132828537159691
-          - calamari.kooltek68.com/calamari
-          - calamari.kooltek68.com/kusama
+          #- calamari.kooltek68.com/calamari
+          #- calamari.kooltek68.com/kusama
 
   -
     job_name: pelagos subsquids
