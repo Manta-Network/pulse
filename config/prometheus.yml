@@ -258,6 +258,10 @@ scrape_configs:
           - metrics.calamari.calamari.kooltek68.com
           - metrics.kusama.calamari.kooltek68.com
 
+          # discord, username: Insight Finance#8247, account id: 885551168762290237
+          - calamari.metrics.gostake.io
+          - kusama.metrics.gostake.io
+
   -
     job_name: pelagos subsquids
     static_configs:
