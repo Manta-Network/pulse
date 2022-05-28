@@ -170,6 +170,10 @@ scrape_configs:
       -
         targets:
 
+          # discord, username: 'vostok3vosgtok#2273', account id: 829815476565180477
+          - calamari.metrics.redesignmypage.com
+          - kusama.metrics.redesignmypage.com
+
           # discord, username: 'Skynode | Let's Node#5805', account id: 428875477252440074
           - calamari.metrics.letsnode.io
           - kusama.metrics.letsnode.io
