@@ -23,30 +23,43 @@ scrape_configs:
           - kusama.metrics.frootmig.thgttg.com
           - calamari.metrics.effrafax.pelagos.systems
           - kusama.metrics.effrafax.pelagos.systems
+          - avocado.calamari.systems
           - relay.metrics.avocado.calamari.systems
           - para.metrics.avocado.calamari.systems
+          - chilli.calamari.systems
           - relay.metrics.chilli.calamari.systems
           - para.metrics.chilli.calamari.systems
+          - jalapeno.calamari.systems
           - relay.metrics.jalapeno.calamari.systems
           - para.metrics.jalapeno.calamari.systems
+          - serrano.calamari.systems
           - relay.metrics.serrano.calamari.systems
           - para.metrics.serrano.calamari.systems
+          - terumbu.calamari.systems
           - relay.metrics.terumbu.calamari.systems
           - para.metrics.terumbu.calamari.systems
+          - kebab.calamari.systems
           - relay.metrics.kebab.calamari.systems
           - para.metrics.kebab.calamari.systems
+          - tempura.calamari.systems
           - relay.metrics.tempura.calamari.systems
           - para.metrics.tempura.calamari.systems
+          - salad.calamari.systems
           - relay.metrics.salad.calamari.systems
           - para.metrics.salad.calamari.systems
+          - falafel.calamari.systems
           - relay.metrics.falafel.calamari.systems
           - para.metrics.falafel.calamari.systems
+          - bokkeum.calamari.systems
           - relay.metrics.bokkeum.calamari.systems
           - para.metrics.bokkeum.calamari.systems
+          - fritti.calamari.systems
           - para.metrics.fritti.calamari.systems
           - relay.metrics.fritti.calamari.systems
+          - pasta.calamari.systems
           - para.metrics.pasta.calamari.systems
           - relay.metrics.pasta.calamari.systems
+          - smoothie.calamari.systems
           - para.metrics.smoothie.calamari.systems
           - relay.metrics.smoothie.calamari.systems
   -
@@ -123,14 +136,19 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - crispy.calamari.systems
           - relay.metrics.crispy.calamari.systems
           - para.metrics.crispy.calamari.systems
+          - crunchy.calamari.systems
           - relay.metrics.crunchy.calamari.systems
           - para.metrics.crunchy.calamari.systems
+          - hotdog.calamari.systems
           - relay.metrics.hotdog.calamari.systems
           - para.metrics.hotdog.calamari.systems
+          - tasty.calamari.systems
           - relay.metrics.tasty.calamari.systems
           - para.metrics.tasty.calamari.systems
+          - tender.calamari.systems
           - relay.metrics.tender.calamari.systems
           - para.metrics.tender.calamari.systems
   -
