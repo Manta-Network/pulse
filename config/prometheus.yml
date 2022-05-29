@@ -87,14 +87,19 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - eddie.rococo.dolphin.engineering
           - para.metrics.eddie.rococo.dolphin.engineering
           - relay.metrics.eddie.rococo.dolphin.engineering
+          - kwaltz.rococo.dolphin.engineering
           - para.metrics.kwaltz.rococo.dolphin.engineering
           - relay.metrics.kwaltz.rococo.dolphin.engineering
+          - prosser.rococo.dolphin.engineering
           - para.metrics.prosser.rococo.dolphin.engineering
           - relay.metrics.prosser.rococo.dolphin.engineering
+          - roosta.rococo.dolphin.engineering
           - para.metrics.roosta.rococo.dolphin.engineering
           - relay.metrics.roosta.rococo.dolphin.engineering
+          - zaphod.rococo.dolphin.engineering
           - para.metrics.zaphod.rococo.dolphin.engineering
           - relay.metrics.zaphod.rococo.dolphin.engineering
   -
@@ -103,10 +108,13 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - ford.rococo.dolphin.engineering
           - para.metrics.ford.rococo.dolphin.engineering
           - relay.metrics.ford.rococo.dolphin.engineering
+          - anjie.rococo.dolphin.engineering
           - para.metrics.anjie.rococo.dolphin.engineering
           - relay.metrics.anjie.rococo.dolphin.engineering
+          - trillian.rococo.dolphin.engineering
           - para.metrics.trillian.rococo.dolphin.engineering
           - relay.metrics.trillian.rococo.dolphin.engineering
   -
