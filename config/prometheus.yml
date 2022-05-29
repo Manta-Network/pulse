@@ -296,6 +296,10 @@ scrape_configs:
           - calamari.metrics.gostake.io
           - kusama.metrics.gostake.io
 
+          # discord, username: Julvin#3591, account id: 593243893332574228
+          - calamari.metrics.yowcloud.com
+          - kusama.metrics.yowcloud.com
+
   -
     job_name: pelagos subsquids
     static_configs:
