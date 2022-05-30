@@ -181,10 +181,6 @@ scrape_configs:
           # discord, username: Louis-Klever#6454, account id: 874680910035976272
           - 155.138.138.183:9615
           - 155.138.138.183:9616
-
-          # discord, username: SunshineAutosNodes#8147, account id: 442022506098982962
-          - 51.195.63.206:9615
-          - 51.195.63.206:9615
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
@@ -299,6 +295,10 @@ scrape_configs:
           # discord, username: displaystyle#3141, account id: 853952148450312192
           - calamari.metrics.calamari.info
           - kusama.metrics.calamari.info
+
+          # discord, username: SunshineAutosNodes#8147, account id: 442022506098982962
+          - calamari.metrics.sunshineautos.autos
+          - kusama.metrics.sunshineautos.autos
 
   -
     job_name: pelagos subsquids
