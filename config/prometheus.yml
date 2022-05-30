@@ -302,6 +302,11 @@ scrape_configs:
           # discord, username: SunshineAutosNodes#8147, account id: 442022506098982962
           - calamari.metrics.sunshineautos.autos
           - kusama.metrics.sunshineautos.autos
+          
+          # discord, username: pose3rhij293#3474, account id: 829816402243747923 
+          - calamari.metrics.mailfromanywhere.com
+          - kusama.metrics.mailfromanywhere.com
+          
 
   -
     job_name: pelagos subsquids
