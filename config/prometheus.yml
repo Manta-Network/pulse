@@ -95,7 +95,7 @@ scrape_configs:
           - relay.metrics.kuhlii.manta.systems
           - para.metrics.kuhlii.manta.systems
   -
-    job_name: dolphin invulnerable validator (ssl)
+    job_name: dolphin invulnerable collator (ssl)
     scheme: https
     static_configs:
       -
@@ -130,6 +130,9 @@ scrape_configs:
           - trillian.rococo.dolphin.engineering
           - para.metrics.trillian.rococo.dolphin.engineering
           - relay.metrics.trillian.rococo.dolphin.engineering
+          - frogstar.rococo.dolphin.engineering
+          - para.metrics.frogstar.rococo.dolphin.engineering
+          - relay.metrics.frogstar.rococo.dolphin.engineering
   -
     job_name: calamari invulnerable collator (ssl)
     scheme: https
