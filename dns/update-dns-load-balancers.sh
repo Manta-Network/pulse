@@ -74,6 +74,22 @@ for domain in calamari.systems manta.systems rococo.dolphin.engineering; do
         rm ${config_dir}/ws.${domain}.json
         mv /tmp/ws.${domain}.json ${config_dir}/ws.${domain}.json
       fi
+      if jq \
+        --arg identifier ${hostname} \
+        --arg hosted_zone_id ${hosted_zone_id} \
+        '
+          (
+            .Changes[]
+            | select(.ResourceRecordSet.SetIdentifier == $identifier)
+            | .ResourceRecordSet.AliasTarget.HostedZoneId
+          )
+          |= $hosted_zone_id
+        ' \
+        ${config_dir}/ws.${domain}.json \
+        > /tmp/ws.${domain}.json; then
+        rm ${config_dir}/ws.${domain}.json
+        mv /tmp/ws.${domain}.json ${config_dir}/ws.${domain}.json
+      fi
     done
     aws route53 change-resource-record-sets \
       --profile pelagos-ops \
