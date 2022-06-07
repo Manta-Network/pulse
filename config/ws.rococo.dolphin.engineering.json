@@ -1,0 +1,124 @@
+{
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "eddie",
+        "Weight": 30,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "eddie.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "f3ed6fb7-f99e-4eee-b2d7-a056a55f9f6a"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "ford",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "ford.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "1aba337c-3cad-4cfd-8f72-23832dbfe941"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "frogstar",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "frogstar.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "c04535ec-be2f-404a-9b44-87d00b1ec61c"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "kwaltz",
+        "Weight": 30,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "kwaltz.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "339e638f-1e15-45c9-8a91-f3b1d2f3bb00"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "prosser",
+        "Weight": 30,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "prosser.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "9e8e2e1e-d8f0-4c08-9406-7e489ff64c9a"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "roosta",
+        "Weight": 30,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "roosta.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "38d6ff78-0169-4686-a7c2-591ecfc2a76d"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "trillian",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "trillian.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "785c271d-721c-405f-a673-9642a649bec0"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.rococo.dolphin.engineering",
+        "SetIdentifier": "zaphod",
+        "Weight": 30,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z08463631VRW8SQN1AZ34",
+          "DNSName": "zaphod.rococo.dolphin.engineering.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "663a1254-82ac-41c9-a58b-749a899a6f42"
+      }
+    }
+  ]
+}

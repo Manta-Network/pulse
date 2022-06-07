@@ -1,0 +1,79 @@
+{
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.manta.systems",
+        "SetIdentifier": "kuhlii",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z0172210BDGAFVE6L94R",
+          "DNSName": "kuhlii.manta.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "a0728ffa-8cc7-49d7-86c4-6d699d3d2267"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.manta.systems",
+        "SetIdentifier": "melanyae",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z0172210BDGAFVE6L94R",
+          "DNSName": "melanyae.manta.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "70084b99-305a-490f-9982-e9aca226a44e"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.manta.systems",
+        "SetIdentifier": "munkiana",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z0172210BDGAFVE6L94R",
+          "DNSName": "munkiana.manta.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "517c814f-7fbe-4b97-9baa-e9655eaae075"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.manta.systems",
+        "SetIdentifier": "pectinata",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z0172210BDGAFVE6L94R",
+          "DNSName": "pectinata.manta.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "83e054b1-dd7d-4b7c-b503-96247bb6daff"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.manta.systems",
+        "SetIdentifier": "thurstoni",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z0172210BDGAFVE6L94R",
+          "DNSName": "thurstoni.manta.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "6f0647da-a56e-48c9-9006-0b0b7234f902"
+      }
+    }
+  ]
+}

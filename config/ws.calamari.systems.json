@@ -1,0 +1,169 @@
+{
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "bokkeum",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "bokkeum.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "a691fdb7-821f-46c3-9c43-d8033c7b8c08"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "chilli",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "chilli.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "fc1407b9-cfec-4b37-b58c-f0f721efe254"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "falafel",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "falafel.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "b5cc5b0d-10a4-44e1-8e54-9abba1e9d55a"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "fritti",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "fritti.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "953feebd-4b9b-452c-83ca-1fa665a7d836"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "jalapeno",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "jalapeno.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "adfd3e0a-b0ca-426c-9396-52f5bf75068f"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "kebab",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "kebab.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "94d0425e-7e43-47d1-910a-b7bc6c23bb8a"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "pasta",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "pasta.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "b7fa6fca-7cfd-4308-98a0-7e20ea58f844"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "salad",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "salad.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "158a5e7d-6769-498a-8f04-d8369bf9cc47"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "serrano",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "serrano.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "d0dccf2e-58e7-4e26-8208-edc35c4b1589"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "tempura",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "tempura.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "56b23fc5-1483-4822-a034-1c28ef65fc89"
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "ws.calamari.systems",
+        "SetIdentifier": "terumbu",
+        "Weight": 200,
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z05193482B5IW6HGQWXBH",
+          "DNSName": "terumbu.calamari.systems.",
+          "EvaluateTargetHealth": true
+        },
+        "HealthCheckId": "f8c19b33-8e34-42b1-bf44-8416d289f119"
+      }
+    }
+  ]
+}
