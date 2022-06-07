@@ -68,12 +68,16 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - alfredi.manta.systems
           - relay.metrics.alfredi.manta.systems
           - para.metrics.alfredi.manta.systems
+          - birostris.manta.systems
           - relay.metrics.birostris.manta.systems
           - para.metrics.birostris.manta.systems
+          - hypostoma.manta.systems
           - relay.metrics.hypostoma.manta.systems
           - para.metrics.hypostoma.manta.systems
+          - japanica.manta.systems
           - relay.metrics.japanica.manta.systems
           - para.metrics.japanica.manta.systems
   -
@@ -82,16 +86,22 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - munkiana.manta.systems
           - relay.metrics.munkiana.manta.systems
           - para.metrics.munkiana.manta.systems
+          - rochebrunei.manta.systems
           - relay.metrics.rochebrunei.manta.systems
           - para.metrics.rochebrunei.manta.systems
+          - pectinata.manta.systems
           - relay.metrics.pectinata.manta.systems
           - para.metrics.pectinata.manta.systems
+          - thurstoni.manta.systems
           - relay.metrics.thurstoni.manta.systems
           - para.metrics.thurstoni.manta.systems
+          - melanyae.manta.systems
           - relay.metrics.melanyae.manta.systems
           - para.metrics.melanyae.manta.systems
+          - kuhlii.manta.systems
           - relay.metrics.kuhlii.manta.systems
           - para.metrics.kuhlii.manta.systems
   -
