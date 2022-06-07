@@ -57,6 +57,7 @@ for domain in calamari.systems manta.systems rococo.dolphin.engineering; do
       else
         weight=200
       fi
+      echo "    - weight: ${weight}"
       if jq \
         --arg identifier ${hostname} \
         --arg weight ${weight} \
