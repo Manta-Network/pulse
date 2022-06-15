@@ -317,6 +317,9 @@ scrape_configs:
           - calamari.metrics.mailfromanywhere.com
           - kusama.metrics.mailfromanywhere.com
           
+          # discord, username: Denys | Validatrium#9662, account id: 970611566330400810 
+          - calamari-metrics.validatrium.club
+          - kusama-metrics.validatrium.club
 
   -
     job_name: pelagos subsquids
