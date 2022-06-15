@@ -320,6 +320,27 @@ scrape_configs:
           # discord, username: Denys | Validatrium#9662, account id: 970611566330400810 
           - calamari-metrics.validatrium.club
           - kusama-metrics.validatrium.club
+  -
+    job_name: calamari-testnet invulnerable collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - crispy.baikal.testnet.calamari.systems
+          - relay.metrics.crispy.baikal.testnet.calamari.systems
+          - para.metrics.crispy.baikal.testnet.calamari.systems
+          - crunchy.baikal.testnet.calamari.systems
+          - relay.metrics.crunchy.baikal.testnet.calamari.systems
+          - para.metrics.crunchy.baikal.testnet.calamari.systems
+          - hotdog.baikal.testnet.calamari.systems
+          - relay.metrics.hotdog.baikal.testnet.calamari.systems
+          - para.metrics.hotdog.baikal.testnet.calamari.systems
+          - tasty.baikal.testnet.calamari.systems
+          - relay.metrics.tasty.baikal.testnet.calamari.systems
+          - para.metrics.tasty.baikal.testnet.calamari.systems
+          - tender.baikal.testnet.calamari.systems
+          - relay.metrics.tender.baikal.testnet.calamari.systems
+          - para.metrics.tender.baikal.testnet.calamari.systems
 
   -
     job_name: pelagos subsquids
