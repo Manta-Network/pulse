@@ -341,6 +341,39 @@ scrape_configs:
           - tender.baikal.testnet.calamari.systems
           - relay.metrics.tender.baikal.testnet.calamari.systems
           - para.metrics.tender.baikal.testnet.calamari.systems
+  -
+    job_name: baikal invulnerable validator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - frohlikha.baikal.manta.systems
+          - relay.metrics.frohlikha.baikal.manta.systems
+          - para.metrics.frohlikha.baikal.manta.systems
+          - olkhon.baikal.manta.systems
+          - relay.metrics.olkhon.baikal.manta.systems
+          - para.metrics.olkhon.baikal.manta.systems
+          - arangatuy.baikal.manta.systems
+          - relay.metrics.arangatuy.baikal.manta.systems
+          - para.metrics.arangatuy.baikal.manta.systems
+          - ushkan.baikal.manta.systems
+          - relay.metrics.ushkan.baikal.manta.systems
+          - para.metrics.ushkan.baikal.manta.systems
+  -
+    job_name: kusama/dolphin invulnerable collator (ssl)
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - eddie.dolphin.community
+          - para.metrics.eddie.dolphin.community
+          - relay.metrics.eddie.dolphin.community
+          - kwaltz.dolphin.community
+          - para.metrics.kwaltz.dolphin.community
+          - relay.metrics.kwaltz.dolphin.community
+          - prosser.dolphin.community
+          - para.metrics.prosser.dolphin.community
+          - relay.metrics.prosser.dolphin.community
 
   -
     job_name: pelagos subsquids
