@@ -349,16 +349,12 @@ scrape_configs:
         targets:
           - frohlikha.baikal.manta.systems
           - relay.metrics.frohlikha.baikal.manta.systems
-          - para.metrics.frohlikha.baikal.manta.systems
           - olkhon.baikal.manta.systems
           - relay.metrics.olkhon.baikal.manta.systems
-          - para.metrics.olkhon.baikal.manta.systems
           - arangatuy.baikal.manta.systems
           - relay.metrics.arangatuy.baikal.manta.systems
-          - para.metrics.arangatuy.baikal.manta.systems
           - ushkan.baikal.manta.systems
           - relay.metrics.ushkan.baikal.manta.systems
-          - para.metrics.ushkan.baikal.manta.systems
   -
     job_name: kusama/dolphin invulnerable collator (ssl)
     scheme: https
