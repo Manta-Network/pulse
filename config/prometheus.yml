@@ -320,6 +320,10 @@ scrape_configs:
           # discord, username: Denys | Validatrium#9662, account id: 970611566330400810 
           - calamari-metrics.validatrium.club
           - kusama-metrics.validatrium.club
+          
+          # discord, username: craci | bwarelabs.com#0141, account id: 963740747583062036
+          - calamari-metrics.bwarelabs.com
+          - kusama-metrics.bwarelabs.com
   -
     job_name: calamari-testnet invulnerable collator (ssl)
     scheme: https
