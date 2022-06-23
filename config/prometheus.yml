@@ -218,8 +218,8 @@ scrape_configs:
           - kusama.metrics.fundmybirthday.com
 
           # discord, username: 'ioannis | DVN#3081', account id: 817020448369541191
-          - calamari.metrics.dp.stakebaby.com
-          - kusama.metrics.dp.stakebaby.com
+          - calamari.metrics.ws.stakebaby.com
+          - kusama.metrics.ws.stakebaby.com
 
           # discord, username: paddyson#5479, account id: 394870302691295234
           - calamari.pathrocknetwork.org
