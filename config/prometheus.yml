@@ -164,6 +164,15 @@ scrape_configs:
           - tender.calamari.systems
           - relay.metrics.tender.calamari.systems
           - para.metrics.tender.calamari.systems
+          - c1.calamari.systems/node
+          - c1.calamari.systems/para
+          - c1.calamari.systems/relay
+          - c2.calamari.systems/node
+          - c2.calamari.systems/para
+          - c2.calamari.systems/relay
+          - c3.calamari.systems/node
+          - c3.calamari.systems/para
+          - c3.calamari.systems/relay
   -
     job_name: calamari community collator (ssl)
     scheme: https
