@@ -73,6 +73,7 @@ for endpoint_name in "${!endpoint_prefix[@]}"; do
             for pem in cert chain fullchain privkey; do
               ssh -i ${ssh_key} ${username}@${fqdn} "sudo ln -frs $(sudo readlink -f /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem) /etc/letsencrypt/live/${prefix}.${domain}/${pem}.pem"
             done
+            ssh -i ${ssh_key} ${username}@${fqdn} "sudo systemctl restart nginx.service"
           else
             echo "[${endpoint_name}/${region}/${fqdn}] failed to copy ${prefix}.${domain} certs to ${fqdn}"
           fi
