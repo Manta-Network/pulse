@@ -440,6 +440,21 @@ scrape_configs:
           - prosser.dolphin.community
           - para.metrics.prosser.dolphin.community
           - relay.metrics.prosser.dolphin.community
+  -
+    job_name: telemetry
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - api.telemetry.manta.systems
+          - arthur.telemetry.manta.systems
+          - ford.telemetry.manta.systems
+          - marvin.telemetry.manta.systems
+          - trillian.telemetry.manta.systems
+          - arthur.telemetry.pelagos.systems
+          - ford.telemetry.pelagos.systems
+          - marvin.telemetry.pelagos.systems
+          - trillian.telemetry.pelagos.systems
 
   -
     job_name: pelagos subsquids
