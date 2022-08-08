@@ -260,10 +260,6 @@ scrape_configs:
           # discord, username: Louis-Klever#6454, account id: 874680910035976272
           - 155.138.138.183:9615
           - 155.138.138.183:9616
-
-          # discord, username: ilya_chugunov#5707, account id: 412878618826506241
-          - 209.222.101.3:9615
-          - 209.222.101.3:9116
   -
     job_name: calamari experimental community collator (ssl)
     scheme: https
@@ -394,6 +390,10 @@ scrape_configs:
           # discord, username: craci | bwarelabs.com#0141, account id: 963740747583062036
           - calamari-metrics.bwarelabs.com
           - kusama-metrics.bwarelabs.com
+
+          # discord, username: ilya_chugunov#5707, account id: 412878618826506241
+          - calamari.metrics.orangeskies.ru
+          - kusama.metrics.orangeskies.ru
   -
     job_name: calamari-testnet invulnerable collator (ssl)
     scheme: https
