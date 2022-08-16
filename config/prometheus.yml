@@ -461,6 +461,15 @@ scrape_configs:
           - trillian.telemetry.pelagos.systems
 
   -
+    job_name: windows tester
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - t1.w10.pelagos.systems
+          - t2.w11.pelagos.systems
+
+  -
     job_name: pelagos subsquids
     static_configs:
       -
