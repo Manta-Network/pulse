@@ -394,6 +394,10 @@ scrape_configs:
           # discord, username: ilya_chugunov#5707, account id: 412878618826506241
           - calamari.metrics.orangeskies.ru
           - kusama.metrics.orangeskies.ru
+          
+          # discord, username: HecticDew#8419, account id: 706944732496003073
+          - calamari-relay-metrics.thedottybird.com
+          - calamari-para-metrics.thedottybird.com
   -
     job_name: calamari-testnet invulnerable collator (ssl)
     scheme: https
