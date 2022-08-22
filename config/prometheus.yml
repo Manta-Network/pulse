@@ -474,6 +474,14 @@ scrape_configs:
           - t2.w11.pelagos.systems
 
   -
+    job_name: ethereum
+    scheme: https
+    static_configs:
+      -
+        targets:
+          - archive.ethereum.p0xeidon.systems
+
+  -
     job_name: pelagos subsquids
     static_configs:
       -
