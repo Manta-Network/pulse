@@ -175,6 +175,7 @@ scrape_configs:
           - c2.calamari.systems
           - c3.calamari.systems
           - c4.calamari.systems
+          - c5.calamari.systems
   -
     job_name: calamari invulnerable collator (ssl) - para
     scheme: https
@@ -186,6 +187,7 @@ scrape_configs:
           - c2.calamari.systems
           - c3.calamari.systems
           - c4.calamari.systems
+          - c5.calamari.systems
   -
     job_name: calamari invulnerable collator (ssl) - relay
     scheme: https
@@ -197,6 +199,7 @@ scrape_configs:
           - c2.calamari.systems
           - c3.calamari.systems
           - c4.calamari.systems
+          - c5.calamari.systems
   -
     job_name: calamari full node (ssl) - node
     scheme: https
@@ -208,6 +211,7 @@ scrape_configs:
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
+          - f5.calamari.systems
   -
     job_name: calamari full node (ssl) - para
     scheme: https
@@ -219,6 +223,7 @@ scrape_configs:
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
+          - f5.calamari.systems
   -
     job_name: calamari full node (ssl) - relay
     scheme: https
@@ -230,6 +235,7 @@ scrape_configs:
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
+          - f5.calamari.systems
   -
     job_name: calamari community collator (ssl)
     scheme: https
