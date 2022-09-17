@@ -201,6 +201,33 @@ scrape_configs:
           - c4.calamari.systems
           - c5.calamari.systems
   -
+    job_name: calamari archive node (ssl) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - a1.calamari.systems
+          - a2.calamari.systems
+  -
+    job_name: calamari archive node (ssl) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - a1.calamari.systems
+          - a2.calamari.systems
+  -
+    job_name: calamari archive node (ssl) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - a1.calamari.systems
+          - a2.calamari.systems
+  -
     job_name: calamari full node (ssl) - node
     scheme: https
     metrics_path: /node/metrics
