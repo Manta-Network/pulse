@@ -319,7 +319,7 @@ scrape_configs:
           - calamari-relay-metrics.thedottybird.com
           - calamari-para-metrics.thedottybird.com
   -
-    job_name: kusama/calamari(c) (http) - para
+    job_name: kusama/calamari(h) - para
     static_configs:
       -
         targets:
