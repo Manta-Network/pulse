@@ -241,7 +241,7 @@ scrape_configs:
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari community
+    job_name: calamari community - para
     scheme: https
     static_configs:
       -
@@ -382,7 +382,7 @@ scrape_configs:
           - calamari-relay-metrics.thedottybird.com
           - calamari-para-metrics.thedottybird.com
   -
-    job_name: calamari community (http)
+    job_name: calamari community (http) - para
     static_configs:
       -
         targets:
@@ -398,7 +398,7 @@ scrape_configs:
           - 155.138.138.183:9615
           - 155.138.138.183:9616
   -
-    job_name: calamari-testnet collator - node
+    job_name: baikal/calamari collator - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -410,7 +410,7 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
-    job_name: calamari-testnet collator - para
+    job_name: baikal/calamari collator - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -422,7 +422,7 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
-    job_name: calamari-testnet collator - relay
+    job_name: baikal/calamari collator - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -433,6 +433,42 @@ scrape_configs:
           - hotdog.baikal.testnet.calamari.systems
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
+  -
+    job_name: baikal/dolphin collator - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - eddie.baikal.testnet.dolphin.training
+          - kwaltz.baikal.testnet.dolphin.training
+          - prosser.baikal.testnet.dolphin.training
+          - roosta.baikal.testnet.dolphin.training
+          - zaphod.baikal.testnet.dolphin.training
+  -
+    job_name: baikal/dolphin collator - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - eddie.baikal.testnet.dolphin.training
+          - kwaltz.baikal.testnet.dolphin.training
+          - prosser.baikal.testnet.dolphin.training
+          - roosta.baikal.testnet.dolphin.training
+          - zaphod.baikal.testnet.dolphin.training
+  -
+    job_name: baikal/dolphin collator - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - eddie.baikal.testnet.dolphin.training
+          - kwaltz.baikal.testnet.dolphin.training
+          - prosser.baikal.testnet.dolphin.training
+          - roosta.baikal.testnet.dolphin.training
+          - zaphod.baikal.testnet.dolphin.training
   -
     job_name: baikal validator - node
     scheme: https
@@ -456,14 +492,98 @@ scrape_configs:
           - arangatuy.baikal.manta.systems
           - ushkan.baikal.manta.systems
   -
-    job_name: kusama/dolphin invulnerable collator (ssl)
+    job_name: kusama(i)/calamari(t) - node
     scheme: https
+    metrics_path: /node/metrics
     static_configs:
       -
         targets:
-          - eddie.dolphin.community
-          - kwaltz.dolphin.community
-          - prosser.dolphin.community
+          - crispy.kusama-internal.testnet.calamari.systems
+          - crunchy.kusama-internal.testnet.calamari.systems
+          - falafel.kusama-internal.testnet.calamari.systems
+          - hotdog.kusama-internal.testnet.calamari.systems
+          - tasty.kusama-internal.testnet.calamari.systems
+          - tender.kusama-internal.testnet.calamari.systems
+  -
+    job_name: kusama(i)/calamari(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - crispy.kusama-internal.testnet.calamari.systems
+          - crunchy.kusama-internal.testnet.calamari.systems
+          - falafel.kusama-internal.testnet.calamari.systems
+          - hotdog.kusama-internal.testnet.calamari.systems
+          - tasty.kusama-internal.testnet.calamari.systems
+          - tender.kusama-internal.testnet.calamari.systems
+  -
+    job_name: kusama(i)/calamari(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - crispy.kusama-internal.testnet.calamari.systems
+          - crunchy.kusama-internal.testnet.calamari.systems
+          - falafel.kusama-internal.testnet.calamari.systems
+          - hotdog.kusama-internal.testnet.calamari.systems
+          - tasty.kusama-internal.testnet.calamari.systems
+          - tender.kusama-internal.testnet.calamari.systems
+  -
+    job_name: kusama(i)/moonriver(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - alith.kusama-internal.moonriver-testnet.calamari.systems
+          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
+          - faith.kusama-internal.moonriver-testnet.calamari.systems
+  -
+    job_name: kusama(i)/moonriver(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - alith.kusama-internal.moonriver-testnet.calamari.systems
+          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
+          - faith.kusama-internal.moonriver-testnet.calamari.systems
+  -
+    job_name: kusama(i)/moonriver(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - alith.kusama-internal.moonriver-testnet.calamari.systems
+          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
+          - faith.kusama-internal.moonriver-testnet.calamari.systems
+  -
+    job_name: kusama(i) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - frohlikha.kusama-internal.calamari.systems
+          - olkhon.kusama-internal.calamari.systems
+          - rila.kusama-internal.calamari.systems
+          - arangatuy.kusama-internal.calamari.systems
+          - ushkan.kusama-internal.calamari.systems
+  -
+    job_name: kusama(i) - relay
+    scheme: https
+    metrics_path: /metrics
+    static_configs:
+      -
+        targets:
+          - frohlikha.kusama-internal.calamari.systems
+          - olkhon.kusama-internal.calamari.systems
+          - rila.kusama-internal.calamari.systems
+          - arangatuy.kusama-internal.calamari.systems
+          - ushkan.kusama-internal.calamari.systems
   -
     job_name: telemetry
     scheme: https
