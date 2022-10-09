@@ -19,6 +19,8 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - dolphin.metrics.anjie.rococo.dolphin.engineering
+          - rococo.metrics.anjie.rococo.dolphin.engineering
           - calamari.metrics.frootmig.thgttg.com
           - kusama.metrics.frootmig.thgttg.com
   -
@@ -43,7 +45,6 @@ scrape_configs:
           - f3.dolphin.engineering
           - f4.dolphin.engineering
           - ford.rococo.dolphin.engineering
-          - anjie.rococo.dolphin.engineering
           - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
@@ -68,7 +69,6 @@ scrape_configs:
           - f3.dolphin.engineering
           - f4.dolphin.engineering
           - ford.rococo.dolphin.engineering
-          - anjie.rococo.dolphin.engineering
           - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
@@ -93,7 +93,6 @@ scrape_configs:
           - f3.dolphin.engineering
           - f4.dolphin.engineering
           - ford.rococo.dolphin.engineering
-          - anjie.rococo.dolphin.engineering
           - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
