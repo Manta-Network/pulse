@@ -22,7 +22,7 @@ scrape_configs:
           - calamari.metrics.frootmig.thgttg.com
           - kusama.metrics.frootmig.thgttg.com
   -
-    job_name: dolphin collator - node
+    job_name: rococo(t)/dolphin(t) - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -38,8 +38,16 @@ scrape_configs:
           - prosser.rococo.dolphin.engineering
           - roosta.rococo.dolphin.engineering
           - zaphod.rococo.dolphin.engineering
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+          - ford.rococo.dolphin.engineering
+          - anjie.rococo.dolphin.engineering
+          - trillian.rococo.dolphin.engineering
+          - frogstar.rococo.dolphin.engineering
   -
-    job_name: dolphin collator - para
+    job_name: rococo(t)/dolphin(t) - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -55,8 +63,16 @@ scrape_configs:
           - prosser.rococo.dolphin.engineering
           - roosta.rococo.dolphin.engineering
           - zaphod.rococo.dolphin.engineering
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+          - ford.rococo.dolphin.engineering
+          - anjie.rococo.dolphin.engineering
+          - trillian.rococo.dolphin.engineering
+          - frogstar.rococo.dolphin.engineering
   -
-    job_name: dolphin collator - relay
+    job_name: rococo(t)/dolphin(t) - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -72,13 +88,6 @@ scrape_configs:
           - prosser.rococo.dolphin.engineering
           - roosta.rococo.dolphin.engineering
           - zaphod.rococo.dolphin.engineering
-  -
-    job_name: dolphin full - node
-    scheme: https
-    metrics_path: /node/metrics
-    static_configs:
-      -
-        targets:
           - f1.dolphin.engineering
           - f2.dolphin.engineering
           - f3.dolphin.engineering
@@ -88,37 +97,7 @@ scrape_configs:
           - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
-    job_name: dolphin full - para
-    scheme: https
-    metrics_path: /para/metrics
-    static_configs:
-      -
-        targets:
-          - f1.dolphin.engineering
-          - f2.dolphin.engineering
-          - f3.dolphin.engineering
-          - f4.dolphin.engineering
-          - ford.rococo.dolphin.engineering
-          - anjie.rococo.dolphin.engineering
-          - trillian.rococo.dolphin.engineering
-          - frogstar.rococo.dolphin.engineering
-  -
-    job_name: dolphin full - relay
-    scheme: https
-    metrics_path: /relay/metrics
-    static_configs:
-      -
-        targets:
-          - f1.dolphin.engineering
-          - f2.dolphin.engineering
-          - f3.dolphin.engineering
-          - f4.dolphin.engineering
-          - ford.rococo.dolphin.engineering
-          - anjie.rococo.dolphin.engineering
-          - trillian.rococo.dolphin.engineering
-          - frogstar.rococo.dolphin.engineering
-  -
-    job_name: calamari collator - node
+    job_name: kusama/calamari - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -129,37 +108,6 @@ scrape_configs:
           - c3.calamari.systems
           - c4.calamari.systems
           - c5.calamari.systems
-  -
-    job_name: calamari collator - para
-    scheme: https
-    metrics_path: /para/metrics
-    static_configs:
-      -
-        targets:
-          - c1.calamari.systems
-          - c2.calamari.systems
-          - c3.calamari.systems
-          - c4.calamari.systems
-          - c5.calamari.systems
-  -
-    job_name: calamari collator - relay
-    scheme: https
-    metrics_path: /relay/metrics
-    static_configs:
-      -
-        targets:
-          - c1.calamari.systems
-          - c2.calamari.systems
-          - c3.calamari.systems
-          - c4.calamari.systems
-          - c5.calamari.systems
-  -
-    job_name: calamari archive - node
-    scheme: https
-    metrics_path: /node/metrics
-    static_configs:
-      -
-        targets:
           - a1.calamari.systems
           - a2.calamari.systems
           - a3.calamari.systems
@@ -170,71 +118,60 @@ scrape_configs:
           - salad.calamari.systems
           - smoothie.calamari.systems
           - terumbu.calamari.systems
-  -
-    job_name: calamari archive - para
-    scheme: https
-    metrics_path: /para/metrics
-    static_configs:
-      -
-        targets:
-          - a1.calamari.systems
-          - a2.calamari.systems
-          - a3.calamari.systems
-          - avocado.calamari.systems
-          - bokkeum.calamari.systems
-          - fritti.calamari.systems
-          - pasta.calamari.systems
-          - salad.calamari.systems
-          - smoothie.calamari.systems
-          - terumbu.calamari.systems
-  -
-    job_name: calamari archive - relay
-    scheme: https
-    metrics_path: /relay/metrics
-    static_configs:
-      -
-        targets:
-          - a1.calamari.systems
-          - a2.calamari.systems
-          - a3.calamari.systems
-          - avocado.calamari.systems
-          - bokkeum.calamari.systems
-          - fritti.calamari.systems
-          - pasta.calamari.systems
-          - salad.calamari.systems
-          - smoothie.calamari.systems
-          - terumbu.calamari.systems
-  -
-    job_name: calamari full - node
-    scheme: https
-    metrics_path: /node/metrics
-    static_configs:
-      -
-        targets:
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari full - para
+    job_name: kusama/calamari - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
       -
         targets:
+          - c1.calamari.systems
+          - c2.calamari.systems
+          - c3.calamari.systems
+          - c4.calamari.systems
+          - c5.calamari.systems
+          - a1.calamari.systems
+          - a2.calamari.systems
+          - a3.calamari.systems
+          - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - terumbu.calamari.systems
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari full - relay
+    job_name: kusama/calamari - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
       -
         targets:
+          - c1.calamari.systems
+          - c2.calamari.systems
+          - c3.calamari.systems
+          - c4.calamari.systems
+          - c5.calamari.systems
+          - a1.calamari.systems
+          - a2.calamari.systems
+          - a3.calamari.systems
+          - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - terumbu.calamari.systems
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
@@ -398,7 +335,7 @@ scrape_configs:
           - 155.138.138.183:9615
           - 155.138.138.183:9616
   -
-    job_name: baikal/calamari collator - node
+    job_name: baikal(t)/calamari(t) - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -410,7 +347,7 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
-    job_name: baikal/calamari collator - para
+    job_name: baikal(t)/calamari(t) - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -422,7 +359,7 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
-    job_name: baikal/calamari collator - relay
+    job_name: baikal(t)/calamari(t) - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -434,7 +371,7 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
-    job_name: baikal/dolphin collator - node
+    job_name: baikal(t)/dolphin(t) - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -446,7 +383,7 @@ scrape_configs:
           - roosta.baikal.testnet.dolphin.training
           - zaphod.baikal.testnet.dolphin.training
   -
-    job_name: baikal/dolphin collator - para
+    job_name: baikal(t)/dolphin(t) - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -458,7 +395,7 @@ scrape_configs:
           - roosta.baikal.testnet.dolphin.training
           - zaphod.baikal.testnet.dolphin.training
   -
-    job_name: baikal/dolphin collator - relay
+    job_name: baikal(t)/dolphin(t) - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -470,7 +407,7 @@ scrape_configs:
           - roosta.baikal.testnet.dolphin.training
           - zaphod.baikal.testnet.dolphin.training
   -
-    job_name: baikal validator - node
+    job_name: baikal(t) - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -481,7 +418,7 @@ scrape_configs:
           - arangatuy.baikal.manta.systems
           - ushkan.baikal.manta.systems
   -
-    job_name: baikal validator - relay
+    job_name: baikal(t) - relay
     scheme: https
     metrics_path: /metrics
     static_configs:
