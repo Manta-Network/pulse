@@ -178,7 +178,7 @@ scrape_configs:
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari community - para
+    job_name: kusama/calamari(c) - para
     scheme: https
     static_configs:
       -
@@ -319,7 +319,7 @@ scrape_configs:
           - calamari-relay-metrics.thedottybird.com
           - calamari-para-metrics.thedottybird.com
   -
-    job_name: calamari community (http) - para
+    job_name: kusama/calamari(c) (http) - para
     static_configs:
       -
         targets:
