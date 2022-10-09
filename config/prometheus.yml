@@ -14,52 +14,13 @@ rule_files:
   - collator-rules.yml
 scrape_configs:
   -
-    job_name: calamari full node (ssl)
+    job_name: calamari grid
     scheme: https
     static_configs:
       -
         targets:
           - calamari.metrics.frootmig.thgttg.com
           - kusama.metrics.frootmig.thgttg.com
-          - calamari.metrics.effrafax.pelagos.systems
-          - kusama.metrics.effrafax.pelagos.systems
-          - avocado.calamari.systems
-          - chilli.calamari.systems
-          - relay.metrics.chilli.calamari.systems
-          - para.metrics.chilli.calamari.systems
-          - jalapeno.calamari.systems
-          - relay.metrics.jalapeno.calamari.systems
-          - para.metrics.jalapeno.calamari.systems
-          - serrano.calamari.systems
-          - relay.metrics.serrano.calamari.systems
-          - para.metrics.serrano.calamari.systems
-          - terumbu.calamari.systems
-          - relay.metrics.terumbu.calamari.systems
-          - para.metrics.terumbu.calamari.systems
-          - kebab.calamari.systems
-          - relay.metrics.kebab.calamari.systems
-          - para.metrics.kebab.calamari.systems
-          - tempura.calamari.systems
-          - relay.metrics.tempura.calamari.systems
-          - para.metrics.tempura.calamari.systems
-          - salad.calamari.systems
-          - relay.metrics.salad.calamari.systems
-          - para.metrics.salad.calamari.systems
-          - falafel.calamari.systems
-          - relay.metrics.falafel.calamari.systems
-          - para.metrics.falafel.calamari.systems
-          - bokkeum.calamari.systems
-          - relay.metrics.bokkeum.calamari.systems
-          - para.metrics.bokkeum.calamari.systems
-          - fritti.calamari.systems
-          - para.metrics.fritti.calamari.systems
-          - relay.metrics.fritti.calamari.systems
-          - pasta.calamari.systems
-          - para.metrics.pasta.calamari.systems
-          - relay.metrics.pasta.calamari.systems
-          - smoothie.calamari.systems
-          - para.metrics.smoothie.calamari.systems
-          - relay.metrics.smoothie.calamari.systems
   -
     job_name: dolphin invulnerable collator (ssl)
     scheme: https
@@ -146,6 +107,12 @@ scrape_configs:
           - a2.calamari.systems
           - a3.calamari.systems
           - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - terumbu.calamari.systems
   -
     job_name: calamari archive - para
     scheme: https
@@ -157,6 +124,12 @@ scrape_configs:
           - a2.calamari.systems
           - a3.calamari.systems
           - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - terumbu.calamari.systems
   -
     job_name: calamari archive - relay
     scheme: https
@@ -168,6 +141,12 @@ scrape_configs:
           - a2.calamari.systems
           - a3.calamari.systems
           - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - terumbu.calamari.systems
   -
     job_name: calamari full - node
     scheme: https
