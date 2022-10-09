@@ -14,7 +14,7 @@ rule_files:
   - collator-rules.yml
 scrape_configs:
   -
-    job_name: calamari grid
+    job_name: grid
     scheme: https
     static_configs:
       -
@@ -22,44 +22,101 @@ scrape_configs:
           - calamari.metrics.frootmig.thgttg.com
           - kusama.metrics.frootmig.thgttg.com
   -
-    job_name: dolphin invulnerable collator (ssl)
+    job_name: dolphin collator - node
     scheme: https
+    metrics_path: /node/metrics
     static_configs:
       -
         targets:
+          - c1.dolphin.engineering
+          - c2.dolphin.engineering
+          - c3.dolphin.engineering
+          - c4.dolphin.engineering
+          - c5.dolphin.engineering
           - eddie.rococo.dolphin.engineering
-          - para.metrics.eddie.rococo.dolphin.engineering
-          - relay.metrics.eddie.rococo.dolphin.engineering
           - kwaltz.rococo.dolphin.engineering
-          - para.metrics.kwaltz.rococo.dolphin.engineering
-          - relay.metrics.kwaltz.rococo.dolphin.engineering
           - prosser.rococo.dolphin.engineering
-          - para.metrics.prosser.rococo.dolphin.engineering
-          - relay.metrics.prosser.rococo.dolphin.engineering
           - roosta.rococo.dolphin.engineering
-          - para.metrics.roosta.rococo.dolphin.engineering
-          - relay.metrics.roosta.rococo.dolphin.engineering
           - zaphod.rococo.dolphin.engineering
-          - para.metrics.zaphod.rococo.dolphin.engineering
-          - relay.metrics.zaphod.rococo.dolphin.engineering
   -
-    job_name: dolphin full node (ssl)
+    job_name: dolphin collator - para
     scheme: https
+    metrics_path: /para/metrics
     static_configs:
       -
         targets:
+          - c1.dolphin.engineering
+          - c2.dolphin.engineering
+          - c3.dolphin.engineering
+          - c4.dolphin.engineering
+          - c5.dolphin.engineering
+          - eddie.rococo.dolphin.engineering
+          - kwaltz.rococo.dolphin.engineering
+          - prosser.rococo.dolphin.engineering
+          - roosta.rococo.dolphin.engineering
+          - zaphod.rococo.dolphin.engineering
+  -
+    job_name: dolphin collator - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.dolphin.engineering
+          - c2.dolphin.engineering
+          - c3.dolphin.engineering
+          - c4.dolphin.engineering
+          - c5.dolphin.engineering
+          - eddie.rococo.dolphin.engineering
+          - kwaltz.rococo.dolphin.engineering
+          - prosser.rococo.dolphin.engineering
+          - roosta.rococo.dolphin.engineering
+          - zaphod.rococo.dolphin.engineering
+  -
+    job_name: dolphin full - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
           - ford.rococo.dolphin.engineering
-          - para.metrics.ford.rococo.dolphin.engineering
-          - relay.metrics.ford.rococo.dolphin.engineering
           - anjie.rococo.dolphin.engineering
-          - para.metrics.anjie.rococo.dolphin.engineering
-          - relay.metrics.anjie.rococo.dolphin.engineering
           - trillian.rococo.dolphin.engineering
-          - para.metrics.trillian.rococo.dolphin.engineering
-          - relay.metrics.trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
-          - para.metrics.frogstar.rococo.dolphin.engineering
-          - relay.metrics.frogstar.rococo.dolphin.engineering
+  -
+    job_name: dolphin full - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+          - ford.rococo.dolphin.engineering
+          - anjie.rococo.dolphin.engineering
+          - trillian.rococo.dolphin.engineering
+          - frogstar.rococo.dolphin.engineering
+  -
+    job_name: dolphin full - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+          - ford.rococo.dolphin.engineering
+          - anjie.rococo.dolphin.engineering
+          - trillian.rococo.dolphin.engineering
+          - frogstar.rococo.dolphin.engineering
   -
     job_name: calamari collator - node
     scheme: https
