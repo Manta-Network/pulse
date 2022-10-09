@@ -24,8 +24,6 @@ scrape_configs:
           - calamari.metrics.effrafax.pelagos.systems
           - kusama.metrics.effrafax.pelagos.systems
           - avocado.calamari.systems
-          - relay.metrics.avocado.calamari.systems
-          - para.metrics.avocado.calamari.systems
           - chilli.calamari.systems
           - relay.metrics.chilli.calamari.systems
           - para.metrics.chilli.calamari.systems
@@ -62,48 +60,6 @@ scrape_configs:
           - smoothie.calamari.systems
           - para.metrics.smoothie.calamari.systems
           - relay.metrics.smoothie.calamari.systems
-  -
-    job_name: manta invulnerable collator (ssl)
-    scheme: https
-    static_configs:
-      -
-        targets:
-          - alfredi.manta.systems
-          - relay.metrics.alfredi.manta.systems
-          - para.metrics.alfredi.manta.systems
-          - birostris.manta.systems
-          - relay.metrics.birostris.manta.systems
-          - para.metrics.birostris.manta.systems
-          - hypostoma.manta.systems
-          - relay.metrics.hypostoma.manta.systems
-          - para.metrics.hypostoma.manta.systems
-          - japanica.manta.systems
-          - relay.metrics.japanica.manta.systems
-          - para.metrics.japanica.manta.systems
-  -
-    job_name: manta full node (ssl)
-    scheme: https
-    static_configs:
-      -
-        targets:
-          - munkiana.manta.systems
-          - relay.metrics.munkiana.manta.systems
-          - para.metrics.munkiana.manta.systems
-          - rochebrunei.manta.systems
-          - relay.metrics.rochebrunei.manta.systems
-          - para.metrics.rochebrunei.manta.systems
-          - pectinata.manta.systems
-          - relay.metrics.pectinata.manta.systems
-          - para.metrics.pectinata.manta.systems
-          - thurstoni.manta.systems
-          - relay.metrics.thurstoni.manta.systems
-          - para.metrics.thurstoni.manta.systems
-          - melanyae.manta.systems
-          - relay.metrics.melanyae.manta.systems
-          - para.metrics.melanyae.manta.systems
-          - kuhlii.manta.systems
-          - relay.metrics.kuhlii.manta.systems
-          - para.metrics.kuhlii.manta.systems
   -
     job_name: dolphin invulnerable collator (ssl)
     scheme: https
@@ -144,28 +100,7 @@ scrape_configs:
           - para.metrics.frogstar.rococo.dolphin.engineering
           - relay.metrics.frogstar.rococo.dolphin.engineering
   -
-    job_name: calamari invulnerable collator (ssl)
-    scheme: https
-    static_configs:
-      -
-        targets:
-          - crispy.calamari.systems
-          - relay.metrics.crispy.calamari.systems
-          - para.metrics.crispy.calamari.systems
-          - crunchy.calamari.systems
-          - relay.metrics.crunchy.calamari.systems
-          - para.metrics.crunchy.calamari.systems
-          - hotdog.calamari.systems
-          - relay.metrics.hotdog.calamari.systems
-          - para.metrics.hotdog.calamari.systems
-          - tasty.calamari.systems
-          - relay.metrics.tasty.calamari.systems
-          - para.metrics.tasty.calamari.systems
-          - tender.calamari.systems
-          - relay.metrics.tender.calamari.systems
-          - para.metrics.tender.calamari.systems
-  -
-    job_name: calamari invulnerable collator (ssl) - node
+    job_name: calamari collator - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -177,7 +112,7 @@ scrape_configs:
           - c4.calamari.systems
           - c5.calamari.systems
   -
-    job_name: calamari invulnerable collator (ssl) - para
+    job_name: calamari collator - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -189,7 +124,7 @@ scrape_configs:
           - c4.calamari.systems
           - c5.calamari.systems
   -
-    job_name: calamari invulnerable collator (ssl) - relay
+    job_name: calamari collator - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -201,7 +136,7 @@ scrape_configs:
           - c4.calamari.systems
           - c5.calamari.systems
   -
-    job_name: calamari archive node (ssl) - node
+    job_name: calamari archive - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -209,8 +144,10 @@ scrape_configs:
         targets:
           - a1.calamari.systems
           - a2.calamari.systems
+          - a3.calamari.systems
+          - avocado.calamari.systems
   -
-    job_name: calamari archive node (ssl) - para
+    job_name: calamari archive - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -218,8 +155,10 @@ scrape_configs:
         targets:
           - a1.calamari.systems
           - a2.calamari.systems
+          - a3.calamari.systems
+          - avocado.calamari.systems
   -
-    job_name: calamari archive node (ssl) - relay
+    job_name: calamari archive - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -227,8 +166,10 @@ scrape_configs:
         targets:
           - a1.calamari.systems
           - a2.calamari.systems
+          - a3.calamari.systems
+          - avocado.calamari.systems
   -
-    job_name: calamari full node (ssl) - node
+    job_name: calamari full - node
     scheme: https
     metrics_path: /node/metrics
     static_configs:
@@ -240,7 +181,7 @@ scrape_configs:
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari full node (ssl) - para
+    job_name: calamari full - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -252,7 +193,7 @@ scrape_configs:
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari full node (ssl) - relay
+    job_name: calamari full - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
@@ -264,7 +205,7 @@ scrape_configs:
           - f4.calamari.systems
           - f5.calamari.systems
   -
-    job_name: calamari community collator (ssl)
+    job_name: calamari community
     scheme: https
     static_configs:
       -
@@ -272,33 +213,6 @@ scrape_configs:
           # discord, username: grenade#4222, account id: 810037839433433109
           - calamari.metrics.novgorodian.thgttg.com
           - kusama.metrics.novgorodian.thgttg.com
-  -
-    job_name: calamari community collator
-    static_configs:
-      -
-        targets:
-          # discord, username: hahaschool#0933, account id: 345472606562025472
-          - 65.108.122.7:9615
-          - 65.108.122.7:9616
-  -
-    job_name: calamari experimental community collator
-    static_configs:
-      -
-        targets:
-
-          # discord, username: 'shez | staking4all#2774', account id: 556857416243871769
-          - calamari.staking4all.org:9615
-          - calamari.staking4all.org:9616
-
-          # discord, username: Louis-Klever#6454, account id: 874680910035976272
-          - 155.138.138.183:9615
-          - 155.138.138.183:9616
-  -
-    job_name: calamari experimental community collator (ssl)
-    scheme: https
-    static_configs:
-      -
-        targets:
 
           # discord, username: 'vostok3vosgtok#2273', account id: 829815476565180477
           - calamari.metrics.redesignmypage.com
@@ -432,40 +346,79 @@ scrape_configs:
           - calamari-relay-metrics.thedottybird.com
           - calamari-para-metrics.thedottybird.com
   -
-    job_name: calamari-testnet invulnerable collator (ssl)
+    job_name: calamari community (http)
+    static_configs:
+      -
+        targets:
+          # discord, username: hahaschool#0933, account id: 345472606562025472
+          - 65.108.122.7:9615
+          - 65.108.122.7:9616
+
+          # discord, username: 'shez | staking4all#2774', account id: 556857416243871769
+          - calamari.staking4all.org:9615
+          - calamari.staking4all.org:9616
+
+          # discord, username: Louis-Klever#6454, account id: 874680910035976272
+          - 155.138.138.183:9615
+          - 155.138.138.183:9616
+  -
+    job_name: calamari-testnet collator - node
     scheme: https
+    metrics_path: /node/metrics
     static_configs:
       -
         targets:
           - crispy.baikal.testnet.calamari.systems
-          - relay.metrics.crispy.baikal.testnet.calamari.systems
-          - para.metrics.crispy.baikal.testnet.calamari.systems
           - crunchy.baikal.testnet.calamari.systems
-          - relay.metrics.crunchy.baikal.testnet.calamari.systems
-          - para.metrics.crunchy.baikal.testnet.calamari.systems
           - hotdog.baikal.testnet.calamari.systems
-          - relay.metrics.hotdog.baikal.testnet.calamari.systems
-          - para.metrics.hotdog.baikal.testnet.calamari.systems
           - tasty.baikal.testnet.calamari.systems
-          - relay.metrics.tasty.baikal.testnet.calamari.systems
-          - para.metrics.tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
-          - relay.metrics.tender.baikal.testnet.calamari.systems
-          - para.metrics.tender.baikal.testnet.calamari.systems
   -
-    job_name: baikal invulnerable validator (ssl)
+    job_name: calamari-testnet collator - para
     scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - crispy.baikal.testnet.calamari.systems
+          - crunchy.baikal.testnet.calamari.systems
+          - hotdog.baikal.testnet.calamari.systems
+          - tasty.baikal.testnet.calamari.systems
+          - tender.baikal.testnet.calamari.systems
+  -
+    job_name: calamari-testnet collator - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - crispy.baikal.testnet.calamari.systems
+          - crunchy.baikal.testnet.calamari.systems
+          - hotdog.baikal.testnet.calamari.systems
+          - tasty.baikal.testnet.calamari.systems
+          - tender.baikal.testnet.calamari.systems
+  -
+    job_name: baikal validator - node
+    scheme: https
+    metrics_path: /node/metrics
     static_configs:
       -
         targets:
           - frohlikha.baikal.manta.systems
-          - relay.metrics.frohlikha.baikal.manta.systems
           - olkhon.baikal.manta.systems
-          - relay.metrics.olkhon.baikal.manta.systems
           - arangatuy.baikal.manta.systems
-          - relay.metrics.arangatuy.baikal.manta.systems
           - ushkan.baikal.manta.systems
-          - relay.metrics.ushkan.baikal.manta.systems
+  -
+    job_name: baikal validator - relay
+    scheme: https
+    metrics_path: /metrics
+    static_configs:
+      -
+        targets:
+          - frohlikha.baikal.manta.systems
+          - olkhon.baikal.manta.systems
+          - arangatuy.baikal.manta.systems
+          - ushkan.baikal.manta.systems
   -
     job_name: kusama/dolphin invulnerable collator (ssl)
     scheme: https
@@ -473,14 +426,8 @@ scrape_configs:
       -
         targets:
           - eddie.dolphin.community
-          - para.metrics.eddie.dolphin.community
-          - relay.metrics.eddie.dolphin.community
           - kwaltz.dolphin.community
-          - para.metrics.kwaltz.dolphin.community
-          - relay.metrics.kwaltz.dolphin.community
           - prosser.dolphin.community
-          - para.metrics.prosser.dolphin.community
-          - relay.metrics.prosser.dolphin.community
   -
     job_name: telemetry
     scheme: https
