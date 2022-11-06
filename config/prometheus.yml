@@ -569,3 +569,12 @@ scrape_configs:
         targets:
           - verifier.calamari.systems
           - ceremony.manta.network
+          
+  -
+    job_name: manta-indexer
+    scheme: https
+    metrics_path: /indexer/metrics
+    static_configs:
+      -
+        targets:
+          - yi.workstation.manta.systems
