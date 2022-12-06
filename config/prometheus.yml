@@ -578,3 +578,4 @@ scrape_configs:
       -
         targets:
           - yi.workstation.manta.systems
+          - bokkeum.calamari.systems
