@@ -434,12 +434,11 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - crispy.kusama-internal.testnet.calamari.systems
-          - crunchy.kusama-internal.testnet.calamari.systems
-          - falafel.kusama-internal.testnet.calamari.systems
-          - hotdog.kusama-internal.testnet.calamari.systems
-          - tasty.kusama-internal.testnet.calamari.systems
-          - tender.kusama-internal.testnet.calamari.systems
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
   -
     job_name: kusama(i)/calamari(t) - para
     scheme: https
@@ -447,12 +446,11 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - crispy.kusama-internal.testnet.calamari.systems
-          - crunchy.kusama-internal.testnet.calamari.systems
-          - falafel.kusama-internal.testnet.calamari.systems
-          - hotdog.kusama-internal.testnet.calamari.systems
-          - tasty.kusama-internal.testnet.calamari.systems
-          - tender.kusama-internal.testnet.calamari.systems
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
   -
     job_name: kusama(i)/calamari(t) - relay
     scheme: https
@@ -460,12 +458,11 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - crispy.kusama-internal.testnet.calamari.systems
-          - crunchy.kusama-internal.testnet.calamari.systems
-          - falafel.kusama-internal.testnet.calamari.systems
-          - hotdog.kusama-internal.testnet.calamari.systems
-          - tasty.kusama-internal.testnet.calamari.systems
-          - tender.kusama-internal.testnet.calamari.systems
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
   -
     job_name: kusama(i)/moonriver(t) - node
     scheme: https
@@ -473,9 +470,8 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - alith.kusama-internal.moonriver-testnet.calamari.systems
-          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
-          - faith.kusama-internal.moonriver-testnet.calamari.systems
+          - c1.moonriver.seabird.systems
+          - c2.moonriver.seabird.systems
   -
     job_name: kusama(i)/moonriver(t) - para
     scheme: https
@@ -483,9 +479,8 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - alith.kusama-internal.moonriver-testnet.calamari.systems
-          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
-          - faith.kusama-internal.moonriver-testnet.calamari.systems
+          - c1.moonriver.seabird.systems
+          - c2.moonriver.seabird.systems
   -
     job_name: kusama(i)/moonriver(t) - relay
     scheme: https
@@ -493,9 +488,35 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - alith.kusama-internal.moonriver-testnet.calamari.systems
-          - baltathar.kusama-internal.moonriver-testnet.calamari.systems
-          - faith.kusama-internal.moonriver-testnet.calamari.systems
+          - c1.moonriver.seabird.systems
+          - c2.moonriver.seabird.systems
+  -
+    job_name: kusama(i)/karura(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.seabird.systems
+          - c2.acala.seabird.systems
+  -
+    job_name: kusama(i)/moonriver(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.seabird.systems
+          - c2.acala.seabird.systems
+  -
+    job_name: kusama(i)/moonriver(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.seabird.systems
+          - c2.acala.seabird.systems
   -
     job_name: kusama(i) - node
     scheme: https
@@ -503,23 +524,47 @@ scrape_configs:
     static_configs:
       -
         targets:
-          - frohlikha.kusama-internal.calamari.systems
-          - olkhon.kusama-internal.calamari.systems
-          - rila.kusama-internal.calamari.systems
-          - arangatuy.kusama-internal.calamari.systems
-          - ushkan.kusama-internal.calamari.systems
+          - v1.internal.kusama.systems
+          - v2.internal.kusama.systems
+          - v3.internal.kusama.systems
+          - v4.internal.kusama.systems
+          - v5.internal.kusama.systems
   -
-    job_name: kusama(i) - relay
+    job_name: kusama(i) - relay 0
     scheme: https
-    metrics_path: /metrics
+    metrics_path: /0/metrics
     static_configs:
       -
         targets:
-          - frohlikha.kusama-internal.calamari.systems
-          - olkhon.kusama-internal.calamari.systems
-          - rila.kusama-internal.calamari.systems
-          - arangatuy.kusama-internal.calamari.systems
-          - ushkan.kusama-internal.calamari.systems
+          - v1.internal.kusama.systems
+          - v2.internal.kusama.systems
+          - v3.internal.kusama.systems
+          - v4.internal.kusama.systems
+          - v5.internal.kusama.systems
+  -
+    job_name: kusama(i) - relay 1
+    scheme: https
+    metrics_path: /1/metrics
+    static_configs:
+      -
+        targets:
+          - v1.internal.kusama.systems
+          - v2.internal.kusama.systems
+          - v3.internal.kusama.systems
+          - v4.internal.kusama.systems
+          - v5.internal.kusama.systems
+  -
+    job_name: kusama(i) - relay 2
+    scheme: https
+    metrics_path: /2/metrics
+    static_configs:
+      -
+        targets:
+          - v1.internal.kusama.systems
+          - v2.internal.kusama.systems
+          - v3.internal.kusama.systems
+          - v4.internal.kusama.systems
+          - v5.internal.kusama.systems
   -
     job_name: telemetry
     scheme: https
