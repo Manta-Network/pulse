@@ -500,7 +500,7 @@ scrape_configs:
           - c1.acala.seabird.systems
           - c2.acala.seabird.systems
   -
-    job_name: kusama(i)/moonriver(t) - para
+    job_name: kusama(i)/karura(t) - para
     scheme: https
     metrics_path: /para/metrics
     static_configs:
@@ -509,7 +509,7 @@ scrape_configs:
           - c1.acala.seabird.systems
           - c2.acala.seabird.systems
   -
-    job_name: kusama(i)/moonriver(t) - relay
+    job_name: kusama(i)/karura(t) - relay
     scheme: https
     metrics_path: /relay/metrics
     static_configs:
