@@ -626,7 +626,7 @@ scrape_configs:
           - bokkeum.calamari.systems
           
   -
-    job_name: dolphin indexers
+    job_name: kusama(i)/calamari(t) - indexer
     scheme: https
     metrics_path: /index/metrics
     static_configs:
