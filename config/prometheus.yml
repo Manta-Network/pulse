@@ -464,6 +464,18 @@ scrape_configs:
           - c4.calamari.seabird.systems
           - c5.calamari.seabird.systems
   -
+    job_name: kusama(i)/calamari(t) - indexer
+    scheme: https
+    metrics_path: /index/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
+  -
     job_name: kusama(i)/moonriver(t) - node
     scheme: https
     metrics_path: /node/metrics
@@ -624,16 +636,3 @@ scrape_configs:
         targets:
           - yi.workstation.manta.systems
           - bokkeum.calamari.systems
-          
-  -
-    job_name: kusama(i)/calamari(t) - indexer
-    scheme: https
-    metrics_path: /index/metrics
-    static_configs:
-      -
-        targets:
-          - c1.calamari.seabird.systems
-          - c2.calamari.seabird.systems
-          - c3.calamari.seabird.systems
-          - c4.calamari.seabird.systems
-          - c5.calamari.seabird.systems
