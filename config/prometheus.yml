@@ -624,3 +624,16 @@ scrape_configs:
         targets:
           - yi.workstation.manta.systems
           - bokkeum.calamari.systems
+          
+  -
+    job_name: dolphin indexers
+    scheme: https
+    metrics_path: /index/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
