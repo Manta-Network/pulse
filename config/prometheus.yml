@@ -110,13 +110,13 @@ scrape_configs:
           - a1.calamari.systems
           - a2.calamari.systems
           - a3.calamari.systems
+          - a4.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
           - salad.calamari.systems
           - smoothie.calamari.systems
-          - terumbu.calamari.systems
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
@@ -137,13 +137,13 @@ scrape_configs:
           - a1.calamari.systems
           - a2.calamari.systems
           - a3.calamari.systems
+          - a4.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
           - salad.calamari.systems
           - smoothie.calamari.systems
-          - terumbu.calamari.systems
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
@@ -164,18 +164,63 @@ scrape_configs:
           - a1.calamari.systems
           - a2.calamari.systems
           - a3.calamari.systems
+          - a4.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
           - salad.calamari.systems
           - smoothie.calamari.systems
-          - terumbu.calamari.systems
           - f1.calamari.systems
           - f2.calamari.systems
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
+  -
+    job_name: polkadot/manta - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.manta.systems
+          - c2.manta.systems
+          - c3.manta.systems
+          - c4.manta.systems
+          - c5.manta.systems
+          - a1.manta.systems
+          - a2.manta.systems
+          - a3.manta.systems
+  -
+    job_name: polkadot/manta - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.manta.systems
+          - c2.manta.systems
+          - c3.manta.systems
+          - c4.manta.systems
+          - c5.manta.systems
+          - a1.manta.systems
+          - a2.manta.systems
+          - a3.manta.systems
+  -
+    job_name: polkadot/manta - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.manta.systems
+          - c2.manta.systems
+          - c3.manta.systems
+          - c4.manta.systems
+          - c5.manta.systems
+          - a1.manta.systems
+          - a2.manta.systems
+          - a3.manta.systems
   -
     job_name: kusama/calamari(c) - para
     scheme: https
