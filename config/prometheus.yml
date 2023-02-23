@@ -39,7 +39,6 @@ scrape_configs:
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - frogstar.rococo.dolphin.engineering
   -
     job_name: rococo(t)/dolphin(t) - para
     scheme: https
@@ -56,7 +55,6 @@ scrape_configs:
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - frogstar.rococo.dolphin.engineering
   -
     job_name: rococo(t)/dolphin(t) - relay
     scheme: https
@@ -73,7 +71,6 @@ scrape_configs:
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - frogstar.rococo.dolphin.engineering
   -
     job_name: kusama/calamari - node
     scheme: https
