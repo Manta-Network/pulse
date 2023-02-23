@@ -623,6 +623,36 @@ scrape_configs:
           - v4.internal.kusama.systems
           - v5.internal.kusama.systems
   -
+    job_name: moonsea/calamari(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.moonsea.systems
+          - c2.calamari.moonsea.systems
+          - c3.calamari.moonsea.systems
+  -
+    job_name: moonsea/calamari(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.moonsea.systems
+          - c2.calamari.moonsea.systems
+          - c3.calamari.moonsea.systems
+  -
+    job_name: moonsea/calamari(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.moonsea.systems
+          - c2.calamari.moonsea.systems
+          - c3.calamari.moonsea.systems
+  -
     job_name: telemetry
     scheme: https
     static_configs:
