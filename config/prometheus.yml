@@ -35,17 +35,10 @@ scrape_configs:
           - c3.dolphin.engineering
           - c4.dolphin.engineering
           - c5.dolphin.engineering
-          - eddie.rococo.dolphin.engineering
-          - kwaltz.rococo.dolphin.engineering
-          - prosser.rococo.dolphin.engineering
-          - roosta.rococo.dolphin.engineering
-          - zaphod.rococo.dolphin.engineering
           - f1.dolphin.engineering
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - ford.rococo.dolphin.engineering
-          - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
     job_name: rococo(t)/dolphin(t) - para
@@ -59,17 +52,10 @@ scrape_configs:
           - c3.dolphin.engineering
           - c4.dolphin.engineering
           - c5.dolphin.engineering
-          - eddie.rococo.dolphin.engineering
-          - kwaltz.rococo.dolphin.engineering
-          - prosser.rococo.dolphin.engineering
-          - roosta.rococo.dolphin.engineering
-          - zaphod.rococo.dolphin.engineering
           - f1.dolphin.engineering
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - ford.rococo.dolphin.engineering
-          - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
     job_name: rococo(t)/dolphin(t) - relay
@@ -83,17 +69,10 @@ scrape_configs:
           - c3.dolphin.engineering
           - c4.dolphin.engineering
           - c5.dolphin.engineering
-          - eddie.rococo.dolphin.engineering
-          - kwaltz.rococo.dolphin.engineering
-          - prosser.rococo.dolphin.engineering
-          - roosta.rococo.dolphin.engineering
-          - zaphod.rococo.dolphin.engineering
           - f1.dolphin.engineering
           - f2.dolphin.engineering
           - f3.dolphin.engineering
           - f4.dolphin.engineering
-          - ford.rococo.dolphin.engineering
-          - trillian.rococo.dolphin.engineering
           - frogstar.rococo.dolphin.engineering
   -
     job_name: kusama/calamari - node
