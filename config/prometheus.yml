@@ -56,22 +56,6 @@ scrape_configs:
           - f3.dolphin.engineering
           - f4.dolphin.engineering
   -
-    job_name: rococo(t)/dolphin(t) - nginx
-    scheme: https
-    metrics_path: /nginx/metrics
-    static_configs:
-      -
-        targets:
-          - c1.dolphin.engineering
-          - c2.dolphin.engineering
-          - c3.dolphin.engineering
-          - c4.dolphin.engineering
-          - c5.dolphin.engineering
-          - f1.dolphin.engineering
-          - f2.dolphin.engineering
-          - f3.dolphin.engineering
-          - f4.dolphin.engineering
-  -
     job_name: rococo(t)/dolphin(t) - para
     scheme: https
     metrics_path: /para/metrics
