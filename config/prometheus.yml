@@ -40,6 +40,38 @@ scrape_configs:
           - f3.dolphin.engineering
           - f4.dolphin.engineering
   -
+    job_name: rococo(t)/dolphin(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.dolphin.engineering
+          - c2.dolphin.engineering
+          - c3.dolphin.engineering
+          - c4.dolphin.engineering
+          - c5.dolphin.engineering
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+  -
+    job_name: rococo(t)/dolphin(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.dolphin.engineering
+          - c2.dolphin.engineering
+          - c3.dolphin.engineering
+          - c4.dolphin.engineering
+          - c5.dolphin.engineering
+          - f1.dolphin.engineering
+          - f2.dolphin.engineering
+          - f3.dolphin.engineering
+          - f4.dolphin.engineering
+  -
     job_name: rococo(t)/dolphin(t) - para
     scheme: https
     metrics_path: /para/metrics
@@ -75,6 +107,33 @@ scrape_configs:
     job_name: kusama/calamari - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.systems
+          - c2.calamari.systems
+          - c3.calamari.systems
+          - c4.calamari.systems
+          - c5.calamari.systems
+          - a1.calamari.systems
+          - a2.calamari.systems
+          - a3.calamari.systems
+          - a4.calamari.systems
+          - avocado.calamari.systems
+          - bokkeum.calamari.systems
+          - fritti.calamari.systems
+          - pasta.calamari.systems
+          - salad.calamari.systems
+          - smoothie.calamari.systems
+          - f1.calamari.systems
+          - f2.calamari.systems
+          - f3.calamari.systems
+          - f4.calamari.systems
+          - f5.calamari.systems
+  -
+    job_name: kusama/calamari - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
@@ -156,6 +215,21 @@ scrape_configs:
     job_name: polkadot/manta - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.manta.systems
+          - c2.manta.systems
+          - c3.manta.systems
+          - c4.manta.systems
+          - c5.manta.systems
+          - a1.manta.systems
+          - a2.manta.systems
+          - a3.manta.systems
+  -
+    job_name: polkadot/manta - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
@@ -367,6 +441,18 @@ scrape_configs:
           - tasty.baikal.testnet.calamari.systems
           - tender.baikal.testnet.calamari.systems
   -
+    job_name: baikal(t)/calamari(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - crispy.baikal.testnet.calamari.systems
+          - crunchy.baikal.testnet.calamari.systems
+          - hotdog.baikal.testnet.calamari.systems
+          - tasty.baikal.testnet.calamari.systems
+          - tender.baikal.testnet.calamari.systems
+  -
     job_name: baikal(t)/calamari(t) - para
     scheme: https
     metrics_path: /para/metrics
@@ -394,6 +480,18 @@ scrape_configs:
     job_name: baikal(t)/dolphin(t) - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - eddie.baikal.testnet.dolphin.training
+          - kwaltz.baikal.testnet.dolphin.training
+          - prosser.baikal.testnet.dolphin.training
+          - roosta.baikal.testnet.dolphin.training
+          - zaphod.baikal.testnet.dolphin.training
+  -
+    job_name: baikal(t)/dolphin(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
@@ -438,6 +536,17 @@ scrape_configs:
           - arangatuy.baikal.manta.systems
           - ushkan.baikal.manta.systems
   -
+    job_name: baikal(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - frohlikha.baikal.manta.systems
+          - olkhon.baikal.manta.systems
+          - arangatuy.baikal.manta.systems
+          - ushkan.baikal.manta.systems
+  -
     job_name: baikal(t) - relay
     scheme: https
     metrics_path: /metrics
@@ -452,6 +561,18 @@ scrape_configs:
     job_name: kusama(i)/calamari(t) - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.seabird.systems
+          - c2.calamari.seabird.systems
+          - c3.calamari.seabird.systems
+          - c4.calamari.seabird.systems
+          - c5.calamari.seabird.systems
+  -
+    job_name: kusama(i)/calamari(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
@@ -506,6 +627,15 @@ scrape_configs:
           - c1.moonriver.seabird.systems
           - c2.moonriver.seabird.systems
   -
+    job_name: kusama(i)/moonriver(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.moonriver.seabird.systems
+          - c2.moonriver.seabird.systems
+  -
     job_name: kusama(i)/moonriver(t) - para
     scheme: https
     metrics_path: /para/metrics
@@ -533,6 +663,15 @@ scrape_configs:
           - c1.acala.seabird.systems
           - c2.acala.seabird.systems
   -
+    job_name: kusama(i)/karura(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.seabird.systems
+          - c2.acala.seabird.systems
+  -
     job_name: kusama(i)/karura(t) - para
     scheme: https
     metrics_path: /para/metrics
@@ -554,6 +693,18 @@ scrape_configs:
     job_name: kusama(i) - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - v1.internal.kusama.systems
+          - v2.internal.kusama.systems
+          - v3.internal.kusama.systems
+          - v4.internal.kusama.systems
+          - v5.internal.kusama.systems
+  -
+    job_name: kusama(i) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
@@ -602,6 +753,16 @@ scrape_configs:
     job_name: moonsea/calamari(t) - node
     scheme: https
     metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.calamari.moonsea.systems
+          - c2.calamari.moonsea.systems
+          - c3.calamari.moonsea.systems
+  -
+    job_name: moonsea/calamari(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
     static_configs:
       -
         targets:
