@@ -548,6 +548,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.calamari.seabird.systems
+          - a2.calamari.seabird.systems
+          - a3.calamari.seabird.systems
           - c1.calamari.seabird.systems
           - c2.calamari.seabird.systems
           - c3.calamari.seabird.systems
@@ -560,6 +563,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.calamari.seabird.systems
+          - a2.calamari.seabird.systems
+          - a3.calamari.seabird.systems
           - c1.calamari.seabird.systems
           - c2.calamari.seabird.systems
           - c3.calamari.seabird.systems
@@ -572,6 +578,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.calamari.seabird.systems
+          - a2.calamari.seabird.systems
+          - a3.calamari.seabird.systems
           - c1.calamari.seabird.systems
           - c2.calamari.seabird.systems
           - c3.calamari.seabird.systems
@@ -584,6 +593,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.calamari.seabird.systems
+          - a2.calamari.seabird.systems
+          - a3.calamari.seabird.systems
           - c1.calamari.seabird.systems
           - c2.calamari.seabird.systems
           - c3.calamari.seabird.systems
@@ -596,6 +608,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.calamari.seabird.systems
+          - a2.calamari.seabird.systems
+          - a3.calamari.seabird.systems
           - c1.calamari.seabird.systems
           - c2.calamari.seabird.systems
           - c3.calamari.seabird.systems
