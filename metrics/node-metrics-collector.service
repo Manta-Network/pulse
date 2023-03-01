@@ -1,0 +1,17 @@
+[Unit]
+Description=node metrics collector
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStartPre=curl -sLo /usr/local/bin/node-metrics-collector.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/metrics/node-metrics-collector.sh
+ExecStartPre=chmod +x /usr/local/bin/node-metrics-collector.sh
+ExecStart=/usr/local/bin/node-metrics-collector.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
