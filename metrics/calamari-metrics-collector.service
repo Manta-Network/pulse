@@ -1,0 +1,15 @@
+[Unit]
+Description=calamari metrics collector
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=curl -sLo /usr/local/bin/calamari-metrics-collector.sh https://raw.githubusercontent.com/Manta-Network/pulse/main/metrics/calamari-metrics-collector.sh
+ExecStartPre=chmod +x /usr/local/bin/calamari-metrics-collector.sh
+ExecStart=/usr/local/bin/calamari-metrics-collector.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
