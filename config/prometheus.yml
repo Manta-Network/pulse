@@ -695,6 +695,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.internal.kusama.systems
+          - a2.internal.kusama.systems
+          - a3.internal.kusama.systems
           - v1.internal.kusama.systems
           - v2.internal.kusama.systems
           - v3.internal.kusama.systems
@@ -707,6 +710,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.internal.kusama.systems
+          - a2.internal.kusama.systems
+          - a3.internal.kusama.systems
           - v1.internal.kusama.systems
           - v2.internal.kusama.systems
           - v3.internal.kusama.systems
@@ -719,6 +725,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.internal.kusama.systems
+          - a2.internal.kusama.systems
+          - a3.internal.kusama.systems
           - v1.internal.kusama.systems
           - v2.internal.kusama.systems
           - v3.internal.kusama.systems
@@ -731,6 +740,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.internal.kusama.systems
+          - a2.internal.kusama.systems
+          - a3.internal.kusama.systems
           - v1.internal.kusama.systems
           - v2.internal.kusama.systems
           - v3.internal.kusama.systems
@@ -743,6 +755,9 @@ scrape_configs:
     static_configs:
       -
         targets:
+          - a1.internal.kusama.systems
+          - a2.internal.kusama.systems
+          - a3.internal.kusama.systems
           - v1.internal.kusama.systems
           - v2.internal.kusama.systems
           - v3.internal.kusama.systems
