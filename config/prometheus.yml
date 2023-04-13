@@ -114,6 +114,8 @@ scrape_configs:
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
+          - i1.calamari.systems
+          - i2.calamari.systems
   -
     job_name: kusama/calamari - nginx
     scheme: https
@@ -141,6 +143,8 @@ scrape_configs:
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
+          - i1.calamari.systems
+          - i2.calamari.systems
   -
     job_name: kusama/calamari - para
     scheme: https
@@ -168,6 +172,8 @@ scrape_configs:
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
+          - i1.calamari.systems
+          - i2.calamari.systems
   -
     job_name: kusama/calamari - relay
     scheme: https
@@ -195,6 +201,8 @@ scrape_configs:
           - f3.calamari.systems
           - f4.calamari.systems
           - f5.calamari.systems
+          - i1.calamari.systems
+          - i2.calamari.systems
   -
     job_name: polkadot/manta - node
     scheme: https
