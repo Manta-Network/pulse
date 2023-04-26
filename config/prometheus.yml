@@ -641,6 +641,81 @@ scrape_configs:
           - c4.calamari.seabird.systems
           - c5.calamari.seabird.systems
   -
+    job_name: polkadot(i)/manta(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - a1.manta.seabird.systems
+          - a2.manta.seabird.systems
+          - a3.manta.seabird.systems
+          - c1.manta.seabird.systems
+          - c2.manta.seabird.systems
+          - c3.manta.seabird.systems
+          - c4.manta.seabird.systems
+          - c5.manta.seabird.systems
+  -
+    job_name: polkadot(i)/manta(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - a1.manta.seabird.systems
+          - a2.manta.seabird.systems
+          - a3.manta.seabird.systems
+          - c1.manta.seabird.systems
+          - c2.manta.seabird.systems
+          - c3.manta.seabird.systems
+          - c4.manta.seabird.systems
+          - c5.manta.seabird.systems
+  -
+    job_name: polkadot(i)/manta(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - a1.manta.seabird.systems
+          - a2.manta.seabird.systems
+          - a3.manta.seabird.systems
+          - c1.manta.seabird.systems
+          - c2.manta.seabird.systems
+          - c3.manta.seabird.systems
+          - c4.manta.seabird.systems
+          - c5.manta.seabird.systems
+  -
+    job_name: polkadot(i)/manta(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - a1.manta.seabird.systems
+          - a2.manta.seabird.systems
+          - a3.manta.seabird.systems
+          - c1.manta.seabird.systems
+          - c2.manta.seabird.systems
+          - c3.manta.seabird.systems
+          - c4.manta.seabird.systems
+          - c5.manta.seabird.systems
+  -
+    job_name: polkadot(i)/manta(t) - indexer
+    scheme: https
+    metrics_path: /index/metrics
+    static_configs:
+      -
+        targets:
+          - a1.manta.seabird.systems
+          - a2.manta.seabird.systems
+          - a3.manta.seabird.systems
+          - c1.manta.seabird.systems
+          - c2.manta.seabird.systems
+          - c3.manta.seabird.systems
+          - c4.manta.seabird.systems
+          - c5.manta.seabird.systems
+  -
     job_name: kusama(i)/moonriver(t) - node
     scheme: https
     metrics_path: /node/metrics
