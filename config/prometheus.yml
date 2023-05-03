@@ -961,3 +961,23 @@ scrape_configs:
         targets:
           - yi.workstation.manta.systems
           - bokkeum.calamari.systems
+  -
+    job_name: temujin - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.temujin.pelagos.systems
+          - beta.temujin.pelagos.systems
+          - gamma.temujin.pelagos.systems
+  -
+    job_name: temujin - mongodb
+    scheme: https
+    metrics_path: /mongodb/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.temujin.pelagos.systems
+          - beta.temujin.pelagos.systems
+          - gamma.temujin.pelagos.systems
