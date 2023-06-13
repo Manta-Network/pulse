@@ -752,6 +752,42 @@ scrape_configs:
           - c1.moonriver.seabird.systems
           - c2.moonriver.seabird.systems
   -
+    job_name: polkadot(i)/moonbeam(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.moonbeam.paleblue.systems
+          - c2.moonbeam.paleblue.systems
+  -
+    job_name: polkadot(i)/moonbeam(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.moonbeam.paleblue.systems
+          - c2.moonbeam.paleblue.systems
+  -
+    job_name: polkadot(i)/moonbeam(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.moonbeam.paleblue.systems
+          - c2.moonbeam.paleblue.systems
+  -
+    job_name: polkadot(i)/moonbeam(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.moonbeam.paleblue.systems
+          - c2.moonbeam.paleblue.systems
+  -
     job_name: kusama(i)/karura(t) - node
     scheme: https
     metrics_path: /node/metrics
