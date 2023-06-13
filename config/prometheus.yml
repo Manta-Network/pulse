@@ -788,6 +788,114 @@ scrape_configs:
           - c1.acala.seabird.systems
           - c2.acala.seabird.systems
   -
+    job_name: polkadot(i)/acala(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.paleblue.systems
+          - c2.acala.paleblue.systems
+  -
+    job_name: polkadot(i)/acala(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.paleblue.systems
+          - c2.acala.paleblue.systems
+  -
+    job_name: polkadot(i)/acala(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.paleblue.systems
+          - c2.acala.paleblue.systems
+  -
+    job_name: polkadot(i)/acala(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.acala.paleblue.systems
+          - c2.acala.paleblue.systems
+  -
+    job_name: kusama(i)/statemine(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemine.seabird.systems
+          - c2.statemine.seabird.systems
+  -
+    job_name: kusama(i)/statemine(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemine.seabird.systems
+          - c2.statemine.seabird.systems
+  -
+    job_name: kusama(i)/statemine(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemine.seabird.systems
+          - c2.statemine.seabird.systems
+  -
+    job_name: kusama(i)/statemine(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemine.seabird.systems
+          - c2.statemine.seabird.systems
+  -
+    job_name: polkadot(i)/statemint(t) - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemint.paleblue.systems
+          - c2.statemint.paleblue.systems
+  -
+    job_name: polkadot(i)/statemint(t) - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemint.paleblue.systems
+          - c2.statemint.paleblue.systems
+  -
+    job_name: polkadot(i)/statemint(t) - para
+    scheme: https
+    metrics_path: /para/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemint.paleblue.systems
+          - c2.statemint.paleblue.systems
+  -
+    job_name: polkadot(i)/statemint(t) - relay
+    scheme: https
+    metrics_path: /relay/metrics
+    static_configs:
+      -
+        targets:
+          - c1.statemint.paleblue.systems
+          - c2.statemint.paleblue.systems
+  -
     job_name: kusama(i) - node
     scheme: https
     metrics_path: /node/metrics
