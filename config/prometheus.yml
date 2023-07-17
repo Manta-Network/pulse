@@ -1116,6 +1116,16 @@ scrape_configs:
           - beta.temujin.pelagos.systems
           - gamma.temujin.pelagos.systems
   -
+    job_name: temujin - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.temujin.pelagos.systems
+          - beta.temujin.pelagos.systems
+          - gamma.temujin.pelagos.systems
+  -
     job_name: temujin - mongodb
     scheme: https
     metrics_path: /mongodb/metrics
@@ -1125,3 +1135,30 @@ scrape_configs:
           - alpha.temujin.pelagos.systems
           - beta.temujin.pelagos.systems
           - gamma.temujin.pelagos.systems
+  -
+    job_name: leonidas - node
+    scheme: https
+    metrics_path: /node/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.leonidas.pelagos.systems
+          - beta.leonidas.pelagos.systems
+  -
+    job_name: leonidas - nginx
+    scheme: https
+    metrics_path: /nginx/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.leonidas.pelagos.systems
+          - beta.leonidas.pelagos.systems
+  -
+    job_name: leonidas - postgresql
+    scheme: https
+    metrics_path: /postgresql/metrics
+    static_configs:
+      -
+        targets:
+          - alpha.leonidas.pelagos.systems
+          - beta.leonidas.pelagos.systems
