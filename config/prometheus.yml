@@ -104,6 +104,12 @@ scrape_configs:
           - a3.calamari.systems
           - a4.calamari.systems
           - a5.calamari.systems
+          - a6.calamari.systems
+          - a7.calamari.systems
+          - a8.calamari.systems
+          - a9.calamari.systems
+          - a10.calamari.systems
+          - a11.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
@@ -134,6 +140,12 @@ scrape_configs:
           - a3.calamari.systems
           - a4.calamari.systems
           - a5.calamari.systems
+          - a6.calamari.systems
+          - a7.calamari.systems
+          - a8.calamari.systems
+          - a9.calamari.systems
+          - a10.calamari.systems
+          - a11.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
@@ -164,6 +176,12 @@ scrape_configs:
           - a3.calamari.systems
           - a4.calamari.systems
           - a5.calamari.systems
+          - a6.calamari.systems
+          - a7.calamari.systems
+          - a8.calamari.systems
+          - a9.calamari.systems
+          - a10.calamari.systems
+          - a11.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
@@ -194,6 +212,12 @@ scrape_configs:
           - a3.calamari.systems
           - a4.calamari.systems
           - a5.calamari.systems
+          - a6.calamari.systems
+          - a7.calamari.systems
+          - a8.calamari.systems
+          - a9.calamari.systems
+          - a10.calamari.systems
+          - a11.calamari.systems
           - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
