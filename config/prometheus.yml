@@ -110,7 +110,6 @@ scrape_configs:
           - a9.calamari.systems
           - a10.calamari.systems
           - a11.calamari.systems
-          - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
@@ -146,7 +145,6 @@ scrape_configs:
           - a9.calamari.systems
           - a10.calamari.systems
           - a11.calamari.systems
-          - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
@@ -182,7 +180,6 @@ scrape_configs:
           - a9.calamari.systems
           - a10.calamari.systems
           - a11.calamari.systems
-          - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
@@ -218,7 +215,6 @@ scrape_configs:
           - a9.calamari.systems
           - a10.calamari.systems
           - a11.calamari.systems
-          - avocado.calamari.systems
           - bokkeum.calamari.systems
           - fritti.calamari.systems
           - pasta.calamari.systems
